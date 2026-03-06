@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הזמנה - המטבח של גלעד</title>
+    <style>
+        :root { --primary-green: #2d5a27; --accent-color: #e0d7c6; --bg-color: #fdfbf7; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 20px; text-align: right; color: #333; }
+        .container { max-width: 550px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; border: 1px solid var(--accent-color); }
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo { max-width: 200px; height: auto; border-radius: 10px; }
+        h2 { color: var(--primary-green); text-align: center; margin-top: 0; }
+        .name-row { display: flex; gap: 15px; margin-top: 15px; }
+        .name-row div { flex: 1; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 10px; color: var(--primary-green); }
+        input[type="text"], input[type="tel"], select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
+        textarea { resize: vertical; min-height: 80px; }
+        .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
+        .prod-qty { width: 70px !important; text-align: center; }
+        .summary { background: #f1f8f1; padding: 20px; border-radius: 12px; margin-top: 25px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
+        #totalPrice { color: var(--primary-green); font-weight: bold; }
+        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 20px; }
+        button:disabled { background: #ccc; }
+        @media (max-width: 480px) { .name-row { flex-direction: column; gap: 0; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-container">
+        <img src="לוגו המטבח של גלעד.jpg" alt="המטבח של גלעד" class="logo">
+    </div>
+
+    <h2>טופס הזמנה דיגיטלי</h2>
+    
+    <div class="name-row">
+        <div>
+            <label>שם פרטי *</label>
+            <input type="text" id="firstName" required>
+        </div>
+        <div>
+            <label>שם משפחה *</label>
+            <input type="text" id="lastName" required>
+        </div>
+    </div>
+    
+    <label>מספר טלפון *</label>
+    <input type="tel" id="phone" required placeholder="05X-XXXXXXX" maxlength="11" oninput="formatPhoneNumber(this)">
+
+    <div class="product-list">
+        <label>בחר מוצרים:</label>
+        <div class="product-item">
+            <span>מלפפון חמוץ (28 ₪)</span>
+            <input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" min="0" oninput="updateTotal()">
+        </div>
+        <div class="product-item">
+            <span>כרוב כבוש מותסס (25 ₪)</span>
+            <input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" min="0" oninput="updateTotal()">
+        </div>
+        <div class="product-item">
+            <span>כרוב חמוץ (25 ₪)</span>
+            <input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" min="0" oninput="updateTotal()">
+        </div>
+        <div class="product-item">
+            <span>טורשי עיראקי (30 ₪)</span>
+            <input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" min="0" oninput="updateTotal()">
+        </div>
+        <div class="product-item">
+            <span>בצל סגול מוחמץ (17 ₪)</span>
+            <input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" min="0" oninput="updateTotal()">
+        </div>
+        <div class="product-item">
+            <span>חרדל מותסס (12 ₪)</span>
+            <input type="number" class="prod-qty" data-price="12" data-name="חרדל מותסס" value="0" min="0" oninput="updateTotal()">
+        </div>
+    </div>
+
+    <div class="summary">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
+
+    <label>הערות להזמנה:</label>
+    <textarea id="orderComments" placeholder="כאן כותבים בקשות מיוחדות..."></textarea>
+
+    <label>אמצעי תשלום:</label>
+    <select id="paymentMethod">
+        <option value="ביט">ביט (Bit)</option>
+        <option value="פייבוקס">פייבוקס (PayBox)</option>
+        <option value="מזומן">מזומן באיסוף</option>
+    </select>
+    
+    <button id="submitBtn" onclick="sendOrder()">בצע הזמנה</button>
+</div>
+
+<script>
+    function formatPhoneNumber(input) {
+        let value = input.value.replace(/\D/g, ''); 
+        if (value.length > 3) value = value.slice(0, 3) + '-' + value.slice(3, 10);
+        input.value = value;
+    }
+
+    function updateTotal() {
+        let total = 0;
+        document.querySelectorAll('.prod-qty').forEach(input => {
+            total += (parseInt(input.value) || 0) * parseInt(input.getAttribute('data-price'));
+        });
+        document.getElementById('totalPrice').innerText = total;
+    }
+
+    function sendOrder() {
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const commentsValue = document.getElementById('orderComments').value.trim(); // שים לב לשם המשתנה
+        const payment = document.getElementById('paymentMethod').value;
+        const total = document.getElementById('totalPrice').innerText;
+        const btn = document.getElementById('submitBtn');
+        
+        if (!firstName || !lastName || phone.length < 11 || total == "0") {
+            alert("נא למלא את כל שדות החובה ולבחור מוצרים.");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "שולח...";
+
+        let orderItems = [];
+        document.querySelectorAll('.prod-qty').forEach(input => {
+            let val = parseInt(input.value) || 0;
+            if (val > 0) orderItems.push(input.getAttribute('data-name') + " (" + val + ")");
+        });
+
+        const data = {
+            name: firstName + " " + lastName,
+            phone: phone,
+            orderSummary: orderItems.join(", "),
+            totalPrice: total,
+            paymentMethod: payment,
+            comments: commentsValue || "אין הערות" // זה השם שחייב להיות תואם ל-GAS
+        };
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxN0w3Ng3VIXA5Ifn48hBqK0ZD37katp1k3t97-7Y8xQl6Z5RwPMXo0Iyr1MWoHX6r-mw/exec'; 
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            cache: 'no-cache',
+            body: JSON.stringify(data)
+        }).then(() => {
+            alert("ההזמנה נשלחה בהצלחה!");
+            location.reload();
+        }).catch(err => {
+            alert("שגיאה בשליחה.");
+            btn.disabled = false;
+        });
+    }
+</script>
+</body>
+</html>
