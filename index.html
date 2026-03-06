@@ -95,7 +95,11 @@
        
     <button id="submitBtn" onclick="sendOrder()">בצעי הזמנה</button>
 </div>
-
+<label>אופן קבלת ההזמנה:</label>
+<select id="deliveryMethod">
+    <option value="איסוף עצמי (יום רביעי)">איסוף עצמי (יום רביעי)</option>
+    <option value="משלוח הביתה (יום שישי)">משלוח הביתה (יום שישי)</option>
+</select>
 <script>
     function formatPhoneNumber(input) {
         let value = input.value.replace(/\D/g, ''); 
@@ -162,6 +166,7 @@
 </body>
 
 </html>
+
 
 
 
