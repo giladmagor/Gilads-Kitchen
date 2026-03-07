@@ -31,7 +31,7 @@
 
         input[type="text"], input[type="tel"] { 
             width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 12px; 
-            box-sizing: border-box; font-size: 16px; transition: border-color 0.3s;
+            box-sizing: border-box; font-size: 16px; transition: border-color 0.3s; font-family: inherit;
         }
 
         /* רשימת מוצרים */
@@ -57,7 +57,7 @@
         }
         #totalPrice { color: var(--primary-green); font-weight: bold; }
 
-        /* כרטיסי בחירה (השדרוג המקצועי) */
+        /* כרטיסי בחירה */
         .radio-group { display: grid; gap: 8px; margin-top: 8px; }
         .radio-option { 
             display: flex; align-items: center; padding: 12px; 
@@ -65,6 +65,10 @@
         }
         .radio-option input[type="radio"] { margin-left: 10px; width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-green); }
         .radio-option:has(input:checked) { border-color: var(--primary-green); background: #f1f8f1; }
+
+        /* סגנון למספר טלפון והעתקה */
+        .copy-box { display: flex; align-items: center; gap: 10px; background: #f9f9f9; padding: 10px; border-radius: 10px; border: 1px solid #eee; margin-top: 5px; }
+        .copy-btn { padding: 6px 12px; font-size: 14px; background: white; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; }
         
         button#submitBtn { 
             background: var(--primary-green); color: white; border: none; padding: 18px; 
@@ -106,14 +110,14 @@
         <label>בחירת מוצרים:</label>
         <div class="product-list">
             <div class="product-item"><span class="product-name">מלפפון חמוץ 580 מ"ל (28 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
-            <div class="product-item"><span class="product-name">כרוב כבוש מותסס 580 מ"ל (25 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+            <div class="product-item"><span class="product-name">כרוב כבוש מותסס 580 מ"ל (25 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
             <div class="product-item"><span class="product-name">כרוב חמוץ 580 מ"ל (25 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
             <div class="product-item"><span class="product-name">טורשי עיראקי - 2 ליטר (30 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
-            <div class="product-item"><span class="product-name">בצל סגול מוחמץ 250 גר' (17 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+            <div class="product-item"><span class="product-name">בצל סגול מוחמץ 250 גר' (17 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
             <div class="product-item"><span class="product-name">מרק עגבניות - חצי ליטר (35 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
             <div class="product-item"><span class="product-name">מרק ירקות - חצי ליטר (35 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
             <div class="product-item"><span class="product-name">מרק כתום - חצי ליטר (35 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק כתום" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
-            <div class="product-item"><span class="product-name">קוגל ירושלמי - תבנית (24 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+            <div class="product-item"><span class="product-name">קוגל ירושלמי (24 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
         </div>
 
         <div class="summary">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
@@ -124,7 +128,16 @@
             <label class="radio-option"><input type="radio" name="deliveryMethod" value="בתאום פרטני"><span>🤝 בתאום פרטני</span></label>
         </div>
 
-        <label>אמצעי תשלום:</label>
+        <label>הערות לתיאום האספקה וההזמנה:</label>
+        <input type="text" id="deliveryNotes" placeholder="רשמו כאן הערות...">
+
+        <label>אמצעי תשלום ביט/פייבוקס למספר:</label>
+        <div class="copy-box">
+            <strong id="payNumber">0503618748</strong>
+            <button type="button" class="copy-btn" onclick="copyNumber()">העתק מספר</button>
+            <span id="copyMsg" style="display: none; color: var(--primary-green); font-size: 0.9em;">הועתק!</span>
+        </div>
+
         <div class="radio-group">
             <label class="radio-option"><input type="radio" name="paymentMethod" value="ביט" checked><span>📱 שלם ב-bit</span></label>
             <label class="radio-option"><input type="radio" name="paymentMethod" value="פייבוקס"><span>📦 שלם ב-PayBox</span></label>
@@ -141,11 +154,20 @@
             <strong>פירוט:</strong> <span id="orderDetail"></span><br>
             <strong>סה"כ:</strong> <span id="finalPrice"></span> ₪
         </div>
-        <button onclick="location.reload()" style="background:#eee; color:#333; margin-top: 15px;">הזמנה חדשה</button>
+        <button onclick="location.reload()" style="background:#eee; color:#333; margin-top: 15px; width: 100%; padding: 12px; border: none; border-radius: 10px; cursor: pointer;">הזמנה חדשה</button>
     </div>
 </div>
 
 <script>
+    function copyNumber() {
+        const num = "0503618748";
+        navigator.clipboard.writeText(num).then(() => {
+            const msg = document.getElementById('copyMsg');
+            msg.style.display = 'inline';
+            setTimeout(() => { msg.style.display = 'none'; }, 2000);
+        });
+    }
+
     function changeQty(btn, delta) {
         const input = btn.parentElement.querySelector('.prod-qty');
         let val = parseInt(input.value) + delta;
@@ -172,6 +194,7 @@
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
+        const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
         const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
@@ -197,14 +220,19 @@
             orderSummary: orderItems.join(", "),
             totalPrice: total,
             paymentMethod: payment,
-            deliveryMethod: delivery
+            deliveryMethod: delivery,
+            comments: "תיאום: " + (deliveryNotes || "אין")
         };
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwm1svEPrR5WjsMtZiw4r9Zo5beFrM9_vQDRsdeZowhU1aZCrKWFNHuQZ5bFUShN53BEQ/exec'; 
 
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
         .then(() => {
-            if (payment === "ביט") window.location.href = "bit://transfer";
+            if (payment === "ביט") {
+                if(confirm("ההזמנה נשלחה! לעבור ל-bit לתשלום?")) {
+                    window.location.href = "bit://transfer";
+                }
+            }
             
             document.getElementById('orderForm').style.display = 'none';
             document.getElementById('thankYouScreen').style.display = 'block';
