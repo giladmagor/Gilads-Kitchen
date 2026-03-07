@@ -97,7 +97,7 @@
         </div>
 
         <label>הערות לתיאום האספקה:</label>
-        <input type="text" id="deliveryNotes" placeholder="למשל: להשאיר ליד הדלת / קוד כניסה...">
+        <input type="text" id="deliveryNotes" placeholder=" ... ">
 
         <label>אמצעי תשלום:</label>
         <span class="sub-label">ביט / פייבוקס למספר: 0503619748</span>
@@ -182,7 +182,7 @@
             comments: "תיאום: " + (deliveryNotes || "אין") // נשלח לעמודת הערות
         };
 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyT4gOYrwW4qi6kRUi4HdmLDXXrDs0sNK8WgA5wrerFtd_29mHTQS3rZjvepA07vlnURg/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwm1svEPrR5WjsMtZiw4r9Zo5beFrM9_vQDRsdeZowhU1aZCrKWFNHuQZ5bFUShN53BEQ/exec'; 
 
         fetch(scriptURL, {
             method: 'POST',
@@ -205,4 +205,5 @@
 </script>
 </body>
 </html>
+
 
