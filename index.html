@@ -86,17 +86,17 @@
     <label>הערות להזמנה:</label>
     <textarea id="orderComments" placeholder="כאן כותבים בקשות מיוחדות..."></textarea>
 
+    <label>אופן קבלת ההזמנה:</label>
+    <select id="deliveryMethod">
+        <option value="איסוף עצמי (יום רביעי)">איסוף עצמי (יום רביעי)</option>
+        <option value="משלוח הביתה (יום שישי)">משלוח הביתה (יום שישי)</option>
+    </select>
+
     <label>אמצעי תשלום:</label>
     <select id="paymentMethod">
         <option value="ביט">ביט (Bit)</option>
         <option value="פייבוקס">פייבוקס (PayBox)</option>
         <option value="מזומן">מזומן באיסוף</option>
-    </select>
-
-    <label>אופן קבלת ההזמנה:</label>
-    <select id="deliveryMethod">
-        <option value="איסוף עצמי (יום רביעי)">איסוף עצמי (יום רביעי)</option>
-        <option value="משלוח הביתה (יום שישי)">משלוח הביתה (יום שישי)</option>
     </select>
         
     <button id="submitBtn" onclick="sendOrder()">בצע הזמנה</button>
@@ -123,7 +123,7 @@
         const phone = document.getElementById('phone').value.trim();
         const commentsValue = document.getElementById('orderComments').value.trim();
         const payment = document.getElementById('paymentMethod').value;
-        const delivery = document.getElementById('deliveryMethod').value; // השדה החדש
+        const delivery = document.getElementById('deliveryMethod').value;
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
         
@@ -147,7 +147,7 @@
             orderSummary: orderItems.join(", "),
             totalPrice: total,
             paymentMethod: payment,
-            deliveryMethod: delivery, // נוסף למשלוח לגוגל
+            deliveryMethod: delivery,
             comments: commentsValue || "אין הערות"
         };
 
