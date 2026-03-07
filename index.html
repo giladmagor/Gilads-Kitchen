@@ -34,27 +34,25 @@
             box-sizing: border-box; font-size: 16px; font-family: inherit; 
         }
 
-        /* רשימת מוצרים עם כפתורי פלוס מינוס */
+        /* רשימת מוצרים */
         .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 10px 0; }
         .product-name { flex: 1; font-size: 0.95em; padding-left: 10px; }
         .qty-controls { display: flex; align-items: center; gap: 8px; background: #f8f8f8; border-radius: 10px; padding: 4px; }
-        .qty-btn { background: var(--primary-green); color: white; border: none; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; }
+        .qty-btn { background: var(--primary-green); color: white; border: none; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; line-height: 1; }
         .prod-qty { width: 35px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; pointer-events: none; }
 
         .summary { background: #f1f8f1; padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
         #totalPrice { color: var(--primary-green); font-weight: bold; }
 
-        /* כרטיסי בחירה לחיצים */
+        /* כרטיסי בחירה */
         .radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
         .radio-option { display: flex; align-items: center; padding: 12px; border: 2px solid #eee; border-radius: 12px; cursor: pointer; transition: 0.2s; }
         .radio-option input[type="radio"] { margin-left: 10px; width: 16px; height: 16px; cursor: pointer; }
         .radio-option:has(input:checked) { border-color: var(--primary-green); background: #f1f8f1; }
         
-        /* כפתור העתקת מספר */
         .copy-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         .btn-copy { padding: 5px 10px; background: #eee; color: #333; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; font-size: 14px; }
 
-        /* כפתור שליחה ירוק מקורי */
         button#submitBtn { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
         button#submitBtn:hover { background: #1e3d1a; }
         button#submitBtn:disabled { background: #ccc; cursor: not-allowed; }
@@ -99,4 +97,136 @@
             <div class="product-item"><span class="product-name">בצל סגול מוחמץ 250 גר' (17 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
             <div class="product-item"><span class="product-name">מרק עגבניות - חצי ליטר (35 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
             <div class="product-item"><span class="product-name">מרק ירקות - חצי ליטר (35 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
-            <div class="product-item"><span class="product-name">מרק כתום - חצי ליטר (3
+            <div class="product-item"><span class="product-name">מרק כתום - חצי ליטר (35 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק כתום" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+            <div class="product-item"><span class="product-name">קוגל ירושלמי - תבנית (24 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+        </div>
+
+        <div class="summary">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
+
+        <label>אופן קבלת ההזמנה:</label>
+        <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="deliveryMethod" value="ביום רביעי עם החלוקה של שירלי" checked><span>ביום רביעי עם החלוקה של שירלי</span></label>
+            <label class="radio-option"><input type="radio" name="deliveryMethod" value="בתאום פרטני"><span>בתאום פרטני</span></label>
+        </div>
+
+        <label>הערות לתיאום האספקה וההזמנה:</label>
+        <input type="text" id="deliveryNotes" placeholder=" ... ">
+
+        <label>אמצעי תשלום ביט/פייבוקס למספר:</label>
+        <div class="copy-row">
+            <span id="payNumber" style="font-size: 1.1em; font-weight: bold;">0503618748</span>
+            <button type="button" class="btn-copy" onclick="copyNumber()">העתק מספר</button>
+            <span id="copyMsg" style="display: none; color: var(--primary-green); font-size: 0.9em; font-weight: bold;">הועתק!</span>
+        </div>
+
+        <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="ביט" checked><span>ביט (Bit)</span></label>
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="פייבוקס"><span>פייבוקס (PayBox)</span></label>
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="מזומן"><span>מזומן באיסוף</span></label>
+        </div>
+
+        <button id="submitBtn" onclick="sendOrder()">שלח/י הזמנה</button>
+    </div>
+
+    <div id="thankYouScreen">
+        <div class="success-icon">✔</div>
+        <h2 id="thanksName">תודה רבה!</h2>
+        <p>ההזמנה שלך התקבלה בהצלחה במטבח של גלעד.</p>
+        <div style="text-align: right; background: #f9f9f9; padding: 15px; border-radius: 10px; margin-top: 20px;">
+            <strong>סיכום הזמנה:</strong><br>
+            <span id="orderDetail"></span><br>
+            <strong>סה"כ:</strong> <span id="finalPrice"></span> ₪
+        </div>
+        <button onclick="location.reload()" style="background: var(--primary-green); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 16px;">הזמנה חדשה</button>
+    </div>
+</div>
+
+<script>
+    function copyNumber() {
+        const num = "0503618748";
+        navigator.clipboard.writeText(num).then(() => {
+            const msg = document.getElementById('copyMsg');
+            msg.style.display = 'inline';
+            setTimeout(() => { msg.style.display = 'none'; }, 2000);
+        });
+    }
+
+    function changeQty(btn, delta) {
+        const input = btn.parentElement.querySelector('.prod-qty');
+        let val = parseInt(input.value) + delta;
+        if (val < 0) val = 0;
+        input.value = val;
+        updateTotal();
+    }
+
+    function formatPhoneNumber(input) {
+        let value = input.value.replace(/\D/g, ''); 
+        if (value.length > 3) value = value.slice(0, 3) + '-' + value.slice(3, 10);
+        input.value = value;
+    }
+
+    function updateTotal() {
+        let total = 0;
+        document.querySelectorAll('.prod-qty').forEach(input => {
+            total += (parseInt(input.value) || 0) * parseInt(input.getAttribute('data-price'));
+        });
+        document.getElementById('totalPrice').innerText = total;
+    }
+
+    function sendOrder() {
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
+        const total = document.getElementById('totalPrice').innerText;
+        const btn = document.getElementById('submitBtn');
+        const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
+        const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
+
+        if (!firstName || !lastName || phone.length < 11 || total == "0") {
+            alert("נא למלא את כל שדות החובה ולבחור מוצרים.");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "שולח הזמנה...";
+
+        let orderItems = [];
+        document.querySelectorAll('.prod-qty').forEach(input => {
+            let val = parseInt(input.value) || 0;
+            if (val > 0) orderItems.push(input.getAttribute('data-name') + " (" + val + ")");
+        });
+
+        const data = {
+            name: firstName + " " + lastName,
+            phone: phone,
+            orderSummary: orderItems.join(", "),
+            totalPrice: total,
+            paymentMethod: payment,
+            deliveryMethod: delivery,
+            comments: "תיאום: " + (deliveryNotes || "אין")
+        };
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwm1svEPrR5WjsMtZiw4r9Zo5beFrM9_vQDRsdeZowhU1aZCrKWFNHuQZ5bFUShN53BEQ/exec'; 
+
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
+        .then(() => {
+            if (payment === "ביט") {
+                if(confirm("ההזמנה נשלחה! לעבור ל-bit לתשלום?")) {
+                    window.location.href = "bit://transfer";
+                }
+            }
+            document.getElementById('orderForm').style.display = 'none';
+            document.getElementById('thankYouScreen').style.display = 'block';
+            document.getElementById('thanksName').innerText = "תודה, " + firstName + "!";
+            document.getElementById('orderDetail').innerText = orderItems.join(", ");
+            document.getElementById('finalPrice').innerText = total;
+            window.scrollTo(0,0);
+        }).catch(() => {
+            alert("שגיאה בשליחה. נסה שוב.");
+            btn.disabled = false;
+        });
+    }
+</script>
+</body>
+</html>
