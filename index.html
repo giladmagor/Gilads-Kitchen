@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הזמנה - המטבח של גלעד</title>
     <meta property="og:title" content="המטבח של גלעד - הזמנה דיגיטלית">
-<meta property="og:description" content="חמוצים בטעם של פעם, תבשילים ומרקים ביתיים. הזמינו עכשיו בקליק!">
-<meta property="og:image" content="https://giladmagor.github.io/gilad-kitchen/לוגו המטבח של גלעד.jpg">
-<meta property="og:url" content="https://giladmagor.github.io/gilad-kitchen/">
-<meta property="og:type" content="website">
+    <meta property="og:description" content="חמוצים בטעם של פעם, תבשילים ומרקים ביתיים. הזמינו עכשיו בקליק!">
+    <meta property="og:image" content="https://giladmagor.github.io/gilad-kitchen/לוגו המטבח של גלעד.jpg">
+    <meta property="og:url" content="https://giladmagor.github.io/gilad-kitchen/">
+    <meta property="og:type" content="website">
     <style>
         :root { --primary-green: #2d5a27; --accent-color: #e0d7c6; --bg-color: #fdfbf7; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 20px; text-align: right; color: #333; }
@@ -92,14 +92,16 @@
         <option value="פייבוקס">פייבוקס (PayBox)</option>
         <option value="מזומן">מזומן באיסוף</option>
     </select>
-       
-    <button id="submitBtn" onclick="sendOrder()">בצעי הזמנה</button>
+
+    <label>אופן קבלת ההזמנה:</label>
+    <select id="deliveryMethod">
+        <option value="איסוף עצמי (יום רביעי)">איסוף עצמי (יום רביעי)</option>
+        <option value="משלוח הביתה (יום שישי)">משלוח הביתה (יום שישי)</option>
+    </select>
+        
+    <button id="submitBtn" onclick="sendOrder()">בצע הזמנה</button>
 </div>
-<label>אופן קבלת ההזמנה:</label>
-<select id="deliveryMethod">
-    <option value="איסוף עצמי (יום רביעי)">איסוף עצמי (יום רביעי)</option>
-    <option value="משלוח הביתה (יום שישי)">משלוח הביתה (יום שישי)</option>
-</select>
+
 <script>
     function formatPhoneNumber(input) {
         let value = input.value.replace(/\D/g, ''); 
@@ -119,8 +121,9 @@
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const commentsValue = document.getElementById('orderComments').value.trim(); // שים לב לשם המשתנה
+        const commentsValue = document.getElementById('orderComments').value.trim();
         const payment = document.getElementById('paymentMethod').value;
+        const delivery = document.getElementById('deliveryMethod').value; // השדה החדש
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
         
@@ -144,7 +147,8 @@
             orderSummary: orderItems.join(", "),
             totalPrice: total,
             paymentMethod: payment,
-            comments: commentsValue || "אין הערות" // זה השם שחייב להיות תואם ל-GAS
+            deliveryMethod: delivery, // נוסף למשלוח לגוגל
+            comments: commentsValue || "אין הערות"
         };
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxN0w3Ng3VIXA5Ifn48hBqK0ZD37katp1k3t97-7Y8xQl6Z5RwPMXo0Iyr1MWoHX6r-mw/exec'; 
@@ -164,10 +168,4 @@
     }
 </script>
 </body>
-
 </html>
-
-
-
-
-
