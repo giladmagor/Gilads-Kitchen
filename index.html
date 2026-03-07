@@ -23,6 +23,8 @@
         .name-row div { flex: 1; }
         
         label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 15px; color: var(--primary-green); }
+        .sub-label { font-size: 0.9em; color: #666; font-weight: normal; margin-bottom: 8px; display: block; }
+
         input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
         
         .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
@@ -31,11 +33,11 @@
         .summary { background: #f1f8f1; padding: 20px; border-radius: 12px; margin-top: 25px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
         #totalPrice { color: var(--primary-green); font-weight: bold; }
 
-        /* עיצוב כפתורי רדיו */
-        .radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
-        .radio-option { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px; border: 1px solid #eee; border-radius: 8px; transition: background 0.2s; }
-        .radio-option:hover { background: #f9f9f9; }
-        .radio-option input[type="radio"] { width: 18px; height: 18px; cursor: pointer; margin: 0; }
+        /* עיצוב כפתורי רדיו צפופים */
+        .radio-group { display: flex; flex-direction: column; gap: 4px; margin-top: 5px; }
+        .radio-option { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 6px 10px; border: 1px solid #f0f0f0; border-radius: 8px; transition: background 0.2s; font-size: 0.95em; }
+        .radio-option:hover { background: #fdfdfd; }
+        .radio-option input[type="radio"] { width: 16px; height: 16px; cursor: pointer; margin: 0; }
         
         button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
         button:hover { background: #1e3d1a; }
@@ -90,12 +92,8 @@
                 <span>ביום רביעי עם החלוקה של שירלי</span>
             </label>
             <label class="radio-option">
-                <input type="radio" name="deliveryMethod" value="ביום שישי">
-                <span>ביום שישי</span>
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="deliveryMethod" value="במשך השבוע בתאום פרטני">
-                <span>במשך השבוע בתאום פרטני</span>
+                <input type="radio" name="deliveryMethod" value="בתאום פרטני">
+                <span>בתאום פרטני</span>
             </label>
         </div>
 
@@ -103,6 +101,7 @@
         <input type="text" id="deliveryNotes" placeholder="למשל: להשאיר ליד הדלת / קוד כניסה...">
 
         <label>אמצעי תשלום:</label>
+        <span class="sub-label">ביט / פייבוקס למספר: 0503619748</span>
         <div class="radio-group">
             <label class="radio-option">
                 <input type="radio" name="paymentMethod" value="ביט" checked>
@@ -161,7 +160,6 @@
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
         
-        // שליפת ערכים מכפתורי הרדיו
         const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
         const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
         
@@ -179,7 +177,6 @@
             if (val > 0) orderItems.push(input.getAttribute('data-name') + " (" + val + ")");
         });
 
-        // חיבור הערות התיאום להערות הכלליות או שליחה כשדה נפרד
         const fullComments = "אספקה: " + (deliveryNotes || "אין") + " | כללי: " + (commentsValue || "אין");
 
         const data = {
@@ -189,7 +186,7 @@
             totalPrice: total,
             paymentMethod: payment,
             deliveryMethod: delivery,
-            comments: fullComments // שולח את שני סוגי ההערות לעמודת ההערות בגוגל
+            comments: fullComments
         };
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxN0w3Ng3VIXA5Ifn48hBqK0ZD37katp1k3t97-7Y8xQl6Z5RwPMXo0Iyr1MWoHX6r-mw/exec'; 
@@ -215,5 +212,3 @@
 </script>
 </body>
 </html>
-
-
