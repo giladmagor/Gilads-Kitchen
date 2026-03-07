@@ -22,22 +22,21 @@
         .name-row { display: flex; gap: 15px; margin-top: 15px; }
         .name-row div { flex: 1; }
         
-        label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 15px; color: var(--primary-green); }
-        .sub-label { font-size: 0.9em; color: #666; font-weight: normal; margin-bottom: 8px; display: block; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 12px; color: var(--primary-green); }
+        .sub-label { font-size: 0.9em; color: #666; font-weight: normal; margin-bottom: 4px; display: block; }
 
-        input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
+        input[type="text"], input[type="tel"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
         
-        .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
-        .prod-qty { width: 70px !important; text-align: center; }
+        .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 10px 0; }
+        .prod-qty { width: 70px !important; text-align: center; border: 1px solid #ccc; border-radius: 8px; padding: 8px; }
         
-        .summary { background: #f1f8f1; padding: 20px; border-radius: 12px; margin-top: 25px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
+        .summary { background: #f1f8f1; padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
         #totalPrice { color: var(--primary-green); font-weight: bold; }
 
-        /* עיצוב כפתורי רדיו צפופים */
-        .radio-group { display: flex; flex-direction: column; gap: 4px; margin-top: 5px; }
-        .radio-option { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 6px 10px; border: 1px solid #f0f0f0; border-radius: 8px; transition: background 0.2s; font-size: 0.95em; }
-        .radio-option:hover { background: #fdfdfd; }
-        .radio-option input[type="radio"] { width: 16px; height: 16px; cursor: pointer; margin: 0; }
+        /* עיצוב רדיו סופר-מצומצם */
+        .radio-group { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
+        .radio-option { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 0; transition: 0.2s; font-size: 0.95em; }
+        .radio-option input[type="radio"] { width: 15px; height: 15px; cursor: pointer; margin: 0; }
         
         button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
         button:hover { background: #1e3d1a; }
@@ -116,9 +115,6 @@
                 <span>מזומן באיסוף</span>
             </label>
         </div>
-
-        <label>הערות כלליות להזמנה:</label>
-        <textarea id="orderComments" placeholder="בקשות מיוחדות למטבח..."></textarea>
             
         <button id="submitBtn" onclick="sendOrder()">בצע הזמנה</button>
     </div>
@@ -155,7 +151,6 @@
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const commentsValue = document.getElementById('orderComments').value.trim();
         const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
@@ -177,8 +172,6 @@
             if (val > 0) orderItems.push(input.getAttribute('data-name') + " (" + val + ")");
         });
 
-        const fullComments = "אספקה: " + (deliveryNotes || "אין") + " | כללי: " + (commentsValue || "אין");
-
         const data = {
             name: firstName + " " + lastName,
             phone: phone,
@@ -186,7 +179,7 @@
             totalPrice: total,
             paymentMethod: payment,
             deliveryMethod: delivery,
-            comments: fullComments
+            comments: "תיאום: " + (deliveryNotes || "אין") // נשלח לעמודת הערות
         };
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxN0w3Ng3VIXA5Ifn48hBqK0ZD37katp1k3t97-7Y8xQl6Z5RwPMXo0Iyr1MWoHX6r-mw/exec'; 
