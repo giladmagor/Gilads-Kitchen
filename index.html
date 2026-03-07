@@ -104,21 +104,18 @@
         <input type="text" id="deliveryNotes" placeholder=" ... ">
 
         <label>אמצעי תשלום:</label>
-        <span class="sub-label">ביט/פייבוקס למספר: 0503618748</span>
-        <div class="radio-group">
-            <label class="radio-option">
-                <input type="radio" name="paymentMethod" value="ביט" checked>
-                <span>ביט (Bit)</span>
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="paymentMethod" value="פייבוקס">
-                <span>פייבוקס (PayBox)</span>
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="paymentMethod" value="מזומן">
-                <span>מזומן באיסוף</span>
-            </label>
-        </div>
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+    <label style="font-size: 1.1em; margin: 0;" id="payNumber">0503618748</label>
+    <button onclick="copyNumber()" style="margin: 0; padding: 5px 10px; width: auto; font-size: 14px; background: #eee; color: #333; border: 1px solid #ccc; border-radius: 5px;">העתק מספר</button>
+    <span id="copyMsg" style="display: none; color: var(--primary-green); font-size: 0.9em; font-weight: bold;">הועתק!</span>
+</div>
+<label style="font-size: 1em; color: #666; margin-top: 0; font-weight: normal;">(ביט / פייבוקס)</label>
+
+<div class="radio-group">
+    <label class="radio-option"><input type="radio" name="paymentMethod" value="ביט" checked> <span>ביט (Bit)</span></label>
+    <label class="radio-option"><input type="radio" name="paymentMethod" value="פייבוקס"> <span>פייבוקס (PayBox)</span></label>
+    <label class="radio-option"><input type="radio" name="paymentMethod" value="מזומן"> <span>מזומן באיסוף</span></label>
+</div>
             
         <button id="submitBtn" onclick="sendOrder()">שלח/י הזמנה</button>
     </div>
@@ -137,6 +134,14 @@
 </div>
 
 <script>
+	function copyNumber() {
+    const num = "0503618748";
+    navigator.clipboard.writeText(num).then(() => {
+        const msg = document.getElementById('copyMsg');
+        msg.style.display = 'inline';
+        setTimeout(() => { msg.style.display = 'none'; }, 2000);
+    });
+}
     function formatPhoneNumber(input) {
         let value = input.value.replace(/\D/g, ''); 
         if (value.length > 3) value = value.slice(0, 3) + '-' + value.slice(3, 10);
@@ -209,6 +214,7 @@
 </script>
 </body>
 </html>
+
 
 
 
