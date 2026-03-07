@@ -11,95 +11,117 @@
     <meta property="og:type" content="website">
     <style>
         :root { --primary-green: #2d5a27; --accent-color: #e0d7c6; --bg-color: #fdfbf7; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 20px; text-align: right; color: #333; }
-        .container { max-width: 550px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; border: 1px solid var(--accent-color); }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 20px; text-align: right; color: #333; margin: 0; }
+        
+        .container { max-width: 550px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; border: 1px solid var(--accent-color); position: relative; }
+        
         .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo { max-width: 200px; height: auto; border-radius: 10px; }
+        .logo { max-width: 180px; height: auto; border-radius: 10px; }
+        
         h2 { color: var(--primary-green); text-align: center; margin-top: 0; }
         .name-row { display: flex; gap: 15px; margin-top: 15px; }
         .name-row div { flex: 1; }
-        label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 10px; color: var(--primary-green); }
+        
+        label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 15px; color: var(--primary-green); }
         input[type="text"], input[type="tel"], select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
-        textarea { resize: vertical; min-height: 80px; }
+        
         .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
         .prod-qty { width: 70px !important; text-align: center; }
+        
         .summary { background: #f1f8f1; padding: 20px; border-radius: 12px; margin-top: 25px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
         #totalPrice { color: var(--primary-green); font-weight: bold; }
-        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 20px; }
-        button:disabled { background: #ccc; }
+
+        /* עיצוב כפתורי רדיו */
+        .radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
+        .radio-option { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border: 1px solid #eee; border-radius: 8px; transition: background 0.2s; }
+        .radio-option:hover { background: #f9f9f9; }
+        .radio-option input[type="radio"] { width: 18px; height: 18px; cursor: pointer; margin: 0; }
+        
+        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #1e3d1a; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+
+        #thankYouScreen { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease-in-out; }
+        .success-icon { font-size: 50px; color: var(--primary-green); margin-bottom: 15px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         @media (max-width: 480px) { .name-row { flex-direction: column; gap: 0; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo-container">
-        <img src="לוגו המטבח של גלעד.jpg" alt="המטבח של גלעד" class="logo">
-    </div>
+<div class="container" id="formContainer">
+    <div id="orderForm">
+        <div class="logo-container">
+            <img src="לוגו המטבח של גלעד.jpg" alt="המטבח של גלעד" class="logo">
+        </div>
 
-    <h2>טופס הזמנה</h2>
-    
-    <div class="name-row">
-        <div>
-            <label>שם פרטי *</label>
-            <input type="text" id="firstName" required>
-        </div>
-        <div>
-            <label>שם משפחה *</label>
-            <input type="text" id="lastName" required>
-        </div>
-    </div>
-    
-    <label>מספר טלפון *</label>
-    <input type="tel" id="phone" required placeholder="05X-XXXXXXX" maxlength="11" oninput="formatPhoneNumber(this)">
-
-    <div class="product-list">
-        <label>בחירת מוצרים:</label>
-        <div class="product-item">
-            <span>מלפפון חמוץ (28 ₪)</span>
-            <input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" min="0" oninput="updateTotal()">
-        </div>
-        <div class="product-item">
-            <span>כרוב כבוש מותסס (25 ₪)</span>
-            <input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" min="0" oninput="updateTotal()">
-        </div>
-        <div class="product-item">
-            <span>כרוב חמוץ (25 ₪)</span>
-            <input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" min="0" oninput="updateTotal()">
-        </div>
-        <div class="product-item">
-            <span>טורשי עיראקי (30 ₪)</span>
-            <input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" min="0" oninput="updateTotal()">
-        </div>
-        <div class="product-item">
-            <span>בצל סגול מוחמץ (17 ₪)</span>
-            <input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" min="0" oninput="updateTotal()">
-        </div>
-      <div class="product-item" "product-item" style="display: none;">
-            <span>חרדל מותסס (12 ₪)</span>
-            <input type="number" class="prod-qty" data-price="12" data-name="חרדל מותסס" value="0" min="0" oninput="updateTotal()">
-        </div>
-    </div>
-
-    <div class="summary">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
-
-    <label>הערות להזמנה:</label>
-    <textarea id="orderComments" placeholder="כאן כותבים בקשות מיוחדות..."></textarea>
-
-    <label>אופן קבלת ההזמנה:</label>
-    <select id="deliveryMethod">
-        <option value="איסוף עצמי (יום רביעי)">איסוף עצמי (יום רביעי)</option>
-        <option value="משלוח הביתה (יום שישי)">משלוח הביתה (יום שישי)</option>
-    </select>
-
-    <label>  אמצעי תשלום: ביט/פייבוקס למספר 0503618748</label>
-    <select id="paymentMethod">
-        <option value="ביט">ביט (Bit)</option>
-        <option value="פייבוקס">פייבוקס (PayBox)</option>
-        <option value="מזומן">מזומן באיסוף</option>
-    </select>
+        <h2>טופס הזמנה</h2>
         
-    <button id="submitBtn" onclick="sendOrder()">בצע הזמנה</button>
+        <div class="name-row">
+            <div>
+                <label>שם פרטי *</label>
+                <input type="text" id="firstName" required>
+            </div>
+            <div>
+                <label>שם משפחה *</label>
+                <input type="text" id="lastName" required>
+            </div>
+        </div>
+        
+        <label>מספר טלפון *</label>
+        <input type="tel" id="phone" required placeholder="05X-XXXXXXX" maxlength="11" oninput="formatPhoneNumber(this)">
+
+        <div class="product-list">
+            <label>בחירת מוצרים:</label>
+            <div class="product-item"><span>מלפפון חמוץ (28 ₪)</span><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" min="0" oninput="updateTotal()"></div>
+            <div class="product-item"><span>כרוב כבוש מותסס (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" min="0" oninput="updateTotal()"></div>
+            <div class="product-item"><span>כרוב חמוץ (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" min="0" oninput="updateTotal()"></div>
+            <div class="product-item"><span>טורשי עיראקי (30 ₪)</span><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" min="0" oninput="updateTotal()"></div>
+            <div class="product-item"><span>בצל סגול מוחמץ (17 ₪)</span><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" min="0" oninput="updateTotal()"></div>
+            </div>
+
+        <div class="summary">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
+
+        <label>הערות להזמנה:</label>
+        <textarea id="orderComments" placeholder="כאן כותבים בקשות מיוחדות..."></textarea>
+
+        <label>אופן קבלת ההזמנה:</label>
+        <select id="deliveryMethod">
+            <option value="איסוף עצמי (יום רביעי)">איסוף עצמי (יום רביעי)</option>
+            <option value="משלוח הביתה (יום שישי)">משלוח הביתה (יום שישי)</option>
+        </select>
+
+        <label>אמצעי תשלום:</label>
+        <div class="radio-group">
+            <label class="radio-option">
+                <input type="radio" name="paymentMethod" value="ביט" checked>
+                <span>ביט (Bit)</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="paymentMethod" value="פייבוקס">
+                <span>פייבוקס (PayBox)</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="paymentMethod" value="מזומן">
+                <span>מזומן באיסוף</span>
+            </label>
+        </div>
+            
+        <button id="submitBtn" onclick="sendOrder()">בצע הזמנה</button>
+    </div>
+
+    <div id="thankYouScreen">
+        <div class="success-icon">✔</div>
+        <h2 id="thanksName">תודה רבה!</h2>
+        <p>ההזמנה שלך התקבלה בהצלחה במטבח של גלעד.</p>
+        <div style="text-align: right; background: #f9f9f9; padding: 15px; border-radius: 10px; margin-top: 20px;">
+            <strong>סיכום הזמנה:</strong><br>
+            <span id="orderDetail"></span><br>
+            <strong>סה"כ:</strong> <span id="finalPrice"></span> ₪
+        </div>
+        <button onclick="location.reload()">הזמנה חדשה</button>
+    </div>
 </div>
 
 <script>
@@ -122,10 +144,12 @@
         const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const commentsValue = document.getElementById('orderComments').value.trim();
-        const payment = document.getElementById('paymentMethod').value;
         const delivery = document.getElementById('deliveryMethod').value;
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
+        
+        // שליפת אמצעי התשלום מהכפתור הנבחר (Radio)
+        const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
         
         if (!firstName || !lastName || phone.length < 11 || total == "0") {
             alert("נא למלא את כל שדות החובה ולבחור מוצרים.");
@@ -133,7 +157,7 @@
         }
 
         btn.disabled = true;
-        btn.innerText = "שולח...";
+        btn.innerText = "שולח הזמנה...";
 
         let orderItems = [];
         document.querySelectorAll('.prod-qty').forEach(input => {
@@ -159,21 +183,18 @@
             cache: 'no-cache',
             body: JSON.stringify(data)
         }).then(() => {
-            alert("ההזמנה נשלחה בהצלחה!");
-            location.reload();
+            document.getElementById('orderForm').style.display = 'none';
+            document.getElementById('thankYouScreen').style.display = 'block';
+            document.getElementById('thanksName').innerText = "תודה, " + firstName + "!";
+            document.getElementById('orderDetail').innerText = orderItems.join(", ");
+            document.getElementById('finalPrice').innerText = total;
+            window.scrollTo(0,0);
         }).catch(err => {
-            alert("שגיאה בשליחה.");
+            alert("שגיאה בשליחה. נסה שוב.");
             btn.disabled = false;
+            btn.innerText = "בצע הזמנה";
         });
     }
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
