@@ -4,48 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הזמנה - המטבח של גלעד</title>
-    <meta property="og:title" content="המטבח של גלעד - הזמנה דיגיטלית">
-    <meta property="og:description" content="חמוצים בטעם של פעם, תבשילים ומרקים ביתיים. הזמינו עכשיו בקליק!">
-    <meta property="og:image" content="https://giladmagor.github.io/gilad-kitchen/לוגו המטבח של גלעד.jpg">
-    <meta property="og:url" content="https://giladmagor.github.io/gilad-kitchen/">
-    <meta property="og:type" content="website">
     <style>
         :root { --primary-green: #2d5a27; --accent-color: #e0d7c6; --bg-color: #fdfbf7; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 20px; text-align: right; color: #333; margin: 0; }
-        
         .container { max-width: 550px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; border: 1px solid var(--accent-color); position: relative; }
-        
         .logo-container { text-align: center; margin-bottom: 20px; }
         .logo { max-width: 180px; height: auto; border-radius: 10px; }
-        
         h2 { color: var(--primary-green); text-align: center; margin-top: 0; }
         .name-row { display: flex; gap: 15px; margin-top: 15px; }
         .name-row div { flex: 1; }
-        
         label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 12px; color: var(--primary-green); }
         .sub-label { font-size: 0.9em; color: #666; font-weight: normal; margin-bottom: 4px; display: block; }
-
-        input[type="text"], input[type="tel"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
+        input[type="text"], input[type="tel"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
         
-        .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 10px 0; }
+        /* עיצוב שורת מוצר */
+        .product-item { border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
+        .product-main { display: flex; justify-content: space-between; align-items: center; }
         .prod-qty { width: 70px !important; text-align: center; border: 1px solid #ccc; border-radius: 8px; padding: 8px; }
         
+        /* עיצוב בחירת גודל מרק */
+        .soup-options { display: flex; gap: 15px; margin-top: 8px; background: #f9f9f9; padding: 8px; border-radius: 8px; justify-content: center; }
+        .size-option { display: flex; align-items: center; gap: 5px; font-size: 0.9em; cursor: pointer; }
+
         .summary { background: #f1f8f1; padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
         #totalPrice { color: var(--primary-green); font-weight: bold; }
-
-        /* עיצוב רדיו סופר-מצומצם */
         .radio-group { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
-        .radio-option { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 0; transition: 0.2s; font-size: 0.95em; }
-        .radio-option input[type="radio"] { width: 15px; height: 15px; cursor: pointer; margin: 0; }
-        
-        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
-        button:hover { background: #1e3d1a; }
-        button:disabled { background: #ccc; cursor: not-allowed; }
-
-        #thankYouScreen { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease-in-out; }
-        .success-icon { font-size: 50px; color: var(--primary-green); margin-bottom: 15px; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
+        .radio-option { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 0; font-size: 0.95em; }
+        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; }
+        #thankYouScreen { display: none; text-align: center; padding: 40px 20px; }
         @media (max-width: 480px) { .name-row { flex-direction: column; gap: 0; } }
     </style>
 </head>
@@ -53,21 +39,12 @@
 
 <div class="container" id="formContainer">
     <div id="orderForm">
-        <div class="logo-container">
-            <img src="לוגו המטבח של גלעד.jpg" alt="המטבח של גלעד" class="logo">
-        </div>
-
+        <div class="logo-container"><img src="לוגו המטבח של גלעד.jpg" alt="המטבח של גלעד" class="logo"></div>
         <h2>טופס הזמנה</h2>
         
         <div class="name-row">
-            <div>
-                <label>שם פרטי *</label>
-                <input type="text" id="firstName" required>
-            </div>
-            <div>
-                <label>שם משפחה *</label>
-                <input type="text" id="lastName" required>
-            </div>
+            <div><label>שם פרטי *</label><input type="text" id="firstName" required></div>
+            <div><label>שם משפחה *</label><input type="text" id="lastName" required></div>
         </div>
         
         <label>מספר טלפון *</label>
@@ -75,27 +52,42 @@
 
         <div class="product-list">
             <label>בחירת מוצרים:</label>
-            <div class="product-item"><span>מלפפון חמוץ (28 ₪)</span><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" min="0" oninput="updateTotal()"></div>
-            <div class="product-item"><span>כרוב כבוש מותסס (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" min="0" oninput="updateTotal()"></div>
-            <div class="product-item"><span>כרוב חמוץ (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" min="0" oninput="updateTotal()"></div>
-            <div class="product-item"><span>טורשי עיראקי (30 ₪)</span><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" min="0" oninput="updateTotal()"></div>
-            <div class="product-item"><span>מרק  עגבניות - חצי ליטר (35 ₪)</span><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" min="0" oninput="updateTotal()"></div>
-			<div class="product-item"><span>מרק ירקות - חצי ליטר (35 ₪)</span><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" min="0" oninput="updateTotal()"></div>
-			<div class="product-item"><span>מרק כתום - חצי ליטר (35 ₪)</span><input type="number" class="prod-qty" data-price="35" data-name="מרק כתום" value="0" min="0" oninput="updateTotal()"></div>
+            <div class="product-item"><div class="product-main"><span>מלפפון חמוץ (28 ₪)</span><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" min="0" oninput="updateTotal()"></div></div>
+            <div class="product-item"><div class="product-main"><span>כרוב כבוש מותסס (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" min="0" oninput="updateTotal()"></div></div>
+            <div class="product-item"><div class="product-main"><span>כרוב חמוץ (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" min="0" oninput="updateTotal()"></div></div>
+            <div class="product-item"><div class="product-main"><span>טורשי עיראקי (30 ₪)</span><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" min="0" oninput="updateTotal()"></div></div>
+            
+            <div class="product-item">
+                <div class="product-main"><strong>מרק עגבניות</strong><input type="number" class="prod-qty soup-input" id="qty_tomato" data-name="מרק עגבניות" value="0" min="0" oninput="updateTotal()"></div>
+                <div class="soup-options">
+                    <label class="size-option"><input type="radio" name="size_tomato" value="35" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_tomato" value="60" onchange="updateTotal()"> ליטר (60 ₪)</label>
+                </div>
+            </div>
+
+            <div class="product-item">
+                <div class="product-main"><strong>מרק ירקות</strong><input type="number" class="prod-qty soup-input" id="qty_veg" data-name="מרק ירקות" value="0" min="0" oninput="updateTotal()"></div>
+                <div class="soup-options">
+                    <label class="size-option"><input type="radio" name="size_veg" value="35" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_veg" value="60" onchange="updateTotal()"> ליטר (60 ₪)</label>
+                </div>
+            </div>
+
+            <div class="product-item">
+                <div class="product-main"><strong>מרק כתום</strong><input type="number" class="prod-qty soup-input" id="qty_orange" data-name="מרק כתום" value="0" min="0" oninput="updateTotal()"></div>
+                <div class="soup-options">
+                    <label class="size-option"><input type="radio" name="size_orange" value="35" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_orange" value="60" onchange="updateTotal()"> ליטר (60 ₪)</label>
+                </div>
+            </div>
         </div>
 
         <div class="summary">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
 
         <label>אופן קבלת ההזמנה:</label>
         <div class="radio-group">
-            <label class="radio-option">
-                <input type="radio" name="deliveryMethod" value="ביום רביעי עם החלוקה של שירלי" checked>
-                <span>ביום רביעי עם החלוקה של שירלי</span>
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="deliveryMethod" value="בתאום פרטני">
-                <span>בתאום פרטני</span>
-            </label>
+            <label class="radio-option"><input type="radio" name="deliveryMethod" value="ביום רביעי עם החלוקה של שירלי" checked> <span>ביום רביעי עם החלוקה של שירלי</span></label>
+            <label class="radio-option"><input type="radio" name="deliveryMethod" value="בתאום פרטני"> <span>בתאום פרטני</span></label>
         </div>
 
         <label>הערות לתיאום האספקה:</label>
@@ -104,20 +96,10 @@
         <label>אמצעי תשלום:</label>
         <span class="sub-label">ביט / פייבוקס למספר: 0503619748</span>
         <div class="radio-group">
-            <label class="radio-option">
-                <input type="radio" name="paymentMethod" value="ביט" checked>
-                <span>ביט (Bit)</span>
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="paymentMethod" value="פייבוקס">
-                <span>פייבוקס (PayBox)</span>
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="paymentMethod" value="מזומן">
-                <span>מזומן באיסוף</span>
-            </label>
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="ביט" checked> <span>ביט (Bit)</span></label>
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="פייבוקס"> <span>פייבוקס (PayBox)</span></label>
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="מזומן"> <span>מזומן באיסוף</span></label>
         </div>
-            
         <button id="submitBtn" onclick="sendOrder()">בצע הזמנה</button>
     </div>
 
@@ -143,9 +125,20 @@
 
     function updateTotal() {
         let total = 0;
-        document.querySelectorAll('.prod-qty').forEach(input => {
+        
+        // מוצרים רגילים
+        document.querySelectorAll('.prod-qty:not(.soup-input)').forEach(input => {
             total += (parseInt(input.value) || 0) * parseInt(input.getAttribute('data-price'));
         });
+
+        // חישוב מרקים לפי הגודל שנבחר
+        const soups = ['tomato', 'veg', 'orange'];
+        soups.forEach(s => {
+            let qty = parseInt(document.getElementById('qty_' + s).value) || 0;
+            let price = parseInt(document.querySelector('input[name="size_' + s + '"]:checked').value);
+            total += qty * price;
+        });
+
         document.getElementById('totalPrice').innerText = total;
     }
 
@@ -156,7 +149,6 @@
         const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
-        
         const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
         const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
         
@@ -169,9 +161,22 @@
         btn.innerText = "שולח הזמנה...";
 
         let orderItems = [];
-        document.querySelectorAll('.prod-qty').forEach(input => {
+        
+        // מוצרים רגילים
+        document.querySelectorAll('.prod-qty:not(.soup-input)').forEach(input => {
             let val = parseInt(input.value) || 0;
             if (val > 0) orderItems.push(input.getAttribute('data-name') + " (" + val + ")");
+        });
+
+        // מרקים
+        const soups = ['tomato', 'veg', 'orange'];
+        soups.forEach(s => {
+            let qty = parseInt(document.getElementById('qty_' + s).value) || 0;
+            if (qty > 0) {
+                let sizeLabel = document.querySelector('input[name="size_' + s + '"]:checked').parentElement.innerText.split('(')[0].trim();
+                let soupName = document.getElementById('qty_' + s).getAttribute('data-name');
+                orderItems.push(soupName + " " + sizeLabel + " (" + qty + ")");
+            }
         });
 
         const data = {
@@ -181,7 +186,7 @@
             totalPrice: total,
             paymentMethod: payment,
             deliveryMethod: delivery,
-            comments: "תיאום: " + (deliveryNotes || "אין") // נשלח לעמודת הערות
+            comments: "תיאום: " + (deliveryNotes || "אין")
         };
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwm1svEPrR5WjsMtZiw4r9Zo5beFrM9_vQDRsdeZowhU1aZCrKWFNHuQZ5bFUShN53BEQ/exec'; 
@@ -201,13 +206,8 @@
         }).catch(err => {
             alert("שגיאה בשליחה. נסה שוב.");
             btn.disabled = false;
-            btn.innerText = "בצע הזמנה";
         });
     }
 </script>
 </body>
 </html>
-
-
-
-
