@@ -7,45 +7,77 @@
     <meta property="og:title" content="המטבח של גלעד - הזמנה דיגיטלית">
     <meta property="og:description" content="חמוצים בטעם של פעם, תבשילים ומרקים ביתיים. הזמינו עכשיו בקליק!">
     <meta property="og:image" content="https://giladmagor.github.io/gilad-kitchen/לוגו המטבח של גלעד.jpg">
-    <meta property="og:url" content="https://giladmagor.github.io/gilad-kitchen/">
-    <meta property="og:type" content="website">
+    
     <style>
-        :root { --primary-green: #2d5a27; --accent-color: #e0d7c6; --bg-color: #fdfbf7; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 20px; text-align: right; color: #333; margin: 0; }
+        :root { 
+            --primary-green: #2d5a27; 
+            --accent-color: #e0d7c6; 
+            --bg-color: #fdfbf7; 
+            --bit-color: #00d1c1;
+        }
         
-        .container { max-width: 550px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; border: 1px solid var(--accent-color); position: relative; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 15px; text-align: right; color: #333; margin: 0; }
+        
+        .container { max-width: 550px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; border: 1px solid var(--accent-color); }
         
         .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo { max-width: 180px; height: auto; border-radius: 10px; }
+        .logo { max-width: 160px; height: auto; border-radius: 15px; }
         
         h2 { color: var(--primary-green); text-align: center; margin-top: 0; }
-        .name-row { display: flex; gap: 15px; margin-top: 15px; }
+        
+        label { font-weight: bold; display: block; margin-bottom: 8px; margin-top: 15px; color: var(--primary-green); }
+        
+        .name-row { display: flex; gap: 15px; }
         .name-row div { flex: 1; }
-        
-        label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 12px; color: var(--primary-green); }
-        .sub-label { font-size: 0.9em; color: #666; font-weight: normal; margin-bottom: 4px; display: block; }
 
-        input[type="text"], input[type="tel"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
-        
-        .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 10px 0; }
-        .prod-qty { width: 70px !important; text-align: center; border: 1px solid #ccc; border-radius: 8px; padding: 8px; }
-        
-        .summary { background: #f1f8f1; padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
+        input[type="text"], input[type="tel"] { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 12px; 
+            box-sizing: border-box; font-size: 16px; transition: border-color 0.3s;
+        }
+        input:focus { border-color: var(--primary-green); outline: none; }
+
+        /* עיצוב רשימת מוצרים עם כפתורי פלוס ומינוס */
+        .product-item { 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid #f0f0f0; padding: 12px 0; 
+        }
+        .qty-controls { display: flex; align-items: center; gap: 10px; background: #f8f8f8; border-radius: 10px; padding: 4px; }
+        .qty-btn { 
+            background: var(--primary-green); color: white; border: none; 
+            width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px;
+        }
+        .prod-qty { 
+            width: 40px; text-align: center; border: none; background: transparent; 
+            font-size: 16px; font-weight: bold; pointer-events: none;
+        }
+
+        .summary { 
+            background: #f1f8f1; padding: 15px; border-radius: 15px; margin-top: 25px; 
+            font-size: 1.4em; text-align: center; border: 2px dashed var(--primary-green); 
+        }
         #totalPrice { color: var(--primary-green); font-weight: bold; }
 
-        /* עיצוב רדיו סופר-מצומצם */
-        .radio-group { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
-        .radio-option { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 0; transition: 0.2s; font-size: 0.95em; }
-        .radio-option input[type="radio"] { width: 15px; height: 15px; cursor: pointer; margin: 0; }
+        /* כרטיסי בחירה (השיפור שביקשת) */
+        .radio-group { display: grid; gap: 10px; margin-top: 10px; }
+        .radio-option { 
+            display: flex; align-items: center; padding: 12px 15px; 
+            border: 2px solid #eee; border-radius: 12px; cursor: pointer; transition: 0.2s; 
+        }
+        .radio-option input[type="radio"] { margin-left: 12px; width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-green); }
+        .radio-option:has(input:checked) { border-color: var(--primary-green); background: #f1f8f1; }
         
-        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
-        button:hover { background: #1e3d1a; }
-        button:disabled { background: #ccc; cursor: not-allowed; }
+        button#submitBtn { 
+            background: var(--primary-green); color: white; border: none; padding: 18px; 
+            width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.2rem; font-weight: bold; 
+            margin-top: 30px; transition: 0.3s; box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2);
+        }
+        button#submitBtn:hover { transform: translateY(-2px); opacity: 0.9; }
+        button#submitBtn:disabled { background: #ccc; cursor: not-allowed; }
 
         #thankYouScreen { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease-in-out; }
-        .success-icon { font-size: 50px; color: var(--primary-green); margin-bottom: 15px; }
+        .success-icon { font-size: 60px; color: var(--primary-green); margin-bottom: 15px; }
+        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
         @media (max-width: 480px) { .name-row { flex-direction: column; gap: 0; } }
     </style>
 </head>
@@ -73,80 +105,54 @@
         <label>מספר טלפון *</label>
         <input type="tel" id="phone" required placeholder="05X-XXXXXXX" maxlength="11" oninput="formatPhoneNumber(this)">
 
+        <label>בחירת מוצרים:</label>
         <div class="product-list">
-            <label>בחירת מוצרים:</label>
-			<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 5px;">
-        <span style="font-size: 0.9em; color: #666; font-weight: bold;">מוצר</span>
-        <span style="font-size: 0.9em; color: #666; font-weight: bold; padding-left: 5px;">כמות</span>
-    </div>
-            <div class="product-item"><span>מלפפון חמוץ - צנצנת 580 מ"ל  (28 ₪)</span><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" min="0" oninput="updateTotal()"></div>
-            <div class="product-item"><span>כרוב כבוש מותסס - צנצנת 580 מ"ל  (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" min="0" oninput="updateTotal()"></div>
-            <div class="product-item"><span>כרוב חמוץ - צנצנת 580 מ"ל (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" min="0" oninput="updateTotal()"></div>
-            <div class="product-item"><span>טורשי חמוצים עיראקים - 2 ליטר (30 ₪) </span><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" min="0" oninput="updateTotal()"></div>
-			<div class="product-item"><span>בצל סגול מוחמץ - 250 גר' (17 ₪)</span><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" min="0" oninput="updateTotal()"></div>
-            <div class="product-item"><span>מרק  עגבניות - חצי ליטר (35 ₪) </span><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" min="0" oninput="updateTotal()"></div>
-			<div class="product-item"><span>מרק ירקות - חצי ליטר (35 ₪)</span><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" min="0" oninput="updateTotal()"></div>
-			<div class="product-item"><span>מרק כתום - חצי ליטר (35 ₪)</span><input type="number" class="prod-qty" data-price="35" data-name="מרק כתום" value="0" min="0" oninput="updateTotal()"></div>
-    		<div class="product-item"><span>קוגל ירושלמי - תבנית אינגליש קייק (24 ₪)</span><input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" min="0" oninput="updateTotal()"></div>
-
-		</div>
+            <div class="product-item"><span>מלפפון חמוץ 580 מ"ל (28 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+            <div class="product-item"><span>כרוב כבוש מותסס 580 מ"ל (25 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+            <div class="product-item"><span>טורשי עיראקי - 2 ליטר (30 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+            <div class="product-item"><span>מרק עגבניות - חצי ליטר (35 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+            <div class="product-item"><span>קוגל ירושלמי (24 ₪)</span><div class="qty-controls"><button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל" value="0" readonly><button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button></div></div>
+        </div>
 
         <div class="summary">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
 
         <label>אופן קבלת ההזמנה:</label>
         <div class="radio-group">
-            <label class="radio-option">
-                <input type="radio" name="deliveryMethod" value="ביום רביעי עם החלוקה של שירלי" checked>
-                <span>ביום רביעי עם החלוקה של שירלי</span>
-            </label>
-            <label class="radio-option">
-                <input type="radio" name="deliveryMethod" value="בתאום פרטני">
-                <span>בתאום פרטני</span>
-            </label>
+            <label class="radio-option"><input type="radio" name="deliveryMethod" value="ביום רביעי עם שירלי" checked><span>🚚 יום רביעי עם החלוקה של שירלי</span></label>
+            <label class="radio-option"><input type="radio" name="deliveryMethod" value="בתאום פרטני"><span>🤝 בתאום פרטני</span></label>
         </div>
 
-        <label>הערות לתיאום האספקה וההזמנה:</label>
-        <input type="text" id="deliveryNotes" placeholder=" ... ">
+        <label>אמצעי תשלום:</label>
+        <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="ביט" checked><span>📱 שלם ב-bit</span></label>
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="פייבוקס"><span>📦 שלם ב-PayBox</span></label>
+            <label class="radio-option"><input type="radio" name="paymentMethod" value="מזומן"><span>💵 מזומן באיסוף</span></label>
+        </div>
 
-        <label> אמצעי תשלום ביט/פייבוקס למספר </label>
-<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-    <label style="font-size: 1.1em; margin: 0;" id="payNumber">0503618748</label>
-    <button onclick="copyNumber()" style="margin: 0; padding: 5px 10px; width: auto; font-size: 14px; background: #eee; color: #333; border: 1px solid #ccc; border-radius: 5px;">העתק מספר</button>
-    <span id="copyMsg" style="display: none; color: var(--primary-green); font-size: 0.9em; font-weight: bold;">הועתק!</span>
-</div>
-<label style="font-size: 1em; color: #666; margin-top: 0; font-weight: normal;">לאחר שליחת ההזמנה יש לשלוח תשלום באפליקציה </label>
-
-<div class="radio-group">
-    <label class="radio-option"><input type="radio" name="paymentMethod" value="ביט" checked> <span>ביט (Bit)</span></label>
-    <label class="radio-option"><input type="radio" name="paymentMethod" value="פייבוקס"> <span>פייבוקס (PayBox)</span></label>
-    <label class="radio-option"><input type="radio" name="paymentMethod" value="מזומן"> <span>מזומן באיסוף</span></label>
-</div>
-            
         <button id="submitBtn" onclick="sendOrder()">שלח/י הזמנה</button>
     </div>
 
     <div id="thankYouScreen">
         <div class="success-icon">✔</div>
         <h2 id="thanksName">תודה רבה!</h2>
-        <p>ההזמנה שלך התקבלה בהצלחה במטבח של גלעד.</p>
-        <div style="text-align: right; background: #f9f9f9; padding: 15px; border-radius: 10px; margin-top: 20px;">
-            <strong>סיכום הזמנה:</strong><br>
-            <span id="orderDetail"></span><br>
+        <p>ההזמנה התקבלה במטבח של גלעד.</p>
+        <div style="background: #f9f9f9; padding: 15px; border-radius: 12px; margin-top: 20px; text-align: right;">
+            <strong>פירוט:</strong> <span id="orderDetail"></span><br>
             <strong>סה"כ:</strong> <span id="finalPrice"></span> ₪
         </div>
-        <button onclick="location.reload()">הזמנה חדשה</button>
+        <button onclick="location.reload()" style="background:#eee; color:#333; margin-top: 15px;">חזרה</button>
     </div>
 </div>
 
 <script>
-	function copyNumber() {
-    const num = "0503618748";
-    navigator.clipboard.writeText(num).then(() => {
-        const msg = document.getElementById('copyMsg');
-        msg.style.display = 'inline';
-        setTimeout(() => { msg.style.display = 'none'; }, 2000);
-    });
-}
+    function changeQty(btn, delta) {
+        const input = btn.parentElement.querySelector('.prod-qty');
+        let val = parseInt(input.value) + delta;
+        if (val < 0) val = 0;
+        input.value = val;
+        updateTotal();
+    }
+
     function formatPhoneNumber(input) {
         let value = input.value.replace(/\D/g, ''); 
         if (value.length > 3) value = value.slice(0, 3) + '-' + value.slice(3, 10);
@@ -165,15 +171,13 @@
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
-        
         const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
         const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
-        
+
         if (!firstName || !lastName || phone.length < 11 || total == "0") {
-            alert("נא למלא את כל שדות החובה ולבחור מוצרים.");
+            alert("נא למלא פרטים ולבחור לפחות מוצר אחד.");
             return;
         }
 
@@ -192,8 +196,7 @@
             orderSummary: orderItems.join(", "),
             totalPrice: total,
             paymentMethod: payment,
-            deliveryMethod: delivery,
-            comments: "תיאום: " + (deliveryNotes || "אין") // נשלח לעמודת הערות
+            deliveryMethod: delivery
         };
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwm1svEPrR5WjsMtZiw4r9Zo5beFrM9_vQDRsdeZowhU1aZCrKWFNHuQZ5bFUShN53BEQ/exec'; 
@@ -201,43 +204,28 @@
         fetch(scriptURL, {
             method: 'POST',
             mode: 'no-cors',
-            cache: 'no-cache',
             body: JSON.stringify(data)
         }).then(() => {
+            // טיפול אוטומטי במעבר לביט/פייבוקס
+            if (payment === "ביט") {
+                if (confirm("ההזמנה נרשמה! האם לעבור עכשיו ל-bit לסיום התשלום?")) {
+                    window.location.href = "bit://transfer";
+                }
+            } else if (payment === "פייבוקס") {
+                window.location.href = "https://payboxapp.page.link/transfer";
+            }
+
             document.getElementById('orderForm').style.display = 'none';
             document.getElementById('thankYouScreen').style.display = 'block';
             document.getElementById('thanksName').innerText = "תודה, " + firstName + "!";
             document.getElementById('orderDetail').innerText = orderItems.join(", ");
             document.getElementById('finalPrice').innerText = total;
             window.scrollTo(0,0);
-        }).catch(err => {
+        }).catch(() => {
             alert("שגיאה בשליחה. נסה שוב.");
             btn.disabled = false;
-            btn.innerText = "שלח/י הזמנה";
         });
     }
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
