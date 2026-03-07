@@ -1,3 +1,10 @@
+שינוי מצוין. העברה של כל אפשרויות הבחירה לכפתורי רדיו (Radio Buttons) הופכת את הטופס להרבה יותר סריקה ומהירה לשימוש בטלפון, כי הלקוח רואה את כל האפשרויות בבת אחת בלי לפתוח תפריטים.
+
+הוספתי גם את שדה ההערות הספציפי לתיאום האספקה, ועדכנתי את ה-JavaScript שישלח את כל הנתונים החדשים לגוגל שיטס.
+
+הנה הקוד המעודכן:
+
+```html
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
@@ -23,7 +30,7 @@
         .name-row div { flex: 1; }
         
         label { font-weight: bold; display: block; margin-bottom: 5px; margin-top: 15px; color: var(--primary-green); }
-        input[type="text"], input[type="tel"], select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
+        input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; font-family: inherit; }
         
         .product-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
         .prod-qty { width: 70px !important; text-align: center; }
@@ -33,11 +40,11 @@
 
         /* עיצוב כפתורי רדיו */
         .radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
-        .radio-option { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border: 1px solid #eee; border-radius: 8px; transition: background 0.2s; }
+        .radio-option { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px; border: 1px solid #eee; border-radius: 8px; transition: background 0.2s; }
         .radio-option:hover { background: #f9f9f9; }
         .radio-option input[type="radio"] { width: 18px; height: 18px; cursor: pointer; margin: 0; }
         
-        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
         button:hover { background: #1e3d1a; }
         button:disabled { background: #ccc; cursor: not-allowed; }
 
@@ -79,18 +86,28 @@
             <div class="product-item"><span>כרוב חמוץ (25 ₪)</span><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" min="0" oninput="updateTotal()"></div>
             <div class="product-item"><span>טורשי עיראקי (30 ₪)</span><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" min="0" oninput="updateTotal()"></div>
             <div class="product-item"><span>בצל סגול מוחמץ (17 ₪)</span><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" min="0" oninput="updateTotal()"></div>
-            </div>
+        </div>
 
         <div class="summary">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
 
-        <label>הערות להזמנה:</label>
-        <textarea id="orderComments" placeholder="כאן כותבים בקשות מיוחדות..."></textarea>
-
         <label>אופן קבלת ההזמנה:</label>
-        <select id="deliveryMethod">
-            <option value="איסוף עצמי (יום רביעי)">איסוף עצמי (יום רביעי)</option>
-            <option value="משלוח הביתה (יום שישי)">משלוח הביתה (יום שישי)</option>
-        </select>
+        <div class="radio-group">
+            <label class="radio-option">
+                <input type="radio" name="deliveryMethod" value="ביום רביעי עם החלוקה של שירלי" checked>
+                <span>ביום רביעי עם החלוקה של שירלי</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="deliveryMethod" value="ביום שישי">
+                <span>ביום שישי</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="deliveryMethod" value="במשך השבוע בתאום פרטני">
+                <span>במשך השבוע בתאום פרטני</span>
+            </label>
+        </div>
+
+        <label>הערות לתיאום האספקה:</label>
+        <input type="text" id="deliveryNotes" placeholder="למשל: להשאיר ליד הדלת / קוד כניסה...">
 
         <label>אמצעי תשלום:</label>
         <div class="radio-group">
@@ -107,6 +124,9 @@
                 <span>מזומן באיסוף</span>
             </label>
         </div>
+
+        <label>הערות כלליות להזמנה:</label>
+        <textarea id="orderComments" placeholder="בקשות מיוחדות למטבח..."></textarea>
             
         <button id="submitBtn" onclick="sendOrder()">בצע הזמנה</button>
     </div>
@@ -144,12 +164,13 @@
         const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const commentsValue = document.getElementById('orderComments').value.trim();
-        const delivery = document.getElementById('deliveryMethod').value;
+        const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
         const total = document.getElementById('totalPrice').innerText;
         const btn = document.getElementById('submitBtn');
         
-        // שליפת אמצעי התשלום מהכפתור הנבחר (Radio)
+        // שליפת ערכים מכפתורי הרדיו
         const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
+        const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
         
         if (!firstName || !lastName || phone.length < 11 || total == "0") {
             alert("נא למלא את כל שדות החובה ולבחור מוצרים.");
@@ -165,6 +186,9 @@
             if (val > 0) orderItems.push(input.getAttribute('data-name') + " (" + val + ")");
         });
 
+        // חיבור הערות התיאום להערות הכלליות או שליחה כשדה נפרד
+        const fullComments = "אספקה: " + (deliveryNotes || "אין") + " | כללי: " + (commentsValue || "אין");
+
         const data = {
             name: firstName + " " + lastName,
             phone: phone,
@@ -172,7 +196,7 @@
             totalPrice: total,
             paymentMethod: payment,
             deliveryMethod: delivery,
-            comments: commentsValue || "אין הערות"
+            comments: fullComments // שולח את שני סוגי ההערות לעמודת ההערות בגוגל
         };
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxN0w3Ng3VIXA5Ifn48hBqK0ZD37katp1k3t97-7Y8xQl6Z5RwPMXo0Iyr1MWoHX6r-mw/exec'; 
@@ -198,3 +222,13 @@
 </script>
 </body>
 </html>
+
+```
+
+### מה שונה כאן?
+
+1. **אופן קבלת ההזמנה:** עבר לכפתורי רדיו ברורים עם 3 האפשרויות שביקשת.
+2. **שדה הערות לתיאום:** הוספתי שדה טקסט קצר מיד אחרי בחירת האספקה.
+3. **איחוד הערות:** ב-JavaScript, בחרתי לחבר את "הערות התיאום" יחד עם "הערות המטבח" לשדה אחד (`fullComments`). בדרך זו, כל המידע יגיע לעמודת ההערות הקיימת שלך בגוגל שיטס בצורה מסודרת: `אספקה: [הערה] | כללי: [הערה]`. כך לא תצטרך לשנות את מבנה העמודות בגיליון.
+
+**האם תרצה שאפריד את "הערות התיאום" לעמודה חדשה לגמרי בגוגל שיטס במקום לחבר אותן?** (זה ידרוש הוספת עמודה בגיליון ושינוי קטן ב-Apps Script).
