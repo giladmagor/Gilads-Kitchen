@@ -17,21 +17,21 @@
         .sub-label { font-size: 0.9em; color: #666; font-weight: normal; margin-bottom: 4px; display: block; }
         input[type="text"], input[type="tel"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
         
-        /* עיצוב שורת מוצר */
         .product-item { border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
         .product-main { display: flex; justify-content: space-between; align-items: center; }
-        .prod-qty { width: 70px !important; text-align: center; border: 1px solid #ccc; border-radius: 8px; padding: 8px; }
+        .prod-qty { width: 70px !important; text-align: center; border: 1px solid #ccc; border-radius: 8px; padding: 8px; font-size: 16px; }
         
-        /* עיצוב בחירת גודל מרק */
-        .soup-options { display: flex; gap: 15px; margin-top: 8px; background: #f9f9f9; padding: 8px; border-radius: 8px; justify-content: center; }
-        .size-option { display: flex; align-items: center; gap: 5px; font-size: 0.9em; cursor: pointer; }
+        .soup-options { display: flex; gap: 10px; margin-top: 8px; background: #f9f9f9; padding: 8px; border-radius: 8px; justify-content: space-around; border: 1px solid #eee; }
+        .size-option { display: flex; align-items: center; gap: 5px; font-size: 0.9em; cursor: pointer; color: #444; }
+        .size-option input { margin: 0; }
 
         .summary { background: #f1f8f1; padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 1.3em; text-align: center; border: 2px dashed var(--primary-green); }
         #totalPrice { color: var(--primary-green); font-weight: bold; }
         .radio-group { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
         .radio-option { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 4px 0; font-size: 0.95em; }
-        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; }
+        button { background: var(--primary-green); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
         #thankYouScreen { display: none; text-align: center; padding: 40px 20px; }
+        .success-icon { font-size: 50px; color: var(--primary-green); margin-bottom: 15px; }
         @media (max-width: 480px) { .name-row { flex-direction: column; gap: 0; } }
     </style>
 </head>
@@ -60,24 +60,24 @@
             <div class="product-item">
                 <div class="product-main"><strong>מרק עגבניות</strong><input type="number" class="prod-qty soup-input" id="qty_tomato" data-name="מרק עגבניות" value="0" min="0" oninput="updateTotal()"></div>
                 <div class="soup-options">
-                    <label class="size-option"><input type="radio" name="size_tomato" value="35" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
-                    <label class="size-option"><input type="radio" name="size_tomato" value="60" onchange="updateTotal()"> ליטר (60 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_tomato" value="35" data-label="חצי ליטר" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_tomato" value="60" data-label="ליטר" onchange="updateTotal()"> ליטר (60 ₪)</label>
                 </div>
             </div>
 
             <div class="product-item">
                 <div class="product-main"><strong>מרק ירקות</strong><input type="number" class="prod-qty soup-input" id="qty_veg" data-name="מרק ירקות" value="0" min="0" oninput="updateTotal()"></div>
                 <div class="soup-options">
-                    <label class="size-option"><input type="radio" name="size_veg" value="35" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
-                    <label class="size-option"><input type="radio" name="size_veg" value="60" onchange="updateTotal()"> ליטר (60 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_veg" value="35" data-label="חצי ליטר" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_veg" value="60" data-label="ליטר" onchange="updateTotal()"> ליטר (60 ₪)</label>
                 </div>
             </div>
 
             <div class="product-item">
                 <div class="product-main"><strong>מרק כתום</strong><input type="number" class="prod-qty soup-input" id="qty_orange" data-name="מרק כתום" value="0" min="0" oninput="updateTotal()"></div>
                 <div class="soup-options">
-                    <label class="size-option"><input type="radio" name="size_orange" value="35" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
-                    <label class="size-option"><input type="radio" name="size_orange" value="60" onchange="updateTotal()"> ליטר (60 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_orange" value="35" data-label="חצי ליטר" checked onchange="updateTotal()"> חצי ליטר (35 ₪)</label>
+                    <label class="size-option"><input type="radio" name="size_orange" value="60" data-label="ליטר" onchange="updateTotal()"> ליטר (60 ₪)</label>
                 </div>
             </div>
         </div>
@@ -125,20 +125,18 @@
 
     function updateTotal() {
         let total = 0;
-        
         // מוצרים רגילים
         document.querySelectorAll('.prod-qty:not(.soup-input)').forEach(input => {
             total += (parseInt(input.value) || 0) * parseInt(input.getAttribute('data-price'));
         });
-
-        // חישוב מרקים לפי הגודל שנבחר
+        // מרקים
         const soups = ['tomato', 'veg', 'orange'];
         soups.forEach(s => {
             let qty = parseInt(document.getElementById('qty_' + s).value) || 0;
-            let price = parseInt(document.querySelector('input[name="size_' + s + '"]:checked').value);
+            let selectedRadio = document.querySelector('input[name="size_' + s + '"]:checked');
+            let price = parseInt(selectedRadio.value);
             total += qty * price;
         });
-
         document.getElementById('totalPrice').innerText = total;
     }
 
@@ -161,21 +159,21 @@
         btn.innerText = "שולח הזמנה...";
 
         let orderItems = [];
-        
         // מוצרים רגילים
         document.querySelectorAll('.prod-qty:not(.soup-input)').forEach(input => {
             let val = parseInt(input.value) || 0;
             if (val > 0) orderItems.push(input.getAttribute('data-name') + " (" + val + ")");
         });
 
-        // מרקים
+        // מרקים - כאן הוספתי את תיוג הליטר/חצי ליטר לסיכום
         const soups = ['tomato', 'veg', 'orange'];
         soups.forEach(s => {
             let qty = parseInt(document.getElementById('qty_' + s).value) || 0;
             if (qty > 0) {
-                let sizeLabel = document.querySelector('input[name="size_' + s + '"]:checked').parentElement.innerText.split('(')[0].trim();
+                let selectedRadio = document.querySelector('input[name="size_' + s + '"]:checked');
+                let sizeText = selectedRadio.getAttribute('data-label'); // לוקח "ליטר" או "חצי ליטר"
                 let soupName = document.getElementById('qty_' + s).getAttribute('data-name');
-                orderItems.push(soupName + " " + sizeLabel + " (" + qty + ")");
+                orderItems.push(soupName + " " + sizeText + " (" + qty + ")");
             }
         });
 
