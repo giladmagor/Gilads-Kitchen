@@ -211,10 +211,26 @@
 
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
         .then(() => {
+            // בדיקה אם נבחר ביט
             if (payment === "ביט") {
                 if(confirm("ההזמנה נשלחה! לעבור ל-bit לתשלום?")) {
                     window.location.href = "bit://transfer";
                 }
+            } 
+            // בדיקה אם נבחר פייבוקס
+            else if (payment === "פייבוקס") {
+                if(confirm("ההזמנה נשלחה! לעבור ל-PayBox לתשלום?")) {
+                    window.location.href = "paybox://"; 
+                }
+            }
+
+            document.getElementById('orderForm').style.display = 'none';
+            document.getElementById('thankYouScreen').style.display = 'block';
+            document.getElementById('thanksName').innerText = "תודה, " + firstName + "!";
+            document.getElementById('orderDetail').innerText = orderItems.join(", ");
+            document.getElementById('finalPrice').innerText = total;
+            window.scrollTo(0,0);
+        })
             }
             document.getElementById('orderForm').style.display = 'none';
             document.getElementById('thankYouScreen').style.display = 'block';
@@ -230,4 +246,5 @@
 </script>
 </body>
 </html>
+
 
