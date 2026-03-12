@@ -168,6 +168,14 @@
                     <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
                 </div>
             </div>
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">מרק כתומים</h3><p class="product-description">ליטר - בטטה, גזר ודלעת</p><span class="product-price">₪35</span></div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="35" data-name="מרק כתומים" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
         </div>
 
         <div id="pastries" class="tab-content">
@@ -290,26 +298,4 @@
         const notes = document.getElementById('deliveryNotes').value.trim();
 
         if (!firstName || !lastName || phone.length < 11 || total === "0") {
-            alert("נא למלא שם פרטי, שם משפחה, טלפון תקין ולבחור לפחות מוצר אחד.");
-            document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
-            return;
-        }
-
-        const btn = document.getElementById('submitBtn');
-        const floatBtn = document.getElementById('floatSubmitBtn');
-        
-        btn.disabled = true;
-        floatBtn.disabled = true;
-        btn.innerText = "שולח...";
-        floatBtn.innerText = "שולח...";
-
-        let orderItems = [];
-        document.querySelectorAll('.prod-qty').forEach(input => {
-            let val = parseInt(input.value) || 0;
-            if (val > 0) orderItems.push(input.getAttribute('data-name') + " (" + val + ")");
-        });
-
-        const data = {
-            name: firstName + " " + lastName,
-            phone: phone,
-            orderSummary: orderItems.join
+            alert("נא למ
