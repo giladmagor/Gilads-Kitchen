@@ -140,13 +140,17 @@
             </div>
             <input type="tel" id="phone" placeholder="מספר טלפון *" required oninput="formatPhoneNumber(this)">
             
-            <label>הערות למשלוח:</label>
-            <input type="text" id="deliveryNotes" placeholder="קומה, קוד כניסה וכו'...">
-
             <label>אופן קבלת ההזמנה:</label>
             <div class="radio-group">
-                <label class="radio-card"><input type="radio" name="deliveryMethod" value="ביום רביעי עם החלוקה של שירלי" checked><span>יום רביעי (חלוקה של שירלי)</span></label>
-                <label class="radio-card"><input type="radio" name="deliveryMethod" value="בתיאום פרטני"><span>תיאום פרטני</span></label>
+                <label class="radio-card">
+                    <input type="radio" name="deliveryMethod" value="ביום רביעי עם החלוקה של שירלי" checked>
+                    <span>ביום רביעי (החלוקה של שירלי)</span>
+                </label>
+                <label class="radio-card">
+                    <input type="radio" name="deliveryMethod" value="בתיאום פרטני">
+                    <span>בתיאום פרטני</span>
+                </label>
+                <input type="text" id="deliveryNotes" placeholder="הערות למשלוח או פרטי תיאום...">
             </div>
 
             <label>תשלום לנייד:</label>
