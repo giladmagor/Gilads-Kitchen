@@ -2,7 +2,7 @@
 <html dir="rtl" lang="he">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>הזמנה - המטבח של גלעד</title>
     
     <style>
@@ -13,11 +13,18 @@
             --warm-orange: #e67e22;
         }
         
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 15px; text-align: right; color: #333; margin: 0; padding-bottom: 120px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 15px; text-align: right; color: #333; margin: 0; padding-bottom: 140px; }
         .container { max-width: 500px; margin: auto; }
         
         .logo-container { text-align: center; margin-bottom: 15px; }
-        .logo { max-width: 120px; height: auto; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { 
+            width: 120px; 
+            height: 120px; 
+            object-fit: cover; 
+            border-radius: 50%; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            aspect-ratio: 1 / 1;
+        }
         
         h2 { color: var(--primary-green); text-align: center; margin-bottom: 20px; font-size: 1.6rem; }
 
@@ -54,12 +61,40 @@
         .radio-card:has(input:checked) { border-color: var(--primary-green); background: #f1f8f1; }
 
         /* FLOATING FOOTER */
-        .floating-footer { position: fixed; bottom: 15px; left: 15px; right: 15px; max-width: 470px; margin: auto; background: var(--primary-green); color: white; padding: 10px 20px; border-radius: 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(45,90,39,0.4); z-index: 999; }
-        .floating-total { display: flex; flex-direction: column; }
-        .floating-total .amount { font-size: 1.3rem; font-weight: 800; }
-        .floating-total .label { font-size: 0.75rem; opacity: 0.9; }
+        .floating-footer { 
+            position: fixed; 
+            bottom: 20px; 
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            left: 15px; 
+            right: 15px; 
+            max-width: 470px; 
+            margin: auto; 
+            background: var(--primary-green); 
+            color: white; 
+            padding: 12px 20px; 
+            border-radius: 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 10px 25px rgba(45,90,39,0.4); 
+            z-index: 9999; 
+        }
+        .floating-total { display: flex; flex-direction: column; min-width: 100px; }
+        .floating-total .amount { font-size: 1.2rem; font-weight: 800; }
+        .floating-total .label { font-size: 0.7rem; opacity: 0.9; }
         
-        .floating-submit { background: var(--warm-orange); color: white; border: none; padding: 12px 25px; border-radius: 30px; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .floating-submit { 
+            background: var(--warm-orange); 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 30px; 
+            font-size: 0.95rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            white-space: nowrap;
+        }
 
         #submitBtn { background: var(--primary-green); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.1rem; font-weight: bold; margin-top: 15px; }
 
@@ -83,7 +118,7 @@
 
         <div id="pickles" class="tab-content active">
             <div class="product-card">
-                <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
+                <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל - בכבישה טבעית</p><span class="product-price">₪28</span></div>
                 <div class="quantity-controls">
                     <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                     <input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly>
@@ -91,10 +126,26 @@
                 </div>
             </div>
             <div class="product-card">
-                <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
+                <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל - פרוביוטי</p><span class="product-price">₪25</span></div>
                 <div class="quantity-controls">
                     <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                     <input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">בצל סגול כבוש</h3><p class="product-description">580 מ"ל - בחומץ תפוחים</p><span class="product-price">₪25</span></div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="25" data-name="בצל סגול כבוש" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">טורשי עיראקי</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪30</span></div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" readonly>
                     <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
                 </div>
             </div>
@@ -102,10 +153,18 @@
 
         <div id="soups" class="tab-content">
             <div class="product-card">
-                <div class="product-info"><h3 class="product-name">מרק עגבניות</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
+                <div class="product-info"><h3 class="product-name">מרק עגבניות</h3><p class="product-description">ליטר</p><span class="product-price">₪35</span></div>
                 <div class="quantity-controls">
                     <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                     <input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">ליטר</p><span class="product-price">₪35</span></div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" readonly>
                     <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
                 </div>
             </div>
@@ -113,10 +172,18 @@
 
         <div id="pastries" class="tab-content">
             <div class="product-card">
-                <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">אינגליש קייק</p><span class="product-price">₪24</span></div>
+                <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">תבנית אינגליש</p><span class="product-price">₪24</span></div>
                 <div class="quantity-controls">
                     <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                     <input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">חצי קילו</p><span class="product-price">₪25</span></div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="25" data-name="מג'דרה" value="0" readonly>
                     <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
                 </div>
             </div>
@@ -173,7 +240,7 @@
         <span class="label">סה"כ לתשלום:</span>
         <span class="amount">₪<span id="totalPrice">0</span></span>
     </div>
-    <button class="floating-submit" onclick="sendOrder()">שלח הזמנה</button>
+    <button class="floating-submit" id="floatSubmitBtn" onclick="sendOrder()">שלח הזמנה</button>
 </div>
 
 <script>
@@ -224,13 +291,12 @@
 
         if (!firstName || !lastName || phone.length < 11 || total === "0") {
             alert("נא למלא שם פרטי, שם משפחה, טלפון תקין ולבחור לפחות מוצר אחד.");
-            // גלילה לטופס אם חסרים פרטים
             document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
             return;
         }
 
         const btn = document.getElementById('submitBtn');
-        const floatBtn = document.querySelector('.floating-submit');
+        const floatBtn = document.getElementById('floatSubmitBtn');
         
         btn.disabled = true;
         floatBtn.disabled = true;
@@ -246,27 +312,4 @@
         const data = {
             name: firstName + " " + lastName,
             phone: phone,
-            orderSummary: orderItems.join(", "),
-            totalPrice: total,
-            paymentMethod: payment,
-            deliveryMethod: delivery,
-            comments: notes
-        };
-
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwm1svEPrR5WjsMtZiw4r9Zo5beFrM9_vQDRsdeZowhU1aZCrKWFNHuQZ5bFUShN53BEQ/exec'; 
-
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
-        .then(() => {
-            if ((payment === "ביט" || payment === "פייבוקס") && confirm("ההזמנה נשלחה! לעבור לאפליקציית התשלום?")) {
-                window.location.href = payment === "ביט" ? "bit://transfer" : "paybox://";
-            }
-            document.getElementById('orderForm').style.display = 'none';
-            document.getElementById('floatingSum').style.display = 'none';
-            document.getElementById('thankYouScreen').style.display = 'block';
-            document.getElementById('thanksName').innerText = "תודה, " + firstName + "!";
-            window.scrollTo(0,0);
-        });
-    }
-</script>
-</body>
-</html>
+            orderSummary: orderItems.join
