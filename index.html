@@ -9,6 +9,43 @@
     <meta property="og:image" content="https://giladmagor.github.io/gilad-kitchen/לוגו המטבח של גלעד.jpg">
     
     <style>
+        /* החלף את החלק של .product-card בזה כדי לראות את השינוי המשמעותי */
+.product-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 18px; /* פינות מעוגלות יותר */
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06); /* צללית עמוקה יותר שנותנת תחושת תלת-ממד */
+    border: 1px solid #eee; /* מסגרת עדינה */
+    transition: transform 0.2s ease; /* אפקט לחיצה */
+}
+
+.product-card:active {
+    transform: scale(0.98); /* אפקט לחיצה בטלפון */
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-name {
+    display: block;
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+    color: var(--primary-green);
+}
+
+.product-price {
+    background: #f1f8f1;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--primary-green);
+    display: inline-block;
+}
         :root { 
             --primary-green: #2d5a27; 
             --accent-color: #e0d7c6; 
@@ -421,3 +458,4 @@
 </script>
 </body>
 </html>
+
