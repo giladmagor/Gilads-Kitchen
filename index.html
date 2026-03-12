@@ -33,8 +33,9 @@
         .tabs-container::-webkit-scrollbar { display: none; }
         .tab-btn { background: white; border: 2px solid #eee; padding: 10px 20px; border-radius: 25px; cursor: pointer; white-space: nowrap; font-weight: bold; color: #666; transition: 0.3s; }
         .tab-btn.active { background: var(--primary-green); color: white; border-color: var(--primary-green); }
+        
         .tab-content { display: none; animation: fadeIn 0.4s ease; }
-        .tab-content.active { display: block; }
+        .tab-content.active { display: block !important; }
 
         /* PRODUCT CARDS */
         .product-card { background: #ffffff; border-radius: 20px; padding: 18px; margin-bottom: 15px; box-shadow: 0 8px 15px rgba(0,0,0,0.04); border: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
@@ -60,7 +61,7 @@
         .radio-card input { margin-left: 10px; accent-color: var(--primary-green); width: 18px; height: 18px; }
         .radio-card:has(input:checked) { border-color: var(--primary-green); background: #f1f8f1; }
 
-        /* FLOATING FOOTER */
+        /* FLOATING FOOTER - iPhone Fix */
         .floating-footer { 
             position: fixed; 
             bottom: 20px; 
@@ -253,17 +254,23 @@
 
 <script>
     function openTab(evt, tabName) {
-        let contents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < contents.length; i++) {
-            contents[i].classList.remove("active");
-            contents[i].style.display = "none";
-        }
-        let btns = document.getElementsByClassName("tab-btn");
-        for (let i = 0; i < btns.length; i++) {
-            btns[i].classList.remove("active");
-        }
-        document.getElementById(tabName).classList.add("active");
-        document.getElementById(tabName).style.display = "block";
+        // הסתרת כל התכנים
+        const contents = document.querySelectorAll(".tab-content");
+        contents.forEach(content => {
+            content.style.display = "none";
+            content.classList.remove("active");
+        });
+
+        // הסרת עיצוב כפתור פעיל מכולם
+        const btns = document.querySelectorAll(".tab-btn");
+        btns.forEach(btn => btn.classList.remove("active"));
+
+        // הצגת התוכן הנבחר
+        const selectedTab = document.getElementById(tabName);
+        selectedTab.style.display = "block";
+        selectedTab.classList.add("active");
+
+        // הוספת עיצוב לכפתור שנלחץ
         evt.currentTarget.classList.add("active");
     }
 
