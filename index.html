@@ -256,9 +256,8 @@
     <div class="floating-total">
         <span class="label">סה"כ לתשלום:</span>
         <span class="amount">₪<span id="totalPrice">0</span></span>
-    '</div>
-    <button class="floating-submit" id="floatSubmitBtn" onclick="sendOrder()">שלח הזמנה</button>
-</div>'
+    </div>
+    </div>
 
 <script>
     function openTab(evt, tabName) {
@@ -328,9 +327,9 @@
         const floatBtn = document.getElementById('floatSubmitBtn');
         
         btn.disabled = true;
-        floatBtn.disabled = true;
+        if(floatBtn) floatBtn.disabled = true; // בדיקה אם הכפתור קיים לפני ביטולו
         btn.innerText = "שולח...";
-        floatBtn.innerText = "שולח...";
+        if(floatBtn) floatBtn.innerText = "שולח...";
 
         let orderItems = [];
         document.querySelectorAll('.prod-qty').forEach(input => {
@@ -365,8 +364,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
