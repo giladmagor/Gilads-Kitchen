@@ -11,7 +11,7 @@
             --accent-color: #e0d7c6; 
             --bg-color: #f5f5f0;
             --warm-orange: #e67e22;
-            --plus-green: #7ed9a2; /* גוון ירקרק חדש לכפתור הפלוס */
+            --plus-green: #7ed9a2;
         }
         
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); padding: 15px; text-align: right; color: #333; margin: 0; padding-bottom: 140px; }
@@ -29,15 +29,22 @@
         
         h2 { color: var(--primary-green); text-align: center; margin-bottom: 5px; font-size: 1.6rem; }
         
-        /* עיצוב לינק אינסטגרם */
+        /* עיצוב לינק אינסטגרם - צבע בז' עם שיפור קריאות */
         .instagram-link { 
             display: block; 
             text-align: center; 
-            color: #833ab4; 
+            color: #e0d7c6; /* צבע בז' */
             text-decoration: none; 
             font-size: 0.9rem; 
             margin-bottom: 20px; 
             font-weight: 600;
+            /* הוספת מסגרת שחורה וצל לשיפור הקריאות */
+            text-shadow: 
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000,
+                0 2px 4px rgba(0,0,0,0.5); 
         }
         .instagram-link:hover { text-decoration: underline; }
 
@@ -60,7 +67,7 @@
 
         .quantity-controls { display: flex; align-items: center; gap: 10px; background: #f0f0f0; padding: 6px; border-radius: 30px; }
         .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: white; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .qty-btn.plus { background: var(--plus-green); color: white; } /* שינוי הצבע כאן */
+        .qty-btn.plus { background: var(--plus-green); color: white; }
         .prod-qty { width: 25px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; }
 
         /* FORMS */
@@ -318,8 +325,12 @@
         }
 
         const btn = document.getElementById('submitBtn');
+        const floatBtn = document.getElementById('floatSubmitBtn');
+        
         btn.disabled = true;
+        if(floatBtn) floatBtn.disabled = true;
         btn.innerText = "שולח...";
+        if(floatBtn) floatBtn.innerText = "שולח...";
 
         let orderItems = [];
         document.querySelectorAll('.prod-qty').forEach(input => {
