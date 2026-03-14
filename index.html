@@ -65,6 +65,34 @@
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
         
+        /* עיצוב שורת התשלום עם הטלפון */
+        .payment-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .phone-display {
+            font-size: 0.9rem;
+            background: #e8f5e9;
+            padding: 4px 10px;
+            border-radius: 8px;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .copy-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
         .radio-group { margin: 10px 0; }
         .radio-card { 
             display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
@@ -209,7 +237,14 @@
         </div>
         <textarea id="deliveryNotes" placeholder="פרט כאן היכן ומתי נוח לך לתאם..." style="display:none;"></textarea>
 
-        <label>אמצעי תשלום:</label>
+        <div class="payment-label-row">
+            <label style="margin-top:0;">אמצעי תשלום:</label>
+            <div class="phone-display">
+                <span>055-2421009</span>
+                <button class="copy-btn" onclick="copyNumber()">העתק</button>
+            </div>
+        </div>
+        
         <div class="radio-group">
             <label class="radio-card"><input type="radio" name="payMethod" value="ביט" checked> <span>ביט (Bit)</span></label>
             <label class="radio-card"><input type="radio" name="payMethod" value="פייבוקס"> <span>פייבוקס (PayBox)</span></label>
@@ -257,6 +292,12 @@
         let value = input.value.replace(/\D/g, ''); 
         if (value.length > 3) { value = value.slice(0, 3) + '-' + value.slice(3, 10); }
         input.value = value;
+    }
+
+    function copyNumber() {
+        navigator.clipboard.writeText('0552421009').then(() => {
+            alert('המספר הועתק!');
+        });
     }
 
     function sendOrder() {
@@ -318,7 +359,7 @@
                     window.location.href = "paybox://"; 
                 }
             } else {
-                alert("ההזמנה התקבלה בהצלחה!");
+                alert("ההזמנה התקבלה בהצלחה! ניצור קשר בהקדם.");
             }
             location.reload(); 
         })
