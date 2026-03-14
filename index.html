@@ -65,19 +65,21 @@
         /* FORM & OPTIONS */
         .form-section { background: white; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #eee; }
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
-        input[type="text"], input[type="tel"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; }
+        input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
         
+        .radio-group { margin: 10px 0; }
         .radio-card { 
             display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
             border: 2px solid #eee; border-radius: 12px; cursor: pointer; margin-bottom: 8px; 
         }
         .radio-card input { margin-left: 10px; width: 18px; height: 18px; }
+        .radio-card.selected { border-color: var(--primary-green); background: #f0f4f0; }
 
         .copy-box { 
             display: flex; justify-content: space-between; align-items: center; 
-            background: #f0f4f0; padding: 10px; border-radius: 10px; margin: 10px 0; border: 1px dashed var(--primary-green);
+            background: #fffbe6; padding: 10px; border-radius: 10px; margin: 10px 0; border: 1px dashed #ffe58f;
         }
-        .copy-btn { background: var(--primary-green); color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+        .copy-btn { background: #faad14; color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
 
         .floating-footer { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
@@ -105,7 +107,7 @@
     <div id="pickles" class="tab-content">
         <div class="product-card">
             <div class="badge-new">חדש</div>
-            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל - טעם חלומי</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל - חמוץ מתוק בטעם חלומי</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                 <input type="number" class="prod-qty" data-price="25" data-name="עגבניות שרי מוחמצות" value="0" readonly>
@@ -113,19 +115,15 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">בטעם של פעם - 580 מ"ל</p><span class="product-price">₪28</span></div>
-            <div class="quantity-controls">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly>
-                <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
-            </div>
+            <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">פרוביוטי - 580 מ"ל</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">כרוב חמוץ</h3><p class="product-description">בסגנון קימצ'י - 580 מ"ל</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">כרוב חמוץ</h3><p class="product-description">קימצ'י - 580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
@@ -155,7 +153,7 @@
 
     <div id="pastries" class="tab-content">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">תבנית אינגליש קייק</p><span class="product-price">₪24</span></div>
+            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">אינגליש קייק</p><span class="product-price">₪24</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
@@ -173,16 +171,24 @@
         <input type="tel" id="phone" placeholder="מספר טלפון *" required>
 
         <label>אופן קבלת ההזמנה:</label>
-        <label class="radio-card"><input type="radio" name="deliveryMethod" value="חלוקה של שירלי" checked> <span>יום רביעי (חלוקה של שירלי)</span></label>
-        <label class="radio-card"><input type="radio" name="deliveryMethod" value="תיאום"> <span>בתיאום אישי</span></label>
+        <div class="radio-group">
+            <label class="radio-card"><input type="radio" name="deliveryMethod" value="חלוקה של שירלי" checked onclick="toggleDetail(false)"> <span>יום רביעי (חלוקה של שירלי)</span></label>
+            <label class="radio-card"><input type="radio" name="deliveryMethod" value="תיאום" onclick="toggleDetail(true)"> <span>בתיאום אישי</span></label>
+        </div>
+        <textarea id="deliveryNotes" placeholder="פרט כאן היכן ומתי נוח לך לתאם..." style="display:none;"></textarea>
 
-        <label>תשלום לנייד (Bit/PayBox):</label>
+        <label>אמצעי תשלום:</label>
+        <div class="radio-group">
+            <label class="radio-card"><input type="radio" name="payMethod" value="Bit" checked> <span>Bit (ביט)</span></label>
+            <label class="radio-card"><input type="radio" name="payMethod" value="PayBox"> <span>PayBox (פייבוקס)</span></label>
+        </div>
+
         <div class="copy-box">
             <span id="payNum">0552421009</span>
             <button class="copy-btn" onclick="copyNumber()">העתק מספר</button>
         </div>
 
-        <button id="submitBtn" onclick="sendOrder()">שלח הזמנה בוואטסאפ</button>
+        <button id="submitBtn" onclick="sendOrder()">שלח הזמנה</button>
     </div>
 </div>
 
@@ -197,6 +203,10 @@
         for (i = 0; i < tabBtns.length; i++) { tabBtns[i].className = tabBtns[i].className.replace(" active", ""); }
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
+    }
+
+    function toggleDetail(show) {
+        document.getElementById('deliveryNotes').style.display = show ? 'block' : 'none';
     }
 
     function changeQty(btn, delta) {
@@ -216,11 +226,10 @@
     }
 
     function copyNumber() {
-        navigator.clipboard.writeText("0552421009").then(() => alert("המספר הועתק! ניתן להדביק בביט או פייבוקס"));
+        navigator.clipboard.writeText("0552421009").then(() => alert("המספר הועתק!"));
     }
 
     function sendOrder() {
-        // כאן ניתן להוסיף את הקישור ל-Google Sheets אם תרצה
         alert("הזמנה נשלחת...");
     }
 </script>
