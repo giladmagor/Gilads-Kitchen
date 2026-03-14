@@ -12,7 +12,7 @@
             --bg-color: #f5f5f0;
             --warm-orange: #e67e22;
             --plus-green: #7ed9a2;
-            --new-tag-color: #ff5722; /* צבע בולט למוצר חדש */
+            --new-tag: #ff5722; /* צבע כתום בולט למוצר חדש */
         }
         
         body { 
@@ -22,7 +22,7 @@
             text-align: right; 
             color: #333; 
             margin: 0; 
-            padding-bottom: 120px; 
+            padding-bottom: 140px; 
         }
         
         .container { max-width: 500px; margin: auto; }
@@ -64,21 +64,22 @@
             box-shadow: 0 8px 15px rgba(0,0,0,0.04); 
             border: 1px solid #eee; 
             display: flex; justify-content: space-between; align-items: center; 
-            position: relative; /* בשביל מיקום תגית "חדש" */
+            position: relative;
         }
-        
+
         /* עיצוב תגית חדש */
         .badge-new {
             position: absolute;
             top: -10px;
             right: 15px;
-            background: var(--new-tag-color);
+            background: var(--new-tag);
             color: white;
-            padding: 2px 12px;
-            border-radius: 10px;
+            padding: 3px 12px;
+            border-radius: 12px;
             font-size: 0.75rem;
             font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            z-index: 5;
         }
 
         .product-info { flex: 1; }
@@ -101,6 +102,14 @@
         .form-section { background: white; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #eee; }
         input[type="text"], input[type="tel"] { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; font-size: 16px; margin: 8px 0; }
         
+        .radio-card { 
+            display: flex; align-items: center; 
+            padding: 12px; background: #f9f9f9; 
+            border: 2px solid #eee; border-radius: 12px; 
+            cursor: pointer; margin-bottom: 8px; 
+        }
+        .radio-card input { margin-left: 10px; }
+
         .floating-footer { 
             position: fixed; bottom: 25px; left: 50%;
             transform: translateX(-50%); width: 90%;
@@ -146,7 +155,7 @@
                 <div class="badge-new">חדש</div>
                 <div class="product-info">
                     <h3 class="product-name">עגבניות שרי מוחמצות</h3>
-                    <p class="product-description">בטעם ייחודי - 580 מ"ל</p>
+                    <p class="product-description">580 מ"ל - טעם מפתיע!</p>
                     <span class="product-price">₪25</span>
                 </div>
                 <div class="quantity-controls">
@@ -168,16 +177,53 @@
                     <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
                 </div>
             </div>
-            
+
             <div class="product-card">
                 <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">פרוביוטי - 580 מ"ל</p><span class="product-price">₪25</span></div>
-                <div class="quantity-controls">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly>
-                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
-                </div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
             </div>
+
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">כרוב חמוץ</h3><p class="product-description">בסגנון קימצ'י - 580 מ"ל</p><span class="product-price">₪25</span></div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
             </div>
+
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גרם</p><span class="product-price">₪17</span></div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">טורשי עיראקי</h3><p class="product-description">2 ליטר</p><span class="product-price">₪30</span></div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            </div>
+        </div>
+
+        <div id="soups" class="tab-content">
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">מרק עגבניות</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            </div>
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            </div>
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">מרק כתומים</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק כתומים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            </div>
+        </div>
+
+        <div id="pastries" class="tab-content">
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">תבנית אינגליש קייק</p><span class="product-price">₪24</span></div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            </div>
+            <div class="product-card">
+                <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">קילו</p><span class="product-price">₪40</span></div>
+                <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="40" data-name="מג'דרה" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            </div>
+        </div>
 
         <div class="form-section">
             <label>פרטי לקוח *</label>
@@ -186,14 +232,20 @@
                 <input type="text" id="lastName" placeholder="שם משפחה *" required>
             </div>
             <input type="tel" id="phone" placeholder="מספר טלפון *" required oninput="formatPhoneNumber(this)">
+            
+            <label>אופן קבלת ההזמנה:</label>
+            <label class="radio-card"><input type="radio" name="deliveryMethod" value="חלוקה של שירלי" checked> <span>ביום רביעי (עם שירלי)</span></label>
+            <label class="radio-card"><input type="radio" name="deliveryMethod" value="תיאום"> <span>בתיאום אישי</span></label>
+            
+            <label>תשלום לנייד:</label>
+            <div class="copy-box"><span id="payNum">0552421009</span><button class="copy-btn" onclick="copyNumber()">העתק</button></div>
+
             <button id="submitBtn" onclick="sendOrder()">שלח הזמנה</button>
         </div>
     </div>
 </div>
 
-<div class="floating-footer" id="floatingSum">
-    סה"כ לתשלום: <span id="totalPrice" style="margin-right:8px;">0</span> ₪
-</div>
+<div class="floating-footer" id="floatingSum">סה"כ לתשלום: <span id="totalPrice" style="margin-right:8px;">0</span> ₪</div>
 
 <script>
     function openTab(evt, tabName) {
@@ -232,6 +284,7 @@
     }
 
     function sendOrder() {
+        // כאן אתה יכול להוסיף את ה-fetch ל-Google Scripts שלך כפי שעשינו קודם
         alert("הזמנה נשלחת...");
     }
 </script>
