@@ -200,7 +200,7 @@
             <input type="text" id="firstName" placeholder="שם פרטי *" required>
             <input type="text" id="lastName" placeholder="שם משפחה *" required>
         </div>
-        <input type="tel" id="phone" placeholder="מספר טלפון *" required maxlength="11" oninput="formatPhone(this)">
+        <input type="tel" id="phone" placeholder="מספר טלפון *" required maxlength="12" oninput="formatPhone(this)">
 
         <label>אופן קבלת ההזמנה:</label>
         <div class="radio-group">
@@ -269,13 +269,15 @@
         const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
         const btn = document.getElementById('submitBtn');
 
-        if (!firstName || !lastName || phone.length < 11 || total === "0") {
-            alert("נא למלא את כל שדות החובה ולבחור לפחות מוצר אחד.");
+        if (!firstName || !lastName || phone.length < 11) {
+            alert("נא למלא שם מלא ומספר טלפון תקין.");
             return;
         }
 
-        btn.disabled = true;
-        btn.innerText = "שולח הזמנה...";
+        if (total === "0") {
+            alert("נא לבחור לפחות מוצר אחד להזמנה.");
+            return;
+        }
 
         let orderItems = [];
         document.querySelectorAll('.prod-qty').forEach(input => {
@@ -285,7 +287,6 @@
             }
         });
 
-        // סנכרון שמות השדות עם הסקריפט של גוגל
         const data = {
             date: new Date().toLocaleString('he-IL'),
             name: firstName + " " + lastName,
@@ -297,7 +298,10 @@
             comments: "תיאום: " + (deliveryNotes || "אין")
         };
 
-        const scriptURL = https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec'; 
+        btn.disabled = true;
+        btn.innerText = "שולח הזמנה...";
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec'; 
 
         fetch(scriptURL, { 
             method: 'POST', 
@@ -313,8 +317,9 @@
                 if(confirm("ההזמנה נשלחה! לעבור ל-PayBox לתשלום?")) {
                     window.location.href = "paybox://"; 
                 }
+            } else {
+                alert("ההזמנה התקבלה בהצלחה! ניצור קשר בהקדם.");
             }
-            alert("ההזמנה התקבלה בהצלחה!");
             location.reload(); 
         })
         .catch((error) => {
