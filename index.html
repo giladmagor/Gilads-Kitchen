@@ -196,7 +196,6 @@
 <div class="floating-footer">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
 
 <script>
-    // 1. ניהול טאבים
     function openTab(evt, tabName) {
         var i, tabContent, tabBtns;
         tabContent = document.getElementsByClassName("tab-content");
@@ -211,7 +210,6 @@
         document.getElementById('deliveryNotes').style.display = show ? 'block' : 'none';
     }
 
-    // 2. ניהול כמויות ומחיר
     function changeQty(btn, delta) {
         const input = btn.parentElement.querySelector('.prod-qty');
         let val = parseInt(input.value) + delta;
@@ -228,7 +226,6 @@
         document.getElementById('totalPrice').innerText = total;
     }
 
-    // 3. עזרים (העתקה ופורמט טלפון)
     function copyNumber() {
         navigator.clipboard.writeText("0552421009").then(() => alert("המספר הועתק!"));
     }
@@ -243,7 +240,6 @@
         }
     }
 
-    // 4. שליחת הזמנה (גוגל שיטס + וואטסאפ)
     async function sendOrder() {
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
@@ -254,27 +250,23 @@
         const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
         const total = document.getElementById('totalPrice').innerText;
 
-        // וולידציה
         if (!firstName || !lastName) { alert("נא להזין שם פרטי ומשפחה"); return; }
         if (phoneDigits.length !== 10) { alert("נא להזין מספר טלפון תקין (10 ספרות)"); return; }
 
         let productsArray = [];
-        let productsText = "";
         document.querySelectorAll('.prod-qty').forEach(input => {
             if (parseInt(input.value) > 0) {
                 productsArray.push(`${input.dataset.name} (${input.value})`);
-                productsText += `* ${input.dataset.name}: ${input.value}\n`;
             }
         });
 
         if (productsArray.length === 0) { alert("נא לבחור לפחות מוצר אחד"); return; }
 
-        // --- התחלת תהליך שליחה ---
         const btn = document.getElementById('submitBtn');
-        btn.innerText = "שולח נתונים...";
+        btn.innerText = "שולח הזמנה...";
         btn.disabled = true;
 
-        // כתובת ה-URL של ה-Script שלך
+        // כתובת ה-Script של Google Sheets
         const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; 
 
         const formData = new FormData();
@@ -287,28 +279,17 @@
         formData.append('payment', payMethod);
 
         try {
-            // שליחה לגוגל שיטס ב-Background
             await fetch(scriptURL, { method: 'POST', body: formData });
-            console.log("נשמר בגוגל שיטס בהצלחה");
+            alert("ההזמנה התקבלה בהצלחה! גלעד יצור קשר בהמשך.");
+            // איפוס טופס לאחר הצלחה
+            location.reload(); 
         } catch (error) {
-            console.error("שגיאה בשמירה לגוגל:", error);
+            console.error("שגיאה:", error);
+            alert("הייתה בעיה בשליחת ההזמנה. נא לנסות שוב או ליצור קשר טלפוני.");
+        } finally {
+            btn.innerText = "שלח הזמנה";
+            btn.disabled = false;
         }
-
-        // הכנת הודעת וואטסאפ
-        let message = `*הזמנה חדשה - המטבח של גלעד*\n\n`;
-        message += `*שם:* ${firstName} ${lastName}\n`;
-        message += `*טלפון:* ${phoneField}\n\n`;
-        message += `*פירוט:* \n${productsText}\n`;
-        message += `*סה"כ:* ₪${total}\n\n`;
-        message += `*אספקה:* ${deliveryMethod}\n`;
-        if (deliveryNotes) message += `*הערות:* ${deliveryNotes}\n`;
-        message += `*תשלום:* ${payMethod}`;
-
-        // פתיחת וואטסאפ
-        window.open(`https://wa.me/972552421009?text=${encodeURIComponent(message)}`, '_blank');
-        
-        btn.innerText = "שלח הזמנה";
-        btn.disabled = false;
     }
 </script>
 
