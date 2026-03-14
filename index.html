@@ -233,7 +233,6 @@
 <div class="floating-footer">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
 
 <script>
-    // ניהול טאבים
     function openTab(evt, tabName) {
         var i, tabContent, tabBtns;
         tabContent = document.getElementsByClassName("tab-content");
@@ -244,12 +243,10 @@
         evt.currentTarget.className += " active";
     }
 
-    // הצגת/הסתרת הערות תיאום
     function toggleDetail(show) {
         document.getElementById('deliveryNotes').style.display = show ? 'block' : 'none';
     }
 
-    // שינוי כמות
     function changeQty(btn, delta) {
         const input = btn.parentElement.querySelector('.prod-qty');
         let val = parseInt(input.value) + delta;
@@ -258,7 +255,6 @@
         updateTotal();
     }
 
-    // עדכון מחיר סופי
     function updateTotal() {
         let total = 0;
         document.querySelectorAll('.prod-qty').forEach(input => {
@@ -267,12 +263,10 @@
         document.getElementById('totalPrice').innerText = total;
     }
 
-    // העתקת מספר לביט
     function copyNumber() {
         navigator.clipboard.writeText("0552421009").then(() => alert("המספר הועתק!"));
     }
 
-    // עיצוב מספר טלפון
     function formatPhone(input) {
         let value = input.value.replace(/\D/g, ''); 
         if (value.length > 10) value = value.slice(0, 10);
@@ -283,7 +277,6 @@
         }
     }
 
-    // שליחת ההזמנה לגוגל
     async function sendOrder() {
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
@@ -294,7 +287,6 @@
         const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
         const total = document.getElementById('totalPrice').innerText;
 
-        // בדיקת תקינות
         if (!firstName || !lastName) { alert("נא להזין שם פרטי ומשפחה"); return; }
         if (phoneDigits.length !== 10) { alert("נא להזין מספר טלפון תקין (10 ספרות)"); return; }
 
@@ -312,7 +304,6 @@
         btn.innerText = "שולח הזמנה...";
         btn.disabled = true;
 
-        // ה-URL של ה-Script שלך
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwm1svEPrR5WjsMtZiw4r9Zo5beFrM9_vQDRsdeZowhU1aZCrKWFNHuQZ5bFUShN53BEQ/exec'; 
 
         const formData = new FormData();
@@ -325,10 +316,7 @@
         formData.append('payment', payMethod);
 
         try {
-            // שליחה לגוגל
             await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
-            
-            // הודעת הצלחה ורענון
             alert("ההזמנה התקבלה בהצלחה בגיליון! גלעד יצור קשר בהמשך.");
             location.reload(); 
         } catch (error) {
