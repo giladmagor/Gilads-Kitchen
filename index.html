@@ -31,7 +31,6 @@
 
         /* TABS */
         .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
-        .tabs-container::-webkit-scrollbar { display: none; }
         .tab-btn { 
             background: white; border: 2px solid #ddd; padding: 10px 20px; border-radius: 25px; 
             cursor: pointer; white-space: nowrap; font-weight: bold; color: #666; flex-shrink: 0;
@@ -39,7 +38,7 @@
         .tab-btn.active { background: var(--primary-green); color: white; border-color: var(--primary-green); }
         
         .tab-content { display: none; }
-        #pickles { display: block; } /* מוצג כברירת מחדל */
+        #pickles { display: block; }
 
         /* PRODUCT CARDS */
         .product-card { 
@@ -51,7 +50,6 @@
         .badge-new {
             position: absolute; top: -8px; right: 10px; background: var(--new-tag);
             color: white; padding: 3px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; z-index: 5;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .product-info { flex: 1; padding-left: 10px; }
@@ -64,10 +62,23 @@
         .qty-btn.plus { background: var(--plus-green); color: white; }
         .prod-qty { width: 25px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; }
 
-        /* FORM */
+        /* FORM & OPTIONS */
         .form-section { background: white; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #eee; }
+        label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         input[type="text"], input[type="tel"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; }
         
+        .radio-card { 
+            display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
+            border: 2px solid #eee; border-radius: 12px; cursor: pointer; margin-bottom: 8px; 
+        }
+        .radio-card input { margin-left: 10px; width: 18px; height: 18px; }
+
+        .copy-box { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: #f0f4f0; padding: 10px; border-radius: 10px; margin: 10px 0; border: 1px dashed var(--primary-green);
+        }
+        .copy-btn { background: var(--primary-green); color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+
         .floating-footer { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
             width: 85%; max-width: 400px; background: var(--primary-green); 
@@ -75,7 +86,7 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 1000; font-size: 1.1rem; font-weight: bold;
         }
 
-        #submitBtn { background: var(--primary-green); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; margin-top: 15px; }
+        #submitBtn { background: var(--primary-green); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.2rem; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -94,7 +105,7 @@
     <div id="pickles" class="tab-content">
         <div class="product-card">
             <div class="badge-new">חדש</div>
-            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל - חמוץ מתוק בטעם חלומי</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל - טעם חלומי</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                 <input type="number" class="prod-qty" data-price="25" data-name="עגבניות שרי מוחמצות" value="0" readonly>
@@ -118,11 +129,11 @@
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גרם - מושלם לסנדוויץ'</p><span class="product-price">₪17</span></div>
+            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גרם</p><span class="product-price">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">טורשי עיראקי</h3><p class="product-description">צנצנת 2 ליטר עשירה</p><span class="product-price">₪30</span></div>
+            <div class="product-info"><h3 class="product-name">טורשי עיראקי</h3><p class="product-description">2 ליטר</p><span class="product-price">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
@@ -137,18 +148,18 @@
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מרק כתומים</h3><p class="product-description">חצי ליטר - בטטה, דלעת וגזר</p><span class="product-price">₪35</span></div>
+            <div class="product-info"><h3 class="product-name">מרק כתומים</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק כתומים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
 
     <div id="pastries" class="tab-content">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">תבנית אינגליש קייק - חריף מתוק</p><span class="product-price">₪24</span></div>
+            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">תבנית אינגליש קייק</p><span class="product-price">₪24</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">קילו - עם המון בצל מטוגן</p><span class="product-price">₪40</span></div>
+            <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">קילו</p><span class="product-price">₪40</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="40" data-name="מג'דרה" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
@@ -160,7 +171,18 @@
             <input type="text" id="lastName" placeholder="שם משפחה *" required>
         </div>
         <input type="tel" id="phone" placeholder="מספר טלפון *" required>
-        <button id="submitBtn" onclick="sendOrder()">שלח הזמנה</button>
+
+        <label>אופן קבלת ההזמנה:</label>
+        <label class="radio-card"><input type="radio" name="deliveryMethod" value="חלוקה של שירלי" checked> <span>יום רביעי (חלוקה של שירלי)</span></label>
+        <label class="radio-card"><input type="radio" name="deliveryMethod" value="תיאום"> <span>בתיאום אישי</span></label>
+
+        <label>תשלום לנייד (Bit/PayBox):</label>
+        <div class="copy-box">
+            <span id="payNum">0552421009</span>
+            <button class="copy-btn" onclick="copyNumber()">העתק מספר</button>
+        </div>
+
+        <button id="submitBtn" onclick="sendOrder()">שלח הזמנה בוואטסאפ</button>
     </div>
 </div>
 
@@ -169,17 +191,10 @@
 <script>
     function openTab(evt, tabName) {
         var i, tabContent, tabBtns;
-        
         tabContent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabContent.length; i++) {
-            tabContent[i].style.display = "none";
-        }
-        
+        for (i = 0; i < tabContent.length; i++) { tabContent[i].style.display = "none"; }
         tabBtns = document.getElementsByClassName("tab-btn");
-        for (i = 0; i < tabBtns.length; i++) {
-            tabBtns[i].className = tabBtns[i].className.replace(" active", "");
-        }
-        
+        for (i = 0; i < tabBtns.length; i++) { tabBtns[i].className = tabBtns[i].className.replace(" active", ""); }
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
@@ -200,7 +215,12 @@
         document.getElementById('totalPrice').innerText = total;
     }
 
+    function copyNumber() {
+        navigator.clipboard.writeText("0552421009").then(() => alert("המספר הועתק! ניתן להדביק בביט או פייבוקס"));
+    }
+
     function sendOrder() {
+        // כאן ניתן להוסיף את הקישור ל-Google Sheets אם תרצה
         alert("הזמנה נשלחת...");
     }
 </script>
