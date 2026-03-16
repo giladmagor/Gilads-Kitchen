@@ -11,6 +11,7 @@
             --bg-color: #f5f5f0;
             --plus-green: rgba(126, 217, 162, 0.8); 
             --new-tag: #ff5722; 
+            --deep-text-green: #1e3d1a; /* ירוק כהה לקריאות מקסימלית */
         }
         
         body { 
@@ -69,7 +70,9 @@
         .product-info { flex: 1; padding-left: 10px; }
         .product-name { margin: 0; font-size: 1.05rem; color: var(--primary-green); font-weight: bold; }
         .product-description { margin: 3px 0; font-size: 0.8rem; color: #7f8c8d; }
-        .product-price { font-weight: bold; color: #27ae60; display: block; margin-top: 4px; }
+        
+        /* שיפור צבע המחיר בכרטיס */
+        .product-price { font-weight: bold; color: var(--deep-text-green); display: block; margin-top: 4px; }
 
         .quantity-controls { display: flex; align-items: center; gap: 8px; background: rgba(240, 240, 240, 0.6); padding: 5px; border-radius: 25px; flex-shrink: 0; backdrop-filter: blur(3px); }
         .qty-btn { 
@@ -97,57 +100,59 @@
         .radio-card { display: flex; align-items: center; padding: 12px; background: #f9f9f9; border: 2px solid #eee; border-radius: 12px; cursor: pointer; margin-bottom: 8px; }
         .radio-card input { margin-left: 10px; width: 18px; height: 18px; }
 
+        /* שיפור צבע הפוטר הצף - ירוק עמוק וקריא */
         .floating-footer { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
             width: 85%; max-width: 400px; background: var(--primary-green); 
-            color: white; padding: 15px; border-radius: 35px; text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 1000; font-size: 1.1rem; font-weight: bold;
+            color: #ffffff; padding: 15px; border-radius: 35px; text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 1000; font-size: 1.15rem; font-weight: bold;
         }
+        #totalPrice { color: #f0f0f0; }
 
         #submitBtn { 
-            background: rgba(45, 90, 39, 0.8); color: white; border: 1px solid rgba(255, 255, 255, 0.2); 
+            background: rgba(45, 90, 39, 0.85); color: white; border: 1px solid rgba(255, 255, 255, 0.2); 
             padding: 18px; width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.2rem; 
             font-weight: bold; margin-top: 20px; transition: 0.3s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
         }
         #submitBtn:disabled { background: rgba(149, 165, 166, 0.6); cursor: not-allowed; }
 
-        /* --- עיצוב כפתור וואטסאפ צף --- */
         .whatsapp-float {
             position: fixed; width: 60px; height: 60px; bottom: 90px; right: 20px; background-color: #25d366; color: white; border-radius: 50%; text-align: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 999; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;
         }
         .whatsapp-float:active { transform: scale(0.9); }
 
-        /* --- עיצוב חלונית סיכום הזמנה (Modal) Glassmorphism --- */
+        /* שיפור צבעי המודאל - ירוק עמוק במקום ירוק זוהר */
         .modal {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
         }
         .modal-content {
-            background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 20px; max-width: 400px; width: 85%; margin: 15% auto; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); text-align: right;
+            background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 20px; max-width: 400px; width: 85%; margin: 15% auto; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); text-align: right;
         }
         .modal-header { font-size: 1.4rem; font-weight: bold; color: var(--primary-green); margin-bottom: 15px; text-align: center; }
         .modal-body { max-height: 300px; overflow-y: auto; font-size: 1rem; color: #333; line-height: 1.6; border-bottom: 1px solid rgba(0,0,0,0.1); border-top: 1px solid rgba(0,0,0,0.1); padding: 15px 0; margin-bottom: 20px; }
         .modal-summary-item { margin-bottom: 10px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 5px; }
         .modal-summary-name { font-weight: bold; color: var(--primary-green); }
         .modal-summary-comment { font-size: 0.85rem; color: #7f8c8d; font-style: italic; }
-        .modal-total { font-size: 1.3rem; font-weight: bold; text-align: center; color: #27ae60; margin-bottom: 20px; }
+        
+        /* שיפור שורת הסה"כ במודאל */
+        .modal-total { font-size: 1.3rem; font-weight: bold; text-align: center; color: var(--deep-text-green); margin-bottom: 20px; border-top: 2px solid rgba(45, 90, 39, 0.1); padding-top: 10px; }
+        
         .modal-footer-btns { display: flex; gap: 10px; justify-content: space-between; }
         .modal-btn { padding: 12px 20px; border-radius: 12px; border: none; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.3s; flex: 1; text-align: center; }
-        .btn-edit { background: rgba(255, 255, 255, 0.4); color: #333; border: 1px solid #ccc; }
+        .btn-edit { background: rgba(255, 255, 255, 0.5); color: #333; border: 1px solid #ccc; }
         .btn-confirm { background: var(--primary-green); color: white; }
-        .btn-confirm:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
 
 <a href="https://wa.me/972552421009?text=היי גלעד, אשמח לבירור לגבי הזמנה מהמטבח" class="whatsapp-float" target="_blank">
-    <i>WhatsApp</i>
+    <i>WA</i>
 </a>
 
 <div id="orderModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">סיכום ההזמנה שלך</div>
-        <div class="modal-body" id="modalOrderList">
-            </div>
+        <div class="modal-body" id="modalOrderList"></div>
         <div class="modal-total">סה"כ לתשלום: <span id="modalTotal">0</span> ₪</div>
         <div class="modal-footer-btns">
             <button class="modal-btn btn-edit" onclick="closeModal()">ערוך הזמנה</button>
@@ -301,18 +306,16 @@
             <input type="text" class="product-comment-input" placeholder="כתוב כאן הערה למוצר...">
         </div>
         <div class="product-card">
-            <div class="product-main-row">
-                <div class="product-info">
-                    <h3 class="product-name">מרק ירקות כתומים</h3>
-                    <p class="product-description">גזר, בטטה, דלעת ועוד - חצי ליטר</p>
-                    <button class="comment-toggle-btn" onclick="toggleComment(this)">הוסף הערה</button>
-                    <span class="product-price">₪35</span>
-                </div>
-                <div class="quantity-controls">
-                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות כתומים" value="0" readonly>
-                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
-                </div>
+            <div class="product-info">
+                <h3 class="product-name">מרק ירקות כתומים</h3>
+                <p class="product-description">גזר, בטטה, דלעת - חצי ליטר</p>
+                <button class="comment-toggle-btn" onclick="toggleComment(this)">הוסף הערה</button>
+                <span class="product-price">₪35</span>
+            </div>
+            <div class="quantity-controls">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות כתומים" value="0" readonly>
+                <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
             </div>
             <input type="text" class="product-comment-input" placeholder="כתוב כאן הערה למוצר...">
         </div>
@@ -323,7 +326,7 @@
             <div class="product-main-row">
                 <div class="product-info">
                     <h3 class="product-name">קוגל ירושלמי</h3>
-                    <p class="product-description">בתבנית אינגליש קייק</p>
+                    <p class="product-description">תבנית אינגליש קייק</p>
                     <button class="comment-toggle-btn" onclick="toggleComment(this)">הוסף הערה</button>
                     <span class="product-price">₪24</span>
                 </div>
@@ -339,7 +342,7 @@
             <div class="product-main-row">
                 <div class="product-info">
                     <h3 class="product-name">מג'דרה ביתית</h3>
-                    <p class="product-description">עשירה בבצל ועדשים - קילו</p>
+                    <p class="product-description">קילו</p>
                     <button class="comment-toggle-btn" onclick="toggleComment(this)">הוסף הערה</button>
                     <span class="product-price">₪40</span>
                 </div>
@@ -369,7 +372,7 @@
         <textarea id="deliveryNotes" placeholder="פרט כאן היכן ומתי נוח לך לתאם..." style="display:none;"></textarea>
 
         <div class="payment-label-row">
-            <label style="margin-top:0;">אמצעי תשלום (לביט/פייבוקס):</label>
+            <label style="margin-top:0;">תשלום בביט/פייבוקס:</label>
             <div class="phone-display">
                 <span>055-2421009</span>
                 <button class="copy-btn" onclick="copyNumber()">העתק</button>
@@ -389,7 +392,6 @@
 <div class="floating-footer">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
 
 <script>
-    // משתנה גלובלי לאחסון הנתונים לצורך שליחה סופית
     let currentDataForSend = null;
 
     function openTab(evt, tabName) {
@@ -409,15 +411,9 @@
     function toggleComment(btn) {
         const card = btn.closest('.product-card');
         const input = card.querySelector('.product-comment-input');
-        if (input.style.display === 'block') {
-            input.style.display = 'none';
-            btn.innerText = 'הוסף הערה';
-            input.value = '';
-        } else {
-            input.style.display = 'block';
-            input.focus();
-            btn.innerText = 'בטל הערה';
-        }
+        input.style.display = (input.style.display === 'block') ? 'none' : 'block';
+        if (input.style.display === 'block') input.focus();
+        btn.innerText = (input.style.display === 'block') ? 'בטל הערה' : 'הוסף הערה';
     }
 
     function changeQty(btn, delta) {
@@ -443,125 +439,79 @@
     }
 
     function copyNumber() {
-        navigator.clipboard.writeText('0552421009').then(() => {
-            alert('המספר הועתק!');
-        });
+        navigator.clipboard.writeText('0552421009').then(() => alert('המספר הועתק!'));
     }
 
-    // פונקציות ה-Modal
     function closeModal() {
         document.getElementById('orderModal').style.display = 'none';
     }
 
-    // שינוי פונקציית ה-sendOrder הראשונית - היא כעת בונה את הסיכום ומציגה אותו
     function sendOrder() {
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
         const total = document.getElementById('totalPrice').innerText;
-        const payment = document.querySelector('input[name="payMethod"]:checked').value;
-        const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
-        const submitBtn = document.getElementById('submitBtn');
 
-        // בדיקת חובה
-        if (!firstName || !lastName || phone.length < 11) {
-            alert("נא למלא את כל שדות החובה בפרטי הלקוח.");
+        if (!firstName || phone.length < 11) {
+            alert("נא למלא פרטי קשר תקינים.");
             return;
         }
         if (total === "0") {
-            alert("נא לבחור לפחות מוצר אחד להזמנה.");
+            alert("הסל ריק.");
             return;
         }
 
-        // איסוף מורכב לצורך סיכום ושליחה
         let orderItems = [];
-        let modalOrderHtml = ''; // לבניית רשימת ה-Modal
+        let modalOrderHtml = '';
 
         document.querySelectorAll('.product-card').forEach(card => {
             const qtyInput = card.querySelector('.prod-qty');
-            if (qtyInput) {
-                let val = parseInt(qtyInput.value) || 0;
-                if (val > 0) {
-                    const prodName = qtyInput.getAttribute('data-name');
-                    const comment = card.querySelector('.product-comment-input').value.trim();
-                    const prodPrice = qtyInput.getAttribute('data-price');
-                    
-                    let itemString = `${prodName} (${val})`;
-                    
-                    // בניית HTML ל-Modal
-                    modalOrderHtml += `
-                        <div class="modal-summary-item">
-                            <span class="modal-summary-name">${prodName}</span> (x${val}) - ₪${prodPrice * val}
-                            ${comment ? `<div class="modal-summary-comment">[הערה: ${comment}]</div>` : ''}
-                        </div>
-                    `;
-
-                    // סיכום לגוגל שיטס
-                    if (comment) {
-                        itemString += ` [הערה: ${comment}]`;
-                    }
-                    orderItems.push(itemString);
-                }
+            if (qtyInput && parseInt(qtyInput.value) > 0) {
+                const val = qtyInput.value;
+                const prodName = qtyInput.getAttribute('data-name');
+                const comment = card.querySelector('.product-comment-input').value.trim();
+                const prodPrice = qtyInput.getAttribute('data-price');
+                
+                modalOrderHtml += `
+                    <div class="modal-summary-item">
+                        <span class="modal-summary-name">${prodName}</span> (x${val}) - ₪${prodPrice * val}
+                        ${comment ? `<div class="modal-summary-comment">[הערה: ${comment}]</div>` : ''}
+                    </div>`;
+                orderItems.push(comment ? `${prodName} (${val}) [${comment}]` : `${prodName} (${val})`);
             }
         });
 
-        // עדכון ה-Modal והצגתו
         document.getElementById('modalOrderList').innerHTML = modalOrderHtml;
         document.getElementById('modalTotal').innerText = total;
         document.getElementById('orderModal').style.display = 'block';
 
-        // אחסון הנתונים במשתנה גלובלי לצורך השליחה הסופית
         currentDataForSend = {
             date: new Date().toLocaleString('he-IL'),
             name: firstName + " " + lastName,
             phone: phone,
-            orderSummary: orderItems.join(", "), 
-            totalPrice: total,                   
-            paymentMethod: payment,              
-            deliveryMethod: delivery,             
-            comments: "תיאום: " + (deliveryNotes || "אין")
+            orderSummary: orderItems.join(", "),
+            totalPrice: total,
+            paymentMethod: document.querySelector('input[name="payMethod"]:checked').value,
+            deliveryMethod: document.querySelector('input[name="deliveryMethod"]:checked').value,
+            comments: document.getElementById('deliveryNotes').value.trim()
         };
     }
 
-    // פונקציית השליחה הסופית - נקראת מה-Modal
     function finalizeOrder() {
         const confirmBtn = document.getElementById('confirmSendBtn');
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec'; 
 
-        if (!currentDataForSend) return;
-
         confirmBtn.disabled = true;
         confirmBtn.innerText = "שולח...";
 
-        fetch(scriptURL, { 
-            method: 'POST', 
-            mode: 'no-cors', 
-            body: JSON.stringify(currentDataForSend) 
-        })
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(currentDataForSend) })
         .then(() => {
-            const payment = currentDataForSend.paymentMethod;
-            closeModal(); // סגירת ה-Modal
-
-            // הודעות והפניה לתשלום
-            if (payment === "ביט") {
-                if(confirm("ההזמנה התקבלה! לעבור ל-bit לתשלום?")) {
-                    window.location.href = "bit://transfer";
-                }
-            } else if (payment === "פייבוקס") {
-                if(confirm("ההזמנה התקבלה! לעבור ל-PayBox לתשלום?")) {
-                    window.location.href = "paybox://"; 
-                }
-            } else {
-                alert("ההזמנה התקבלה במטבח בהצלחה! תודה רבה.");
-            }
-            location.reload(); // רענון הדף
+            alert("הזמנה התקבלה במטבח! תודה רבה.");
+            location.reload();
         })
-        .catch((error) => {
-            console.error('Error!', error.message);
-            alert("אופס, היתה שגיאה בשליחה. נא לנסות שוב מהסיכום.");
+        .catch(() => {
+            alert("שגיאה בשליחה.");
             confirmBtn.disabled = false;
-            confirmBtn.innerText = "אשר ושלח";
         });
     }
 </script>
