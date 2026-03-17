@@ -89,6 +89,9 @@
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
         
+        .radio-card { display: flex; align-items: center; padding: 12px; background: #f9f9f9; border: 2px solid #eee; border-radius: 12px; cursor: pointer; margin-bottom: 8px; }
+        .radio-card input { width: auto; margin-left: 10px; margin-top: 0; }
+
         .whatsapp-float {
             position: fixed; width: 60px; height: 60px; bottom: 95px; left: 20px; 
             background-color: #25d366; border-radius: 50%; display: flex; align-items: center; 
@@ -126,9 +129,6 @@
             padding: 18px; width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.2rem; 
             font-weight: bold; margin-top: 20px; transition: 0.3s; backdrop-filter: blur(8px);
         }
-
-        .radio-card { display: flex; align-items: center; padding: 12px; background: #f9f9f9; border: 2px solid #eee; border-radius: 12px; cursor: pointer; margin-bottom: 8px; }
-        .radio-card input { width: auto; margin-left: 10px; margin-top: 0; }
     </style>
 </head>
 <body>
@@ -162,6 +162,7 @@
 
     <div id="pickles" class="tab-content">
         <div class="product-card">
+            <div class="badge-new">חדש</div>
             <div class="product-main-row">
                 <div class="product-info">
                     <h3 class="product-name">עגבניות שרי מוחמצות</h3>
@@ -177,7 +178,41 @@
             </div>
             <input type="text" class="product-comment-input" placeholder="הערה למוצר...">
         </div>
+
+        <div class="product-card">
+            <div class="product-main-row">
+                <div class="product-info">
+                    <h3 class="product-name">מלפפון חמוץ ביתי</h3>
+                    <p class="product-description">בטעם של פעם, כבישה טבעית - 580 מ"ל</p>
+                    <button class="comment-toggle-btn" onclick="toggleComment(this)">הוסף הערה</button>
+                    <span class="product-price">₪22</span>
+                </div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="22" data-name="מלפפון חמוץ" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <input type="text" class="product-comment-input" placeholder="הערה למוצר...">
         </div>
+
+        <div class="product-card">
+            <div class="product-main-row">
+                <div class="product-info">
+                    <h3 class="product-name">כרוב כבוש בקימל</h3>
+                    <p class="product-description">פרוביוטי ומרענן - 580 מ"ל</p>
+                    <button class="comment-toggle-btn" onclick="toggleComment(this)">הוסף הערה</button>
+                    <span class="product-price">₪20</span>
+                </div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="20" data-name="כרוב כבוש" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <input type="text" class="product-comment-input" placeholder="הערה למוצר...">
+        </div>
+    </div>
 
     <div id="soups" class="tab-content">
         <div class="product-card">
@@ -190,7 +225,24 @@
                 </div>
                 <div class="quantity-controls">
                     <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                    <input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות כתומים" value="0" readonly>
+                    <input type="number" class="prod-qty" data-price="35" data-name="מרק כתומים" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <input type="text" class="product-comment-input" placeholder="הערה למוצר...">
+        </div>
+
+        <div class="product-card">
+            <div class="product-main-row">
+                <div class="product-info">
+                    <h3 class="product-name">מרק עדשים ירוקות</h3>
+                    <p class="product-description">עשיר בחלבון וטעם - חצי ליטר</p>
+                    <button class="comment-toggle-btn" onclick="toggleComment(this)">הוסף הערה</button>
+                    <span class="product-price">₪35</span>
+                </div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="35" data-name="מרק עדשים" value="0" readonly>
                     <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
                 </div>
             </div>
@@ -210,6 +262,23 @@
                 <div class="quantity-controls">
                     <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                     <input type="number" class="prod-qty" data-price="40" data-name="מג'דרה" value="0" readonly>
+                    <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+                </div>
+            </div>
+            <input type="text" class="product-comment-input" placeholder="הערה למוצר...">
+        </div>
+
+        <div class="product-card">
+            <div class="product-main-row">
+                <div class="product-info">
+                    <h3 class="product-name">לחם מחמצת כפרי</h3>
+                    <p class="product-description">קמח מלא וגרעינים - יחידה</p>
+                    <button class="comment-toggle-btn" onclick="toggleComment(this)">הוסף הערה</button>
+                    <span class="product-price">₪28</span>
+                </div>
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="number" class="prod-qty" data-price="28" data-name="לחם מחמצת" value="0" readonly>
                     <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
                 </div>
             </div>
@@ -313,14 +382,14 @@
 
     function finalizeOrder() {
         const btn = document.getElementById('confirmSendBtn');
-        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; 
+        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; // כאן להכניס את הלינק שלך
         
         btn.disabled = true; btn.innerText = "שולח...";
 
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(currentDataForSend) })
         .then(() => {
             const method = currentDataForSend.paymentMethod;
-            alert("ההזמנה התקבלה! עובר לתשלום...");
+            alert("ההזמנה התקבלה בהצלחה! עובר לתשלום...");
             
             if (method === "ביט") {
                 window.location.href = "bitpay://";
@@ -328,10 +397,10 @@
                 window.location.href = "https://www.payboxapp.com/pay"; 
             }
             
-            setTimeout(() => { location.reload(); }, 1500);
+            setTimeout(() => { location.reload(); }, 2000);
         })
         .catch(() => {
-            alert("שגיאה בשליחה.");
+            alert("שגיאה בשליחה. נסה שוב.");
             btn.disabled = false;
         });
     }
