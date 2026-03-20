@@ -388,13 +388,18 @@
 
         let modalHtml = '';
         let orderItems = [];
+        let detailedOrderItems = []; // לסדר טוב יותר את ההודעה לוואטסאפ
+
         document.querySelectorAll('.product-card').forEach(card => {
-            const qty = card.querySelector('.prod-qty');
-            if (qty && parseInt(qty.value) > 0) {
-                const name = qty.getAttribute('data-name');
+            const qtyInput = card.querySelector('.prod-qty');
+            if (qtyInput && parseInt(qtyInput.value) > 0) {
+                const name = qtyInput.getAttribute('data-name');
                 const comment = card.querySelector('.product-comment-input').value.trim();
-                modalHtml += `<div><b>${name}</b> (x${qty.value})${comment ? ` - ${comment}` : ''}</div>`;
-                orderItems.push(`${name} (${qty.value})`);
+                modalHtml += `<div><b>${name}</b> (x${qtyInput.value})${comment ? ` - ${comment}` : ''}</div>`;
+                
+                // יצירת רשימה להודעה
+                orderItems.push(`${name} (${qtyInput.value})`);
+                detailedOrderItems.push(`- ${name} (x${qtyInput.value})${comment ? ` [הערה: ${comment}]` : ''}`);
             }
         });
 
@@ -407,6 +412,7 @@
             name: firstName + " " + document.getElementById('lastName').value,
             phone: document.getElementById('phone').value,
             orderSummary: orderItems.join(", "),
+            detailedSummary: detailedOrderItems.join("%0A"), // פורמט שורות חדשות לוואטסאפ
             totalPrice: total,
             paymentMethod: document.querySelector('input[name="payMethod"]:checked').value
         };
@@ -414,20 +420,46 @@
 
     function finalizeOrder() {
         const btn = document.getElementById('confirmSendBtn');
-        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; // הלינק שלך
+        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; // הלינק שלך מגוגל
+        const myPhone = "972552421009"; // הטלפון שלך לקבלת ההזמנה
         
-        btn.disabled = true; btn.innerText = "שולח...";
+        btn.disabled = true; 
+        btn.innerText = "שולח נתונים...";
 
+        // 1. שליחה "שקטה" לגוגל שיטס (הנתונים ישמרו בטבלה כרגיל)
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(currentDataForSend) })
         .then(() => {
+            // 2. הכנת הודעת וואטסאפ מעוצבת למשלוח אליך
+            const message = `*שלום גלעד, הזמנה חדשה מהאתר!*%0A%0A` +
+                            `*שם הלקוח:* ${currentDataForSend.name}%0A` +
+                            `*טלפון:* ${currentDataForSend.phone}%0A%0A` +
+                            `*פירוט פריטים:*%0A${currentDataForSend.detailedSummary}%0A%0A` +
+                            `*סה"כ לתשלום:* ${currentDataForSend.totalPrice} ₪%0A` +
+                            `*אמצעי תשלום מבוקש:* ${currentDataForSend.paymentMethod}`;
+
+            const whatsappURL = `https://wa.me/${myPhone}?text=${message}`;
+
+            // 3. עדכון המשתמש והעברה
             const method = currentDataForSend.paymentMethod;
-            alert("ההזמנה התקבלה! עובר לתשלום.");
-            if (method === "ביט") window.location.href = "bitpay://";
-            else if (method === "פייבוקס") window.location.href = "https://links.payboxapp.com/s5JkKwY3a1b"; 
+            alert("ההזמנה נרשמה בטבלה! כעת תועבר לוואטסאפ לשליחת הסיכום לגלעד, ולאחר מכן לתשלום.");
             
-            setTimeout(() => { location.reload(); }, 1500);
+            // פתיחת וואטסאפ (הלקוח רק צריך ללחוץ "שלח")
+            window.location.href = whatsappURL;
+
+            // 4. מעבר לאפליקציית תשלום אחרי השהייה קלה
+            setTimeout(() => {
+                if (method === "ביט") window.location.href = "bitpay://";
+                else if (method === "פייבוקס") window.location.href = "https://links.payboxapp.com/s5JkKwY3a1b"; 
+                
+                // רענון העמוד אחרי סיום התהליך
+                setTimeout(() => { location.reload(); }, 2000);
+            }, 3500);
         })
-        .catch(() => { alert("שגיאה בשליחה"); btn.disabled = false; });
+        .catch(() => { 
+            alert("שגיאה בשליחה. אנא וודא שיש אינטרנט ונסה שוב."); 
+            btn.disabled = false; 
+            btn.innerText = "אשר ושדר";
+        });
     }
 </script>
 </body>
