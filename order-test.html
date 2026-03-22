@@ -28,7 +28,21 @@
         .logo { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
         h2 { color: var(--primary-green); text-align: center; margin-bottom: 5px; }
-        .instagram-link { display: block; text-align: center; color: #8c7b60; text-decoration: none; font-size: 0.9rem; margin-bottom: 20px; font-weight: 600; }
+        
+        .instagram-link { 
+            display: flex; 
+            justify-content: center; 
+            margin-bottom: 20px; 
+            text-decoration: none; 
+        }
+        .instagram-icon {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.2s;
+        }
+        .instagram-link:hover .instagram-icon {
+            transform: scale(1.1);
+        }
 
         .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
         .tab-btn { 
@@ -54,7 +68,7 @@
 
         .product-info { flex: 1; padding-left: 10px; }
         .product-name { margin: 0; font-size: 1.05rem; color: var(--primary-green); font-weight: bold; }
-        .product-description { margin: 3px 0; font-size: 0.8rem; color: #7f8c8d; }
+        .product-description { margin: 3px 0; font-size: 0.8rem; color: #7f8c8d; line-height: 1.3; }
         .product-price { font-weight: bold; color: #27ae60; display: block; margin-top: 4px; }
 
         .quantity-controls { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 5px; border-radius: 25px; }
@@ -141,7 +155,10 @@
 <div class="container">
     <div class="logo-container"><img src="לוגו המטבח של גלעד.jpg" alt="לוגו" class="logo"></div>
     <h2>המטבח של גלעד</h2>
-    <a href="https://www.instagram.com/gilads.kitchen" target="_blank" class="instagram-link">עקבו אחרינו באינסטגרם</a>
+    
+    <a href="https://www.instagram.com/gilads.kitchen" target="_blank" class="instagram-link">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="instagram-icon">
+    </a>
 
     <div class="tabs-container">
         <button class="tab-btn active" onclick="openTab(event, 'pickles')">חמוצים</button>
@@ -152,7 +169,7 @@
     <div id="pickles" class="tab-content">
         <div class="product-card">
             <div class="badge-new">חדש! חבילה לחג</div>
-            <div class="product-info"><h3 class="product-name">מארז כריכים לקראת החג</h3><p class="product-description">חרדל + מלפפון חמוץ + כרוב כבוש <br> כל מה שצריך לכריך</p><span class="product-price">₪55</span></div>
+            <div class="product-info"><h3 class="product-name">מארז כריכים לקראת החג</h3><p class="product-description">חרדל + מלפפון חמוץ + כרוב כבוש<br>כל מה שצריך לכריך</p><span class="product-price">₪55</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                 <input type="number" class="prod-qty" data-price="55" data-name="מארז כריכים לקראת החג" value="0" readonly>
