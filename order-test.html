@@ -178,7 +178,7 @@
     <div id="pickles" class="tab-content">
         <div class="product-card">
             <div class="badge-new">חדש! חבילה לחג</div>
-            <div class="product-info"><h3 class="product-name">מארז תוספות לכריכים</h3><p class="product-description">חרדל + מלפפון חמוץ + כרוב כבוש<br>כל מה שצריך לכריך</p><span class="product-price">₪55</span></div>
+            <div class="product-info"><h3 class="product-name">מארז תוספות לכריכים</h3><p class="product-description">חרדל + מלפפון חמוץ + כרוב כבוש<br>כל מה שצריך לכריך וגם למצה</p><span class="product-price">₪55</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                 <input type="number" class="prod-qty" data-price="55" data-name="מארז תוספות לכריכים" value="0" readonly>
@@ -273,7 +273,7 @@
 
     <div id="pastries" class="tab-content">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">אינגליש קייק</p><span class="product-price">₪24</span></div>
+            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">בתבנית אינגליש קייק</p><span class="product-price">₪24</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                 <input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly>
@@ -281,7 +281,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">קילו</p><span class="product-price">₪40</span></div>
+            <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">עשירה בבצל ועדשים - קילו</p><span class="product-price">₪40</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                 <input type="number" class="prod-qty" data-price="40" data-name="מג'דרה" value="0" readonly>
@@ -300,15 +300,15 @@
 
         <label>אופן קבלת ההזמנה:</label>
         <div class="radio-group">
-            <label class="radio-card"><input type="radio" name="deliveryMethod" value="יום רביעי עם החלוקה של שירלי" checked onclick="toggleDetail(false)"> <span>יום רביעי (חלוקה של שירלי)</span></label>
-            <label class="radio-card"><input type="radio" name="deliveryMethod" value="בתיאום פרטני" onclick="toggleDetail(true)"> <span>בתיאום אישי</span></label>
+            <label class="radio-card"><input type="radio" name="deliveryMethod" value="יום רביעי עם החלוקה של שירלי" checked onclick="toggleDetail(false)"> <span>יום רביעי (עם החלוקה של שירלי)</span></label>
+            <label class="radio-card"><input type="radio" name="deliveryMethod" value="בתיאום אישי" onclick="toggleDetail(true)"> <span>בתיאום אישי</span></label>
         </div>
         <textarea id="deliveryNotes" placeholder="פרט כאן היכן ומתי נוח לך לתאם..." style="display:none;"></textarea>
 
         <label>אמצעי תשלום:</label>
         <div class="radio-group">
-            <label class="radio-card"><input type="radio" name="payMethod" value="לינק לביט" checked> <span>לינק לביט לאחר ההזמנה</span></label>
-            <label class="radio-card"><input type="radio" name="payMethod" value="לינק לפייבוקס"> <span>לינק לפייבוקס לאחר ההזמנה</span></label>
+            <label class="radio-card"><input type="radio" name="payMethod" value="לינק לביט" checked> <span>שלח לינק לתשלום בביט לאחר ביצוע ההזמנה</span></label>
+            <label class="radio-card"><input type="radio" name="payMethod" value="לינק לפייבוקס"> <span>שלח לינק לתשלום בפייבוקס לאחר ביצוע ההזמנה</span></label>
             <label class="radio-card"><input type="radio" name="payMethod" value="מזומן"> <span>מזומן באיסוף</span></label>
         </div>
 
