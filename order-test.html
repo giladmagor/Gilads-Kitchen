@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>הזמנה - המטבח של גלעד</title>
+    <title>הזמנה - המטבח של גלעד (גרסת ניסוי)</title>
     
     <style>
         :root { 
@@ -65,7 +65,6 @@
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
         
-        /* עיצוב שורת התשלום עם הטלפון */
         .payment-label-row {
             display: flex;
             justify-content: space-between;
@@ -127,6 +126,15 @@
     <div id="pickles" class="tab-content">
         <div class="product-card">
             <div class="badge-new">חדש</div>
+            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">חרדל צהוב ושחור פיקנטי - 150 גר'</p><span class="product-price">₪12</span></div>
+            <div class="quantity-controls">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly>
+                <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+
+        <div class="product-card">
             <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">חמוץ מתוק בטעם חלומי - 580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
