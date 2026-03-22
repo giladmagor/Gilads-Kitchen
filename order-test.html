@@ -80,39 +80,13 @@
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
         
-        .payment-label-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-        }
-        .phone-display {
-            font-size: 0.9rem;
-            background: #e8f5e9;
-            padding: 4px 10px;
-            border-radius: 8px;
-            color: var(--primary-green);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .copy-btn {
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 2px 8px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
         .radio-group { margin: 10px 0; }
         .radio-card { 
             display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
             border: 2px solid #eee; border-radius: 12px; cursor: pointer; margin-bottom: 8px; 
         }
         .radio-card input { margin-left: 10px; width: 18px; height: 18px; }
+        .radio-card span { font-size: 0.95rem; line-height: 1.2; }
 
         .floating-footer { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
@@ -176,7 +150,6 @@
                 <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
             </div>
         </div>
-
         <div class="product-card">
             <div class="badge-new">חדש</div>
             <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">חרדל צהוב ושחור פיקנטי - 150 גר'</p><span class="product-price">₪12</span></div>
@@ -186,7 +159,6 @@
                 <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
             </div>
         </div>
-
         <div class="product-card">
             <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">חמוץ מתוק בטעם חלומי - 580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls">
@@ -298,18 +270,20 @@
         </div>
         <textarea id="deliveryNotes" placeholder="פרט כאן היכן ומתי נוח לך לתאם..." style="display:none;"></textarea>
 
-        <div class="payment-label-row">
-            <label style="margin-top:0;">אמצעי תשלום:</label>
-            <div class="phone-display">
-                <span>055-2421009</span>
-                <button class="copy-btn" onclick="copyNumber()">העתק</button>
-            </div>
-        </div>
-        
+        <label>אמצעי תשלום:</label>
         <div class="radio-group">
-            <label class="radio-card"><input type="radio" name="payMethod" value="ביט" checked> <span>ביט (Bit)</span></label>
-            <label class="radio-card"><input type="radio" name="payMethod" value="פייבוקס"> <span>פייבוקס (PayBox)</span></label>
-            <label class="radio-card"><input type="radio" name="payMethod" value="מזומן"> <span>מזומן באיסוף</span></label>
+            <label class="radio-card">
+                <input type="radio" name="payMethod" value="לינק לביט" checked> 
+                <span>שלח לינק לתשלום בביט לאחר ביצוע ההזמנה</span>
+            </label>
+            <label class="radio-card">
+                <input type="radio" name="payMethod" value="לינק לפייבוקס"> 
+                <span>שלח לינק לתשלום בפייבוקס לאחר ביצוע ההזמנה</span>
+            </label>
+            <label class="radio-card">
+                <input type="radio" name="payMethod" value="מזומן"> 
+                <span>מזומן באיסוף</span>
+            </label>
         </div>
 
         <button id="submitBtn" onclick="sendOrder()">שלח הזמנה</button>
@@ -355,12 +329,6 @@
         input.value = value;
     }
 
-    function copyNumber() {
-        navigator.clipboard.writeText('0552421009').then(() => {
-            alert('המספר הועתק!');
-        });
-    }
-
     function sendOrder() {
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
@@ -393,17 +361,17 @@
             date: new Date().toLocaleString('he-IL'),
             name: firstName + " " + lastName,
             phone: phone,
-            orderSummary: orderItems.join(", "), 
-            totalPrice: total,                   
-            paymentMethod: payment,              
-            deliveryMethod: delivery,             
+            orderSummary: orderItems.join(", "),
+            totalPrice: total,
+            paymentMethod: payment,
+            deliveryMethod: delivery,
             comments: "תיאום: " + (deliveryNotes || "אין")
         };
 
         btn.disabled = true;
         btn.innerText = "שולח הזמנה...";
 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec';
 
         fetch(scriptURL, { 
             method: 'POST', 
@@ -411,17 +379,7 @@
             body: JSON.stringify(data) 
         })
         .then(() => {
-            if (payment === "ביט") {
-                if(confirm("ההזמנה נשלחה! לעבור ל-bit לתשלום?")) {
-                    window.location.href = "bit://transfer";
-                }
-            } else if (payment === "פייבוקס") {
-                if(confirm("ההזמנה נשלחה! לעבור ל-PayBox לתשלום?")) {
-                    window.location.href = "paybox://"; 
-                }
-            } else {
-                alert("ההזמנה התקבלה בהצלחה!");
-            }
+            alert("ההזמנה נשלחה בהצלחה! גלעד ישלח אליך לינק לתשלום בהקדם.");
             location.reload(); 
         })
         .catch((error) => {
