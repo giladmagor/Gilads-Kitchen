@@ -335,7 +335,7 @@
         const phone = document.getElementById('phone').value.trim();
         const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
         const total = document.getElementById('totalPrice').innerText;
-        const payment = document.querySelector('input[name="payMethod"]:checked').value;
+        const paymentSelection = document.querySelector('input[name="payMethod"]:checked').value;
         const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
         const btn = document.getElementById('submitBtn');
 
@@ -363,7 +363,7 @@
             phone: phone,
             orderSummary: orderItems.join(", "),
             totalPrice: total,
-            paymentMethod: payment,
+            paymentMethod: paymentSelection,
             deliveryMethod: delivery,
             comments: "תיאום: " + (deliveryNotes || "אין")
         };
@@ -379,7 +379,12 @@
             body: JSON.stringify(data) 
         })
         .then(() => {
-            alert("ההזמנה נשלחה בהצלחה! גלעד ישלח אליך לינק לתשלום בהקדם.");
+            // בדיקה מדויקת יותר של אמצעי התשלום
+            if (paymentSelection.includes("מזומן")) {
+                alert("ההזמנה נשלחה בהצלחה! ניפגש באיסוף.");
+            } else {
+                alert("ההזמנה נשלחה בהצלחה! גלעד ישלח אליך לינק לתשלום בהקדם.");
+            }
             location.reload(); 
         })
         .catch((error) => {
