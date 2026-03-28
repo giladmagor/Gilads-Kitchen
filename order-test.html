@@ -62,11 +62,12 @@
             background: #ffffff; border-radius: 18px; padding: 15px; margin-bottom: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; 
             display: flex; justify-content: space-between; align-items: center; position: relative;
+            overflow: hidden;
         }
 
         /* עיצוב מוצר שאזל מהמלאי */
         .product-card.out-of-stock {
-            opacity: 0.5;
+            opacity: 0.6;
             filter: grayscale(1);
             pointer-events: none;
         }
@@ -74,15 +75,17 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) rotate(-10deg);
-            background: rgba(220, 53, 69, 0.9);
+            transform: translate(-50%, -50%) rotate(-12deg);
+            background: rgba(192, 57, 43, 0.95);
             color: white;
-            padding: 5px 15px;
-            border-radius: 8px;
+            padding: 8px 20px;
+            border-radius: 5px;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             z-index: 20;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid white;
+            white-space: nowrap;
         }
 
         .badge-new {
@@ -331,24 +334,32 @@
 <script>
     let globalOrderData = null;
 
-    // פונקציית בדיקת המלאי החדשה
+    // פונקציית בדיקת המלאי - חוסמת הזמנה בפועל
     function checkStock() {
-        // בודק אם המשתנה הוגדר בקובץ config.js
         if (typeof outOfStockItems !== 'undefined' && Array.isArray(outOfStockItems)) {
             document.querySelectorAll('.prod-qty').forEach(input => {
                 const productName = input.getAttribute('data-name');
                 if (outOfStockItems.includes(productName)) {
                     const card = input.closest('.product-card');
+                    
+                    // 1. הוספת עיצוב אפור וחסימת אינטראקציה
                     card.classList.add('out-of-stock');
                     
-                    // הוספת כיתוב "אזל המלאי"
+                    // 2. הוספת כיתוב "אזל מהמלאי"
                     const badge = document.createElement('div');
                     badge.className = 'out-of-stock-badge';
                     badge.innerText = 'אזל מהמלאי';
                     card.appendChild(badge);
                     
-                    // נטרול השדות
+                    // 3. איפוס הערך ל-0
                     input.value = 0;
+
+                    // 4. הסרת ה-Class כדי שהמערכת תתעלם מהמוצר בחישובים ובשליחה
+                    input.classList.remove('prod-qty');
+                    
+                    // 5. הסתרת כפתורי הכמות ליתר ביטחון
+                    const controls = card.querySelector('.quantity-controls');
+                    if (controls) controls.style.visibility = 'hidden';
                 }
             });
         }
@@ -373,6 +384,8 @@
 
     function changeQty(btn, delta) {
         const input = btn.parentElement.querySelector('.prod-qty');
+        if (!input) return; // הגנה למקרה שהקלאס הוסר (מוצר חסר)
+        
         let val = parseInt(input.value) + delta;
         if (val < 0) val = 0;
         input.value = val;
@@ -381,6 +394,7 @@
 
     function updateTotal() {
         let total = 0;
+        // מחשב רק אלמנטים עם הקלאס prod-qty
         document.querySelectorAll('.prod-qty').forEach(input => {
             total += (parseInt(input.value) || 0) * parseInt(input.dataset.price);
         });
@@ -413,6 +427,7 @@
 
         let orderItems = [];
         let listHTML = "";
+        // אוסף רק מוצרים שעדיין יש להם את הקלאס prod-qty
         document.querySelectorAll('.prod-qty').forEach(input => {
             let val = parseInt(input.value) || 0;
             if (val > 0) {
