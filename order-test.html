@@ -190,16 +190,7 @@
 
     <div id="pickles" class="tab-content">
         <div class="product-card">
-            <div class="badge-new">חדש! חבילה לחג</div>
-            <div class="product-info"><h3 class="product-name">מארז תוספות לכריכים</h3><p class="product-description">חרדל + מלפפון חמוץ + כרוב כבוש<br>כל מה שצריך לכריך וגם למצה</p><span class="product-price">₪55</span></div>
-            <div class="quantity-controls">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <input type="number" class="prod-qty" data-price="55" data-name="מארז תוספות לכריכים" value="0" readonly>
-                <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="badge-new">חדש</div>
+            <div class="badge-new">סלטים לחג</div>
             <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">חרדל צהוב ושחור פיקנטי - 150 גר'</p><span class="product-price">₪12</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
@@ -208,14 +199,7 @@
             </div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
-            <div class="quantity-controls">
-                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <input type="number" class="prod-qty" data-price="25" data-name="עגבניות שרי מוחמצות" value="0" readonly>
-                <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
-        <div class="product-card">
+            <div class="badge-new">סלטים לחג</div>
             <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
@@ -224,6 +208,7 @@
             </div>
         </div>
         <div class="product-card">
+            <div class="badge-new">סלטים לחג</div>
             <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
@@ -232,6 +217,7 @@
             </div>
         </div>
         <div class="product-card">
+            <div class="badge-new">סלטים לחג</div>
             <div class="product-info"><h3 class="product-name">כרוב חמוץ</h3><p class="product-description">חמוץ חריף - 580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
@@ -240,6 +226,7 @@
             </div>
         </div>
         <div class="product-card">
+            <div class="badge-new">סלטים לחג</div>
             <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="product-price">₪17</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
@@ -248,10 +235,27 @@
             </div>
         </div>
         <div class="product-card">
+            <div class="badge-new">סלטים לחג</div>
             <div class="product-info"><h3 class="product-name">טורשי עיראקי</h3><p class="product-description">2 ליטר</p><span class="product-price">₪30</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                 <input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" readonly>
+                <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-info"><h3 class="product-name">מארז תוספות לכריכים</h3><p class="product-description">חרדל + מלפפון חמוץ + כרוב כבוש<br>כל מה שצריך לכריך וגם למצה</p><span class="product-price">₪55</span></div>
+            <div class="quantity-controls">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <input type="number" class="prod-qty" data-price="55" data-name="מארז תוספות לכריכים" value="0" readonly>
+                <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
+            <div class="quantity-controls">
+                <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                <input type="number" class="prod-qty" data-price="25" data-name="עגבניות שרי מוחמצות" value="0" readonly>
                 <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
             </div>
         </div>
@@ -313,7 +317,7 @@
 
         <label>אופן קבלת ההזמנה:</label>
         <div class="radio-group">
-            <label class="radio-card"><input type="radio" name="deliveryMethod" value="יום רביעי עם החלוקה של שירלי" checked onclick="toggleDetail(false)"> <span>יום רביעי (עם החלוקה של שירלי)</span></label>
+            <label class="radio-card"><input type="radio" name="deliveryMethod" value="יום שני עם החלוקה של שירלי" checked onclick="toggleDetail(false)"> <span>יום שני (עם החלוקה של שירלי)</span></label>
             <label class="radio-card"><input type="radio" name="deliveryMethod" value="בתיאום אישי" onclick="toggleDetail(true)"> <span>בתיאום אישי</span></label>
         </div>
         <textarea id="deliveryNotes" placeholder="פרט כאן היכן ומתי נוח לך לתאם..." style="display:none;"></textarea>
