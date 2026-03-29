@@ -13,6 +13,7 @@
             --bg-color: #f5f5f0;
             --plus-green: #7ed9a2;
             --new-tag: #ff5722; 
+            --limited-tag: #ff9800; /* צבע כתום למלאי מוגבל */
             --whatsapp-green: #25D366;
             --modal-bg: rgba(0,0,0,0.6);
         }
@@ -86,6 +87,21 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             border: 2px solid white;
             white-space: nowrap;
+        }
+
+        /* עיצוב תווית מלאי מוגבל */
+        .limited-stock-badge {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            background: var(--limited-tag);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .badge-new {
@@ -345,31 +361,41 @@
                 const productName = input.getAttribute('data-name');
                 if (outOfStockItems.includes(productName)) {
                     const card = input.closest('.product-card');
-                    
-                    // 1. הוספת עיצוב אפור וחסימת אינטראקציה
                     card.classList.add('out-of-stock');
-                    
-                    // 2. הוספת כיתוב "אזל מהמלאי"
                     const badge = document.createElement('div');
                     badge.className = 'out-of-stock-badge';
                     badge.innerText = 'אזל זמנית';
                     card.appendChild(badge);
-                    
-                    // 3. איפוס הערך ל-0
                     input.value = 0;
-
-                    // 4. הסרת ה-Class כדי שהמערכת תתעלם מהמוצר בחישובים ובשליחה
                     input.classList.remove('prod-qty');
-                    
-                    // 5. הסתרת כפתורי הכמות ליתר ביטחון
                     const controls = card.querySelector('.quantity-controls');
                     if (controls) controls.style.visibility = 'hidden';
                 }
             });
         }
+        // הפעלת פונקציית מלאי מוגבל
+        checkLimitedStock();
     }
 
-    // הרצת בדיקת מלאי מיד עם טעינת הדף
+    // פונקציה חדשה לסימון מלאי מוגבל (לא חוסמת הזמנה)
+    function checkLimitedStock() {
+        if (typeof limitedStockItems !== 'undefined' && Array.isArray(limitedStockItems)) {
+            document.querySelectorAll('.prod-qty').forEach(input => {
+                const productName = input.getAttribute('data-name');
+                if (limitedStockItems.includes(productName)) {
+                    const card = input.closest('.product-card');
+                    // מוודא שלא הוספנו כבר תגית
+                    if (!card.querySelector('.limited-stock-badge')) {
+                        const badge = document.createElement('div');
+                        badge.className = 'limited-stock-badge';
+                        badge.innerText = 'מלאי מוגבל';
+                        card.appendChild(badge);
+                    }
+                }
+            });
+        }
+    }
+
     window.onload = checkStock;
 
     function openTab(evt, tabName) {
@@ -388,8 +414,7 @@
 
     function changeQty(btn, delta) {
         const input = btn.parentElement.querySelector('.prod-qty');
-        if (!input) return; // הגנה למקרה שהקלאס הוסר (מוצר חסר)
-        
+        if (!input) return;
         let val = parseInt(input.value) + delta;
         if (val < 0) val = 0;
         input.value = val;
@@ -398,7 +423,6 @@
 
     function updateTotal() {
         let total = 0;
-        // מחשב רק אלמנטים עם הקלאס prod-qty
         document.querySelectorAll('.prod-qty').forEach(input => {
             total += (parseInt(input.value) || 0) * parseInt(input.dataset.price);
         });
@@ -431,7 +455,6 @@
 
         let orderItems = [];
         let listHTML = "";
-        // אוסף רק מוצרים שעדיין יש להם את הקלאס prod-qty
         document.querySelectorAll('.prod-qty').forEach(input => {
             let val = parseInt(input.value) || 0;
             if (val > 0) {
@@ -468,14 +491,8 @@
         const btn = document.getElementById('finalConfirmBtn');
         btn.disabled = true;
         btn.innerText = "שולח...";
-
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec';
-
-        fetch(scriptURL, { 
-            method: 'POST', 
-            mode: 'no-cors', 
-            body: JSON.stringify(globalOrderData) 
-        })
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
             closeModal();
             if (globalOrderData.paymentMethod.includes("מזומן")) {
