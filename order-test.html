@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
@@ -6,7 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>הזמנה - המטבח של גלעד (גרסת ניסוי)</title>
     
-    <script src="config.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBCZLhwNUoUsiRdDp02-BZ6GUNKV2gstJM",
+            authDomain: "giladskitchen-715c0.firebaseapp.com",
+            projectId: "giladskitchen-715c0",
+            storageBucket: "giladskitchen-715c0.firebasestorage.app",
+            messagingSenderId: "946326553131",
+            appId: "1:946326553131:web:de8f4157c1893e8c9f606e",
+            measurementId: "G-9QPE3YSVZG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // האזנה למלאי בזמן אמת
+        onSnapshot(collection(db, "products"), (snapshot) => {
+            window.outOfStockItems = [];
+            window.limitedStockItems = [];
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const productName = doc.id;
+
+                if (data.status === 'out_of_stock') {
+                    window.outOfStockItems.push(productName);
+                } else if (data.status === 'limited') {
+                    window.limitedStockItems.push(productName);
+                }
+            });
+
+            // הפעלת עדכון התצוגה בכל פעם שהנתונים ב-Firebase משתנים
+            refreshStockUI();
+        });
+    </script>
 
     <style>
         :root { 
@@ -318,7 +353,7 @@
             <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">עשירה בבצל ועדשים - קילו</p><span class="product-price">₪40</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
-                <input type="number" class="prod-qty" data-price="40" data-name="מג'דרה" value="0" readonly>
+                <input type="number" class="prod-qty" data-price="40" data-name="מג'דרה ביתית" value="0" readonly>
                 <button class="qty-btn plus" onclick="changeQty(this, 1)">+</button>
             </div>
         </div>
@@ -354,49 +389,41 @@
 <script>
     let globalOrderData = null;
 
-    // פונקציית בדיקת המלאי - חוסמת הזמנה בפועל
-    function checkStock() {
-        if (typeof outOfStockItems !== 'undefined' && Array.isArray(outOfStockItems)) {
-            document.querySelectorAll('.prod-qty').forEach(input => {
-                const productName = input.getAttribute('data-name');
-                if (outOfStockItems.includes(productName)) {
-                    const card = input.closest('.product-card');
-                    card.classList.add('out-of-stock');
-                    const badge = document.createElement('div');
-                    badge.className = 'out-of-stock-badge';
-                    badge.innerText = 'אזל זמנית';
-                    card.appendChild(badge);
-                    input.value = 0;
-                    input.classList.remove('prod-qty');
-                    const controls = card.querySelector('.quantity-controls');
-                    if (controls) controls.style.visibility = 'hidden';
-                }
-            });
-        }
-        // הפעלת פונקציית מלאי מוגבל
-        checkLimitedStock();
-    }
+    // פונקציה חדשה לעדכון ה-UI על בסיס נתוני Firebase
+    function refreshStockUI() {
+        document.querySelectorAll('.product-card').forEach(card => {
+            const input = card.querySelector('.prod-qty');
+            if (!input) return;
+            
+            const productName = input.getAttribute('data-name');
+            const controls = card.querySelector('.quantity-controls');
 
-    // פונקציה חדשה לסימון מלאי מוגבל (לא חוסמת הזמנה)
-    function checkLimitedStock() {
-        if (typeof limitedStockItems !== 'undefined' && Array.isArray(limitedStockItems)) {
-            document.querySelectorAll('.prod-qty').forEach(input => {
-                const productName = input.getAttribute('data-name');
-                if (limitedStockItems.includes(productName)) {
-                    const card = input.closest('.product-card');
-                    // מוודא שלא הוספנו כבר תגית
-                    if (!card.querySelector('.limited-stock-badge')) {
-                        const badge = document.createElement('div');
-                        badge.className = 'limited-stock-badge';
-                        badge.innerText = 'מלאי מוגבל';
-                        card.appendChild(badge);
-                    }
-                }
-            });
-        }
-    }
+            // ניקוי מצב קודם
+            card.classList.remove('out-of-stock');
+            const existingBadges = card.querySelectorAll('.out-of-stock-badge, .limited-stock-badge');
+            existingBadges.forEach(b => b.remove());
+            if (controls) controls.style.visibility = 'visible';
 
-    window.onload = checkStock;
+            // בדיקת "אזל מהמלאי"
+            if (window.outOfStockItems && window.outOfStockItems.includes(productName)) {
+                card.classList.add('out-of-stock');
+                const badge = document.createElement('div');
+                badge.className = 'out-of-stock-badge';
+                badge.innerText = 'אזל זמנית';
+                card.appendChild(badge);
+                input.value = 0;
+                if (controls) controls.style.visibility = 'hidden';
+            } 
+            // בדיקת "מלאי מוגבל"
+            else if (window.limitedStockItems && window.limitedStockItems.includes(productName)) {
+                const badge = document.createElement('div');
+                badge.className = 'limited-stock-badge';
+                badge.innerText = 'מלאי מוגבל';
+                card.appendChild(badge);
+            }
+        });
+        updateTotal();
+    }
 
     function openTab(evt, tabName) {
         var i, tabContent, tabBtns;
@@ -511,4 +538,3 @@
 </script>
 </body>
 </html>
-```
