@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>הזמנה - המטבח של גלעד (גרסת ניסוי)</title>
+    <title>הזמנה - המטבח של גלעד</title>
     
     <style>
         :root { 
@@ -55,13 +55,8 @@
             scrollbar-width: thin; 
         }
 
-        .tabs-container::-webkit-scrollbar {
-            height: 4px;
-        }
-        .tabs-container::-webkit-scrollbar-thumb {
-            background: var(--plus-green);
-            border-radius: 10px;
-        }
+        .tabs-container::-webkit-scrollbar { height: 4px; }
+        .tabs-container::-webkit-scrollbar-thumb { background: var(--plus-green); border-radius: 10px; }
 
         .tab-btn { 
             background: white; border: 2px solid #ddd; padding: 10px 20px; border-radius: 25px; 
@@ -78,53 +73,10 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; 
             display: flex; justify-content: space-between; align-items: center; position: relative;
             overflow: hidden;
-            transition: transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: transform 0.1s ease-in-out;
         }
 
-        .product-card:active {
-            transform: scale(0.98);
-        }
-
-        .product-card.out-of-stock {
-            opacity: 0.6;
-            filter: grayscale(1);
-            pointer-events: none;
-        }
-        .out-of-stock-badge {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-12deg);
-            background: rgba(192, 57, 43, 0.95);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            z-index: 20;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border: 2px solid white;
-            white-space: nowrap;
-        }
-
-        .limited-stock-badge {
-            position: absolute;
-            top: 5px;
-            left: 10px;
-            background: var(--limited-tag);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            z-index: 5;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .badge-new {
-            position: absolute; top: -8px; right: 10px; background: var(--new-tag);
-            color: white; padding: 3px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; z-index: 5;
-        }
+        .product-card:active { transform: scale(0.98); }
 
         .product-info { flex: 1; padding-left: 10px; }
         .product-name { margin: 0; font-size: 1.05rem; color: var(--primary-green); font-weight: bold; }
@@ -132,24 +84,28 @@
         .product-price { font-weight: bold; color: #27ae60; display: block; margin-top: 4px; }
 
         .quantity-controls { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 5px; border-radius: 25px; }
-        .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: white; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: white; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .qty-btn.plus { background: var(--plus-green); color: white; }
-        .qty-btn:active { opacity: 0.7; }
         .prod-qty { width: 25px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; }
 
         .form-section { background: white; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #eee; }
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
-        input[type="text"], input[type="tel"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
+        input[type="text"], input[type="tel"], input[type="email"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
         
+        .delivery-info-text { background: #f0f7ef; padding: 12px; border-radius: 10px; border-right: 4px solid var(--primary-green); margin-top: 8px; font-weight: 500; }
+
+        .invoice-toggle { color: var(--primary-green); text-decoration: underline; cursor: pointer; font-size: 0.9rem; display: inline-block; margin-top: 15px; font-weight: bold; }
+        .invoice-fields { display: none; background: #fafafa; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px dashed #ccc; }
+        .input-with-icon { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        .input-icon { width: 20px; height: 20px; opacity: 0.7; }
+
         .radio-group { margin: 10px 0; }
         .radio-card { 
             display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
             border: 2px solid #eee; border-radius: 12px; cursor: pointer; margin-bottom: 8px; 
-            transition: 0.2s;
         }
         .radio-card:has(input:checked) { border-color: var(--primary-green); background: #f0f7ef; }
         .radio-card input { margin-left: 10px; width: 18px; height: 18px; }
-        .radio-card span { font-size: 0.95rem; line-height: 1.2; }
 
         .floating-footer { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
@@ -164,12 +120,11 @@
             border-radius: 50px; text-align: center; font-size: 30px;
             box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1001;
             width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
-            text-decoration: none; transition: transform 0.3s;
+            text-decoration: none;
         }
-        .whatsapp-float:active { transform: scale(0.9); }
 
-        #submitBtn { background: var(--primary-green); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.2rem; font-weight: bold; margin-top: 20px; transition: 0.3s; }
-        #submitBtn:disabled { background: #95a5a6; cursor: not-allowed; }
+        #submitBtn { background: var(--primary-green); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.2rem; font-weight: bold; margin-top: 20px; }
+        #submitBtn:disabled { background: #95a5a6; }
 
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -179,12 +134,12 @@
             background: white; width: 100%; max-width: 400px; border-radius: 25px; padding: 25px;
             text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: 80vh; overflow-y: auto;
         }
-        .modal-title { color: var(--primary-green); margin-top: 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
-        .summary-list { list-style: none; padding: 0; margin: 15px 0; font-size: 1rem; line-height: 1.6; }
+        .modal-title { color: var(--primary-green); margin: 0 0 15px 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
+        .summary-list { list-style: none; padding: 0; margin: 15px 0; }
         .summary-list li { display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding: 5px 0; }
-        .modal-total { font-size: 1.2rem; font-weight: bold; color: #27ae60; margin-top: 15px; display: block; text-align: left; }
+        .modal-total { font-size: 1.2rem; font-weight: bold; color: #27ae60; margin-top: 15px; display: block; }
         .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .modal-btn { flex: 1; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; font-size: 1rem; }
+        .modal-btn { flex: 1; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; }
         .confirm-btn { background: var(--primary-green); color: white; }
         .cancel-btn { background: #e0e0e0; color: #666; }
     </style>
@@ -274,7 +229,7 @@
             </div>
         </div>
         <div class="product-card" style="display: none;">
-            <div class="product-info"><h3 class="product-name">מארז תוספות לכריכים</h3><p class="product-description">חרדל + מלפפון חמוץ + כרוב כבוש<br>כל מה שצריך לכריך וגם למצה</p><span class="product-price">₪55</span></div>
+            <div class="product-info"><h3 class="product-name">מארז תוספות לכריכים</h3><p class="product-description">חרדל + מלפפון חמוץ + כרוב כבוש</p><span class="product-price">₪55</span></div>
             <div class="quantity-controls">
                 <button class="qty-btn" onclick="changeQty(this, -1)">-</button>
                 <input type="number" class="prod-qty" data-price="55" data-name="מארז תוספות לכריכים" value="0" readonly>
@@ -346,16 +301,25 @@
         <input type="tel" id="phone" placeholder="מספר טלפון *" required maxlength="12" oninput="formatPhone(this)">
 
         <label>אופן קבלת ההזמנה:</label>
-        <div class="radio-group">
-            <label class="radio-card"><input type="radio" name="deliveryMethod" value="יום שני עם החלוקה של שירלי" checked onclick="toggleDetail(false)"> <span>יום שני (עם החלוקה של שירלי)</span></label>
-        </div>
-        <textarea id="deliveryNotes" placeholder="פרט כאן היכן ומתי נוח לך לתאם..." style="display:none;"></textarea>
+        <div class="delivery-info-text">עם החלוקה של שירלי ביום רביעי</div>
 
         <label>אמצעי תשלום:</label>
         <div class="radio-group">
-            <label class="radio-card"><input type="radio" name="payMethod" value="לינק לביט" checked> <span>שלח לינק לתשלום בביט לאחר ביצוע ההזמנה</span></label>
-            <label class="radio-card"><input type="radio" name="payMethod" value="לינק לפייבוקס"> <span>שלח לינק לתשלום בפייבוקס לאחר ביצוע ההזמנה</span></label>
+            <label class="radio-card"><input type="radio" name="payMethod" value="לינק לביט" checked> <span>שלח לינק לתשלום בביט</span></label>
+            <label class="radio-card"><input type="radio" name="payMethod" value="לינק לפייבוקס"> <span>שלח לינק לתשלום בפייבוקס</span></label>
             <label class="radio-card"><input type="radio" name="payMethod" value="מזומן"> <span>מזומן באיסוף</span></label>
+        </div>
+
+        <span class="invoice-toggle" onclick="toggleInvoiceFields()">דרך קבלת חשבונית (אופציונלי) ▼</span>
+        <div id="invoiceFields" class="invoice-fields">
+            <div class="input-with-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" class="input-icon" alt="Email">
+                <input type="email" id="invoiceEmail" placeholder="כתובת אימייל למשלוח">
+            </div>
+            <div class="input-with-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="input-icon" alt="WhatsApp">
+                <input type="tel" id="invoiceWhatsapp" placeholder="מספר וואטסאפ למשלוח" maxlength="12" oninput="formatPhone(this)">
+            </div>
         </div>
 
         <button id="submitBtn" onclick="prepareOrder()">שלח הזמנה</button>
@@ -377,13 +341,13 @@
         evt.currentTarget.className += " active";
     }
 
-    function toggleDetail(show) {
-        document.getElementById('deliveryNotes').style.display = show ? 'block' : 'none';
+    function toggleInvoiceFields() {
+        const fields = document.getElementById('invoiceFields');
+        fields.style.display = (fields.style.display === 'block') ? 'none' : 'block';
     }
 
     function changeQty(btn, delta) {
         const input = btn.parentElement.querySelector('.prod-qty');
-        if (!input) return;
         let val = parseInt(input.value) + delta;
         if (val < 0) val = 0;
         input.value = val;
@@ -408,10 +372,10 @@
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
         const total = document.getElementById('totalPrice').innerText;
         const paymentSelection = document.querySelector('input[name="payMethod"]:checked').value;
-        const delivery = document.querySelector('input[name="deliveryMethod"]:checked').value;
+        const invEmail = document.getElementById('invoiceEmail').value.trim();
+        const invWA = document.getElementById('invoiceWhatsapp').value.trim();
 
         if (!firstName || !lastName || phone.length < 11) {
             alert("נא למלא שם מלא ומספר טלפון תקין.");
@@ -441,8 +405,8 @@
             orderSummary: orderItems.join(", "),
             totalPrice: total,
             paymentMethod: paymentSelection,
-            deliveryMethod: delivery,
-            comments: "תיאום: " + (deliveryNotes || "אין")
+            deliveryMethod: "עם החלוקה של שירלי ביום רביעי",
+            invoiceInfo: `אימייל: ${invEmail || 'לא צוין'}, וואטסאפ: ${invWA || 'לא צוין'}`
         };
 
         document.getElementById('modalCustName').innerText = globalOrderData.name;
@@ -460,15 +424,13 @@
         const btn = document.getElementById('finalConfirmBtn');
         btn.disabled = true;
         btn.innerText = "שולח...";
+        
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec';
+        
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
             closeModal();
-            if (globalOrderData.paymentMethod.includes("מזומן")) {
-                alert("ההזמנה נשלחה בהצלחה! ניפגש באיסוף.");
-            } else {
-                alert("ההזמנה נשלחה בהצלחה! גלעד ישלח אליך לינק לתשלום בהקדם.");
-            }
+            alert("ההזמנה נשלחה בהצלחה!");
             location.reload(); 
         })
         .catch((error) => {
