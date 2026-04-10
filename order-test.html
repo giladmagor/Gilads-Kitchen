@@ -5,51 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>הזמנה - המטבח של גלעד (גרסת ניסוי)</title>
     
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBCZLhwNUoUsiRdDp02-BZ6GUNKV2gstJM",
-            authDomain: "giladskitchen-715c0.firebaseapp.com",
-            projectId: "giladskitchen-715c0",
-            storageBucket: "giladskitchen-715c0.firebasestorage.app",
-            messagingSenderId: "946326553131",
-            appId: "1:946326553131:web:de8f4157c1893e8c9f606e",
-            measurementId: "G-9QPE3YSVZG"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // האזנה למלאי בזמן אמת
-        onSnapshot(collection(db, "products"), (snapshot) => {
-            window.outOfStockItems = [];
-            window.limitedStockItems = [];
-
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                const productName = doc.id;
-
-                if (data.status === 'out_of_stock') {
-                    window.outOfStockItems.push(productName);
-                } else if (data.status === 'limited') {
-                    window.limitedStockItems.push(productName);
-                }
-            });
-
-            // הפעלת עדכון התצוגה בכל פעם שהנתונים ב-Firebase משתנים
-            refreshStockUI();
-        });
-    </script>
-
     <style>
         :root { 
             --primary-green: #2d5a27; 
             --bg-color: #f5f5f0;
             --plus-green: #7ed9a2;
             --new-tag: #ff5722; 
-            --limited-tag: #ff9800; /* צבע כתום למלאי מוגבל */
+            --limited-tag: #ff9800; 
             --whatsapp-green: #25D366;
             --modal-bg: rgba(0,0,0,0.6);
         }
@@ -84,7 +46,24 @@
             transform: scale(1.1);
         }
 
-        .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .tabs-container { 
+            display: flex; 
+            gap: 10px; 
+            margin-bottom: 20px; 
+            overflow-x: auto; 
+            padding-bottom: 8px; 
+            scrollbar-width: thin; 
+        }
+
+        /* עיצוב פס גלילה לטאבים */
+        .tabs-container::-webkit-scrollbar {
+            height: 4px;
+        }
+        .tabs-container::-webkit-scrollbar-thumb {
+            background: var(--plus-green);
+            border-radius: 10px;
+        }
+
         .tab-btn { 
             background: white; border: 2px solid #ddd; padding: 10px 20px; border-radius: 25px; 
             cursor: pointer; white-space: nowrap; font-weight: bold; color: #666; flex-shrink: 0;
@@ -100,9 +79,14 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; 
             display: flex; justify-content: space-between; align-items: center; position: relative;
             overflow: hidden;
+            /* הוספת שינויי פרימיום */
+            transition: transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
-        /* עיצוב מוצר שאזל מהמלאי */
+        .product-card:active {
+            transform: scale(0.98);
+        }
+
         .product-card.out-of-stock {
             opacity: 0.6;
             filter: grayscale(1);
@@ -125,7 +109,6 @@
             white-space: nowrap;
         }
 
-        /* עיצוב תווית מלאי מוגבל */
         .limited-stock-badge {
             position: absolute;
             top: 5px;
@@ -151,8 +134,9 @@
         .product-price { font-weight: bold; color: #27ae60; display: block; margin-top: 4px; }
 
         .quantity-controls { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 5px; border-radius: 25px; }
-        .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: white; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: white; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
         .qty-btn.plus { background: var(--plus-green); color: white; }
+        .qty-btn:active { opacity: 0.7; }
         .prod-qty { width: 25px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; }
 
         .form-section { background: white; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #eee; }
@@ -163,7 +147,9 @@
         .radio-card { 
             display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
             border: 2px solid #eee; border-radius: 12px; cursor: pointer; margin-bottom: 8px; 
+            transition: 0.2s;
         }
+        .radio-card:has(input:checked) { border-color: var(--primary-green); background: #f0f7ef; }
         .radio-card input { margin-left: 10px; width: 18px; height: 18px; }
         .radio-card span { font-size: 0.95rem; line-height: 1.2; }
 
@@ -388,42 +374,6 @@
 
 <script>
     let globalOrderData = null;
-
-    // פונקציה חדשה לעדכון ה-UI על בסיס נתוני Firebase
-    function refreshStockUI() {
-        document.querySelectorAll('.product-card').forEach(card => {
-            const input = card.querySelector('.prod-qty');
-            if (!input) return;
-            
-            const productName = input.getAttribute('data-name');
-            const controls = card.querySelector('.quantity-controls');
-
-            // ניקוי מצב קודם
-            card.classList.remove('out-of-stock');
-            const existingBadges = card.querySelectorAll('.out-of-stock-badge, .limited-stock-badge');
-            existingBadges.forEach(b => b.remove());
-            if (controls) controls.style.visibility = 'visible';
-
-            // בדיקת "אזל מהמלאי"
-            if (window.outOfStockItems && window.outOfStockItems.includes(productName)) {
-                card.classList.add('out-of-stock');
-                const badge = document.createElement('div');
-                badge.className = 'out-of-stock-badge';
-                badge.innerText = 'אזל זמנית';
-                card.appendChild(badge);
-                input.value = 0;
-                if (controls) controls.style.visibility = 'hidden';
-            } 
-            // בדיקת "מלאי מוגבל"
-            else if (window.limitedStockItems && window.limitedStockItems.includes(productName)) {
-                const badge = document.createElement('div');
-                badge.className = 'limited-stock-badge';
-                badge.innerText = 'מלאי מוגבל';
-                card.appendChild(badge);
-            }
-        });
-        updateTotal();
-    }
 
     function openTab(evt, tabName) {
         var i, tabContent, tabBtns;
