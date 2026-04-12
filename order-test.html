@@ -12,7 +12,7 @@
             --plus-green: #7ed9a2;
             --whatsapp-green: #25D366;
             --modal-bg: rgba(0,0,0,0.6);
-            --status-orange: #e67e22; /* כתום חרדל עדין במקום אדום */
+            --status-orange: #e67e22;
         }
         
         body { 
@@ -41,7 +41,6 @@
         }
         .tab-btn.active { background: var(--primary-green); color: white; border-color: var(--primary-green); }
         
-        /* תווית סטטוס עדינה */
         .status-badge {
             position: absolute; top: -8px; left: 0; background: var(--status-orange); color: white;
             font-size: 0.65rem; padding: 2px 7px; border-radius: 10px; border: 1px solid white;
@@ -60,9 +59,7 @@
             background: #ffffff; border-radius: 18px; padding: 15px; margin-bottom: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; 
             display: flex; justify-content: space-between; align-items: center;
-            transition: transform 0.1s ease-in-out;
         }
-        .product-card:active { transform: scale(0.98); } 
 
         .product-info { flex: 1; padding-left: 10px; }
         .product-name { margin: 0; font-size: 1.05rem; color: var(--primary-green); font-weight: bold; }
@@ -143,12 +140,8 @@
     
     <div class="tabs-container">
         <button class="tab-btn active" onclick="openTab(event, 'pickles')">חמוצים</button>
-        <button class="tab-btn" onclick="openTab(event, 'soups')">
-            מרקים <span class="status-badge">תפריט משתנה...</span>
-        </button>
-        <button class="tab-btn" onclick="openTab(event, 'pastries')">
-            מאפים ותוספות <span class="status-badge">תפריט משתנה...</span>
-        </button>
+        <button class="tab-btn" onclick="openTab(event, 'soups')">מרקים <span class="status-badge">בקרוב...</span></button>
+        <button class="tab-btn" onclick="openTab(event, 'pastries')">מאפים ותוספות <span class="status-badge">בקרוב...</span></button>
     </div>
 
     <div id="pickles" class="tab-content" style="display:block;">
@@ -181,32 +174,17 @@
     <div id="soups" class="tab-content">
         <div class="unavailable-notice">המחלקה בהפוגה זמנית ותחזור בקרוב</div>
         <div class="disabled-content">
-            <div class="product-card">
-                <div class="product-info"><h3 class="product-name">מרק עגבניות סמיך</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-                <div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div>
-            </div>
-            <div class="product-card">
-                <div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-                <div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div>
-            </div>
-            <div class="product-card">
-                <div class="product-info"><h3 class="product-name">מרק ירקות כתומים</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-                <div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div>
-            </div>
+            <div class="product-card"><div class="product-info"><h3 class="product-name">מרק עגבניות סמיך</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
+            <div class="product-card"><div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
+            <div class="product-card"><div class="product-info"><h3 class="product-name">מרק ירקות כתומים</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
         </div>
     </div>
 
     <div id="pastries" class="tab-content">
         <div class="unavailable-notice">המחלקה בהפוגה זמנית ותחזור בקרוב</div>
         <div class="disabled-content">
-            <div class="product-card">
-                <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">בתבנית אינגליש קייק</p><span class="product-price">₪24</span></div>
-                <div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div>
-            </div>
-            <div class="product-card">
-                <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">עשירה בבצל ועדשים - קילו</p><span class="product-price">₪40</span></div>
-                <div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div>
-            </div>
+            <div class="product-card"><div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">בתבנית אינגליש קייק</p><span class="product-price">₪24</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
+            <div class="product-card"><div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">עשירה בבצל ועדשים - קילו</p><span class="product-price">₪40</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
         </div>
     </div>
 
@@ -252,9 +230,7 @@
 
     function formatPhone(input) {
         let val = input.value.replace(/\D/g, ''); 
-        if (val.length > 3) {
-            val = val.substring(0, 3) + '-' + val.substring(3, 10);
-        }
+        if (val.length > 3) val = val.substring(0, 3) + '-' + val.substring(3, 10);
         input.value = val;
     }
 
@@ -306,6 +282,14 @@
             }
         });
 
+        // יצירת מחרוזת ברורה לשדה הקבלה (השינוי שביקשת)
+        let invoiceVal = "לא צוין";
+        const email = document.getElementById('invEmail').value;
+        const wa = document.getElementById('invWA').value;
+        if(email) invoiceVal = "מייל: " + email;
+        else if(wa) invoiceVal = "וואטסאפ: " + wa;
+
+        // בניית האובייקט בצורה מסודרת - מתאים ל-7 עמודות בגוגל שיטס
         globalOrderData = {
             date: new Date().toLocaleString('he-IL'),
             name: fn + " " + ln,
@@ -313,7 +297,7 @@
             orderSummary: items.join(", "),
             totalPrice: t,
             paymentMethod: document.querySelector('input[name="payMethod"]:checked').value,
-            invoice: document.getElementById('invEmail').value || document.getElementById('invWA').value || "לא צוין"
+            invoice: invoiceVal 
         };
 
         document.getElementById('modalCustName').innerText = globalOrderData.name;
@@ -328,15 +312,13 @@
     function executeFinalSend() {
         const btn = document.getElementById('finalConfirmBtn');
         btn.disabled = true; btn.innerText = "שולח...";
+        
+        // כאן יש לעדכן את ה-URL מה-Deployment של גוגל
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec';
         
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
-            let msg = "ההזמנה התקבלה בהצלחה!";
-            if (globalOrderData.paymentMethod.includes("ביט") || globalOrderData.paymentMethod.includes("פייבוקס")) {
-                msg += "\nלינק לתשלום יישלח אליך בהקדם.";
-            }
-            alert(msg);
+            alert("ההזמנה התקבלה בהצלחה!");
             location.reload();
         }).catch(() => { 
             alert("שגיאה בשליחה."); 
