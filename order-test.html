@@ -303,7 +303,11 @@
         
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
-            alert("ההזמנה נשלחה בהצלחה!");
+            let msg = "ההזמנה התקבלה בהצלחה!";
+            if (globalOrderData.paymentMethod.includes("ביט") || globalOrderData.paymentMethod.includes("פייבוקס")) {
+                msg += "\nלינק לתשלום יישלח אליך בהקדם.";
+            }
+            alert(msg);
             location.reload();
         }).catch(() => { 
             alert("שגיאה בשליחה."); 
