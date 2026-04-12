@@ -71,7 +71,7 @@
         
         input:disabled { background-color: #f2f2f2; opacity: 0.5; }
 
-        .delivery-info-text { background: #f0f7ef; padding: 12px; border-radius: 10px; border-right: 4px solid var(--primary-green); margin-top: 8px; font-weight: 500; }
+        .delivery-info-text { background: #f0f7ef; padding: 12px; border-radius: 10px; border: 1px solid #e0e0e0; margin-top: 8px; font-weight: 500; }
 
         .invoice-toggle { color: var(--primary-green); text-decoration: underline; cursor: pointer; font-size: 0.9rem; display: inline-block; margin-top: 15px; font-weight: bold; }
         .invoice-fields { display: none; background: #fafafa; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px dashed #ccc; }
@@ -206,6 +206,7 @@
 
         <span class="invoice-toggle" onclick="toggleInvoice()">אופן שליחת קבלה (אופציונלי) ▼</span>
         <div id="invoiceFields" class="invoice-fields">
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">נא למלא שדה אחד בלבד:</p>
             <div class="input-with-icon">
                 <input type="email" id="invEmail" placeholder="אימייל למשלוח" oninput="handleInv('email')">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail">
