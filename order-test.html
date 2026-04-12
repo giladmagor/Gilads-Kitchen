@@ -29,13 +29,7 @@
         
         h2 { color: var(--primary-green); text-align: center; margin-bottom: 5px; }
         
-        .tabs-container { 
-            display: flex; 
-            gap: 10px; 
-            margin-bottom: 20px; 
-            overflow-x: auto; 
-            padding-bottom: 8px; 
-        }
+        .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
 
         .tab-btn { 
             background: white; border: 2px solid #ddd; padding: 10px 20px; border-radius: 25px; 
@@ -50,12 +44,14 @@
             background: #ffffff; border-radius: 18px; padding: 15px; margin-bottom: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; 
             display: flex; justify-content: space-between; align-items: center;
+            transition: transform 0.1s ease-in-out; /* האפקט שביקשת */
         }
+        .product-card:active { transform: scale(0.98); } /* האפקט שביקשת */
 
         .product-info { flex: 1; padding-left: 10px; }
         .product-name { margin: 0; font-size: 1.05rem; color: var(--primary-green); font-weight: bold; }
-        .product-description { margin: 3px 0; font-size: 0.8rem; color: #7f8c8d; line-height: 1.3; }
-        .product-price { font-weight: bold; color: #27ae60; display: block; margin-top: 4px; }
+        .product-description { margin: 3px 0; font-size: 0.8rem; color: #7f8c8d; }
+        .product-price { font-weight: bold; color: #27ae60; display: block; }
 
         .quantity-controls { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 5px; border-radius: 25px; }
         .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: white; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -64,7 +60,13 @@
 
         .form-section { background: white; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #eee; }
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
-        input[type="text"], input[type="tel"], input[type="email"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
+        
+        .name-fields { display: flex; gap: 10px; } /* שם פרטי ומשפחה מופרדים */
+        
+        input[type="text"], input[type="tel"], input[type="email"] { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; 
+            box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; 
+        }
         
         input:disabled { background-color: #f2f2f2; opacity: 0.5; }
 
@@ -124,7 +126,7 @@
 
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">פיקנטי - 150 גר'</p><span class="product-price">₪12</span></div>
+            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">150 גר'</p><span class="product-price">₪12</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
@@ -144,11 +146,11 @@
     <div id="soups" class="tab-content">
         <div class="product-card">
             <div class="product-info"><h3 class="product-name">מרק עגבניות סמיך</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות סמיך" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות עשיר" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
 
@@ -164,10 +166,12 @@
     </div>
 
     <div class="form-section">
-        <label>שם מלא *</label>
-        <input type="text" id="custName" placeholder="שם פרטי ומשפחה" required>
-        <label>מספר טלפון *</label>
-        <input type="tel" id="phone" placeholder="05X-XXXXXXX" required maxlength="12" oninput="formatPhone(this)">
+        <label>פרטי לקוח *</label>
+        <div class="name-fields">
+            <input type="text" id="firstName" placeholder="שם פרטי *" required>
+            <input type="text" id="lastName" placeholder="שם משפחה *" required>
+        </div>
+        <input type="tel" id="phone" placeholder="מספר טלפון *" required maxlength="12">
 
         <label>אופן קבלת ההזמנה:</label>
         <div class="delivery-info-text">עם החלוקה של שירלי ביום רביעי</div>
@@ -211,12 +215,6 @@
         document.getElementById('totalPrice').innerText = t;
     }
 
-    function formatPhone(i) { 
-        let v = i.value.replace(/\D/g, ''); 
-        if (v.length > 3) v = v.slice(0, 3) + '-' + v.slice(3, 10);
-        i.value = v; 
-    }
-
     function toggleInvoice() { 
         let f = document.getElementById('invoiceFields'); 
         f.style.display = f.style.display === 'block' ? 'none' : 'block'; 
@@ -229,8 +227,8 @@
     }
 
     function prepareOrder() {
-        const n = document.getElementById('custName').value, p = document.getElementById('phone').value, t = document.getElementById('totalPrice').innerText;
-        if(!n || p.length < 10 || t == "0") return alert("נא למלא פרטים ולבחור לפחות מוצר אחד.");
+        const fn = document.getElementById('firstName').value, ln = document.getElementById('lastName').value, p = document.getElementById('phone').value, t = document.getElementById('totalPrice').innerText;
+        if(!fn || !ln || p.length < 9 || t == "0") return alert("נא למלא שם מלא, טלפון תקין ולבחור מוצרים.");
         
         let items = [], list = "";
         document.querySelectorAll('.prod-qty').forEach(i => {
@@ -242,7 +240,7 @@
 
         globalOrderData = {
             date: new Date().toLocaleString('he-IL'),
-            name: n,
+            name: fn + " " + ln,
             phone: p,
             orderSummary: items.join(", "),
             totalPrice: t,
@@ -250,7 +248,7 @@
             invoice: document.getElementById('invEmail').value || document.getElementById('invWA').value || "לא צוין"
         };
 
-        document.getElementById('modalCustName').innerText = n;
+        document.getElementById('modalCustName').innerText = globalOrderData.name;
         document.getElementById('modalProductList').innerHTML = list;
         document.getElementById('modalPayMethod').innerText = globalOrderData.paymentMethod;
         document.getElementById('modalTotal').innerText = t;
@@ -268,13 +266,14 @@
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
             let msg = "ההזמנה נשלחה בהצלחה!";
-            if (globalOrderData.paymentMethod.includes("ביט") || globalOrderData.paymentMethod.includes("פייבוקס")) {
+            const pay = globalOrderData.paymentMethod;
+            if (pay.includes("ביט") || pay.includes("פייבוקס")) {
                 msg += "\nלינק לתשלום יישלח אליך בהקדם.";
             }
             alert(msg);
             location.reload();
         }).catch(() => { 
-            alert("שגיאה בשליחה, נא לנסות שוב."); 
+            alert("שגיאה בשליחה."); 
             btn.disabled = false; btn.innerText = "אשר ושלח";
         });
     }
