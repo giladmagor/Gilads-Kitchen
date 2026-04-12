@@ -28,6 +28,10 @@
         .logo { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
         h2 { color: var(--primary-green); text-align: center; margin-bottom: 5px; }
+
+        .instagram-link { display: flex; justify-content: center; margin-bottom: 20px; text-decoration: none; }
+        .instagram-icon { width: 30px; height: 30px; transition: transform 0.2s; }
+        .instagram-icon:hover { transform: scale(1.1); }
         
         .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
 
@@ -44,9 +48,9 @@
             background: #ffffff; border-radius: 18px; padding: 15px; margin-bottom: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; 
             display: flex; justify-content: space-between; align-items: center;
-            transition: transform 0.1s ease-in-out; /* האפקט שביקשת */
+            transition: transform 0.1s ease-in-out;
         }
-        .product-card:active { transform: scale(0.98); } /* האפקט שביקשת */
+        .product-card:active { transform: scale(0.98); } 
 
         .product-info { flex: 1; padding-left: 10px; }
         .product-name { margin: 0; font-size: 1.05rem; color: var(--primary-green); font-weight: bold; }
@@ -61,7 +65,7 @@
         .form-section { background: white; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #eee; }
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         
-        .name-fields { display: flex; gap: 10px; } /* שם פרטי ומשפחה מופרדים */
+        .name-fields { display: flex; gap: 10px; } 
         
         input[type="text"], input[type="tel"], input[type="email"] { 
             width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; 
@@ -74,6 +78,9 @@
 
         .invoice-toggle { color: var(--primary-green); text-decoration: underline; cursor: pointer; font-size: 0.9rem; display: inline-block; margin-top: 15px; font-weight: bold; }
         .invoice-fields { display: none; background: #fafafa; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px dashed #ccc; }
+        
+        .input-with-icon { position: relative; }
+        .input-with-icon span { position: absolute; left: 12px; top: 18px; color: #888; }
 
         .radio-card { 
             display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
@@ -117,6 +124,10 @@
 <div class="container">
     <div class="logo-container"><img src="לוגו המטבח של גלעד.jpg" alt="לוגו" class="logo"></div>
     <h2>המטבח של גלעד</h2>
+
+    <a href="https://www.instagram.com/kitchen_of_gilad" target="_blank" class="instagram-link">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="instagram-icon">
+    </a>
     
     <div class="tabs-container">
         <button class="tab-btn active" onclick="openTab(event, 'pickles')">חמוצים</button>
@@ -171,7 +182,7 @@
             <input type="text" id="firstName" placeholder="שם פרטי *" required>
             <input type="text" id="lastName" placeholder="שם משפחה *" required>
         </div>
-        <input type="tel" id="phone" placeholder="מספר טלפון *" required maxlength="12">
+        <input type="tel" id="phone" placeholder="מספר טלפון *" required>
 
         <label>אופן קבלת ההזמנה:</label>
         <div class="delivery-info-text">עם החלוקה של שירלי ביום רביעי</div>
@@ -183,10 +194,16 @@
             <label class="radio-card"><input type="radio" name="payMethod" value="מזומן"> <span>מזומן</span></label>
         </div>
 
-        <span class="invoice-toggle" onclick="toggleInvoice()">חשבונית (אופציונלי) ▼</span>
+        <span class="invoice-toggle" onclick="toggleInvoice()">אופן קבלת קבלה (אופציונלי) ▼</span>
         <div id="invoiceFields" class="invoice-fields">
-            <input type="email" id="invEmail" placeholder="אימייל למשלוח" oninput="handleInv('email')">
-            <input type="tel" id="invWA" placeholder="וואטסאפ למשלוח" oninput="handleInv('wa')">
+            <div class="input-with-icon">
+                <input type="email" id="invEmail" placeholder="אימייל למשלוח" oninput="handleInv('email')">
+                <span>✉</span>
+            </div>
+            <div class="input-with-icon">
+                <input type="tel" id="invWA" placeholder="וואטסאפ למשלוח" oninput="handleInv('wa')">
+                <span>📱</span>
+            </div>
         </div>
 
         <button onclick="prepareOrder()" class="confirm-btn">שלח הזמנה</button>
@@ -260,14 +277,12 @@
     function executeFinalSend() {
         const btn = document.getElementById('finalConfirmBtn');
         btn.disabled = true; btn.innerText = "שולח...";
-        
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec';
         
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
             let msg = "ההזמנה נשלחה בהצלחה!";
-            const pay = globalOrderData.paymentMethod;
-            if (pay.includes("ביט") || pay.includes("פייבוקס")) {
+            if (globalOrderData.paymentMethod.includes("ביט") || globalOrderData.paymentMethod.includes("פייבוקס")) {
                 msg += "\nלינק לתשלום יישלח אליך בהקדם.";
             }
             alert(msg);
