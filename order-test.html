@@ -92,8 +92,8 @@
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         input[type="text"], input[type="tel"], input[type="email"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
         
-        /* עיצוב לשדה כבוי */
-        input:disabled { background-color: #f2f2f2; cursor: not-allowed; opacity: 0.6; }
+        /* עיצוב לשדה מבוטל */
+        input:disabled { background-color: #f2f2f2; cursor: not-allowed; opacity: 0.5; border-color: #eee; }
 
         .delivery-info-text { background: #f0f7ef; padding: 12px; border-radius: 10px; border-right: 4px solid var(--primary-green); margin-top: 8px; font-weight: 500; }
 
@@ -315,13 +315,14 @@
 
         <span class="invoice-toggle" onclick="toggleInvoiceFields()">דרך קבלת חשבונית (אופציונלי) ▼</span>
         <div id="invoiceFields" class="invoice-fields">
+            <p style="font-size: 0.8rem; color: #666; margin: 0 0 10px 0;">נא למלא רק שדה אחד (או מייל או וואטסאפ):</p>
             <div class="input-with-icon">
                 <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" class="input-icon" alt="Email">
-                <input type="email" id="invoiceEmail" placeholder="כתובת אימייל למשלוח" oninput="handleInvoiceChoice('email')">
+                <input type="email" id="invoiceEmail" placeholder="כתובת אימייל למשלוח" oninput="handleInvoiceInput('email')">
             </div>
             <div class="input-with-icon">
                 <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="input-icon" alt="WhatsApp">
-                <input type="tel" id="invoiceWhatsapp" placeholder="מספר וואטסאפ למשלוח" maxlength="12" oninput="handleInvoiceChoice('whatsapp')">
+                <input type="tel" id="invoiceWhatsapp" placeholder="מספר וואטסאפ למשלוח" maxlength="12" oninput="handleInvoiceInput('whatsapp')">
             </div>
         </div>
 
@@ -350,27 +351,19 @@
     }
 
     /**
-     * לוגיקה למניעת מילוי שני שדות החשבונית במקביל
+     * לוגיקה למניעת מילוי שני שדות במקביל - חסימה מיידית בזמן אמת
      */
-    function handleInvoiceChoice(chosenType) {
-        const emailField = document.getElementById('invoiceEmail');
-        const whatsappField = document.getElementById('invoiceWhatsapp');
+    function handleInvoiceInput(source) {
+        const emailInput = document.getElementById('invoiceEmail');
+        const whatsappInput = document.getElementById('invoiceWhatsapp');
 
-        if (chosenType === 'email') {
-            if (emailField.value.trim().length > 0) {
-                whatsappField.disabled = true;
-                whatsappField.value = ''; // ניקוי השדה השני אם הוקלד משהו
-            } else {
-                whatsappField.disabled = false;
-            }
-        } else if (chosenType === 'whatsapp') {
-            formatPhone(whatsappField); // פורמט טלפון רגיל
-            if (whatsappField.value.trim().length > 0) {
-                emailField.disabled = true;
-                emailField.value = '';
-            } else {
-                emailField.disabled = false;
-            }
+        if (source === 'email') {
+            // אם הוקלד משהו במייל, נעל את הוואטסאפ. אם נמחק הכל, שחרר אותו.
+            whatsappInput.disabled = emailInput.value.trim().length > 0;
+        } else if (source === 'whatsapp') {
+            formatPhone(whatsappInput); // שמירה על פורמט טלפון
+            // אם הוקלד משהו בוואטסאפ, נעל את המייל. אם נמחק הכל, שחרר אותו.
+            emailInput.disabled = whatsappInput.value.trim().length > 0;
         }
     }
 
