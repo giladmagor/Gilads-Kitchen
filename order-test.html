@@ -52,8 +52,8 @@
 
         .product-info { flex: 1; padding-left: 10px; }
         .product-name { margin: 0; font-size: 1.05rem; color: var(--primary-green); font-weight: bold; }
-        .product-description { margin: 3px 0; font-size: 0.8rem; color: #7f8c8d; }
-        .product-price { font-weight: bold; color: #27ae60; display: block; }
+        .product-description { margin: 3px 0; font-size: 0.8rem; color: #7f8c8d; line-height: 1.3; }
+        .product-price { font-weight: bold; color: #27ae60; display: block; margin-top: 4px; }
 
         .quantity-controls { display: flex; align-items: center; gap: 8px; background: #f0f0f0; padding: 5px; border-radius: 25px; }
         .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: white; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -76,8 +76,10 @@
         .invoice-toggle { color: var(--primary-green); text-decoration: underline; cursor: pointer; font-size: 0.9rem; display: inline-block; margin-top: 15px; font-weight: bold; }
         .invoice-fields { display: none; background: #fafafa; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px dashed #ccc; }
         
+        /* תיקון אייקונים לימין */
         .input-with-icon { position: relative; display: flex; align-items: center; }
-        .input-with-icon img { position: absolute; left: 12px; width: 20px; height: 20px; pointer-events: none; }
+        .input-with-icon img { position: absolute; right: 12px; width: 20px; height: 20px; pointer-events: none; }
+        .input-with-icon input { padding-right: 40px; padding-left: 12px; }
 
         .radio-card { 
             display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
@@ -122,8 +124,8 @@
     <div class="logo-container"><img src="לוגו המטבח של גלעד.jpg" alt="לוגו" class="logo"></div>
     <h2>המטבח של גלעד</h2>
 
-    <a href="https://www.instagram.com/kitchen_of_gilad" target="_blank" class="instagram-link">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="instagram-icon">
+    <a href="https://www.instagram.com/gilads.kitchen" target="_blank" class="instagram-link">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="instagram-icon">
     </a>
     
     <div class="tabs-container">
@@ -134,32 +136,32 @@
 
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">צנצנת קטנה (150 גר')</p><span class="product-price">₪12</span></div>
+            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">חרדל צהוב ושחור חריף פיקנטי - 150 גר'</p><span class="product-price">₪12</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="עגבניות שרי מוחמצות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪25</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">כרוב חמוץ (לימון)</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">כרוב חמוץ</h3><p class="product-description">חמוץ חריף - 580 מ"ל</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">צנצנת בינונית (250 גר')</p><span class="product-price">₪17</span></div>
+            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="product-price">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">טורשי (חמוצים עיראקיים)</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪30</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="טורשי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="product-info"><h3 class="product-name">טורשי עיראקי</h3><p class="product-description">2 ליטר</p><span class="product-price">₪30</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="טורשי עיראקי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
 
@@ -180,11 +182,11 @@
 
     <div id="pastries" class="tab-content">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">תבנית אינגליש קייק</p><span class="product-price">₪24</span></div>
+            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">בתבנית אינגליש קייק</p><span class="product-price">₪24</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">1 קילו</p><span class="product-price">₪40</span></div>
+            <div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">עשירה בבצל ועדשים - קילו</p><span class="product-price">₪40</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="40" data-name="מג'דרה ביתית" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
@@ -195,7 +197,7 @@
             <input type="text" id="firstName" placeholder="שם פרטי *" required>
             <input type="text" id="lastName" placeholder="שם משפחה *" required>
         </div>
-        <input type="tel" id="phone" placeholder="מספר טלפון *" required>
+        <input type="tel" id="phone" placeholder="מספר טלפון (למשל 050-1234567) *" required maxlength="11" oninput="formatPhone(this)">
 
         <label>אופן קבלת ההזמנה:</label>
         <div class="delivery-info-text">עם החלוקה של שירלי ביום רביעי</div>
@@ -228,6 +230,15 @@
 <script>
     let globalOrderData = null;
 
+    // עיצוב מספר טלפון 000-0000000
+    function formatPhone(input) {
+        let val = input.value.replace(/\D/g, ''); // משאיר רק מספרים
+        if (val.length > 3) {
+            val = val.substring(0, 3) + '-' + val.substring(3, 10);
+        }
+        input.value = val;
+    }
+
     function openTab(e, n) { 
         document.querySelectorAll('.tab-content').forEach(t => t.style.display='none');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -257,8 +268,12 @@
     }
 
     function prepareOrder() {
-        const fn = document.getElementById('firstName').value, ln = document.getElementById('lastName').value, p = document.getElementById('phone').value, t = document.getElementById('totalPrice').innerText;
-        if(!fn || !ln || p.length < 9 || t == "0") return alert("נא למלא שם מלא, טלפון תקין ולבחור מוצרים.");
+        const fn = document.getElementById('firstName').value, 
+              ln = document.getElementById('lastName').value, 
+              p = document.getElementById('phone').value, 
+              t = document.getElementById('totalPrice').innerText;
+              
+        if(!fn || !ln || p.length < 11 || t == "0") return alert("נא למלא שם מלא, טלפון תקין (כולל מקף) ולבחור מוצרים.");
         
         let items = [], list = "";
         document.querySelectorAll('.prod-qty').forEach(i => {
