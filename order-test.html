@@ -92,6 +92,9 @@
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         input[type="text"], input[type="tel"], input[type="email"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; }
         
+        /* עיצוב לשדה כבוי */
+        input:disabled { background-color: #f2f2f2; cursor: not-allowed; opacity: 0.6; }
+
         .delivery-info-text { background: #f0f7ef; padding: 12px; border-radius: 10px; border-right: 4px solid var(--primary-green); margin-top: 8px; font-weight: 500; }
 
         .invoice-toggle { color: var(--primary-green); text-decoration: underline; cursor: pointer; font-size: 0.9rem; display: inline-block; margin-top: 15px; font-weight: bold; }
@@ -314,11 +317,11 @@
         <div id="invoiceFields" class="invoice-fields">
             <div class="input-with-icon">
                 <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" class="input-icon" alt="Email">
-                <input type="email" id="invoiceEmail" placeholder="כתובת אימייל למשלוח">
+                <input type="email" id="invoiceEmail" placeholder="כתובת אימייל למשלוח" oninput="handleInvoiceChoice('email')">
             </div>
             <div class="input-with-icon">
                 <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="input-icon" alt="WhatsApp">
-                <input type="tel" id="invoiceWhatsapp" placeholder="מספר וואטסאפ למשלוח" maxlength="12" oninput="formatPhone(this)">
+                <input type="tel" id="invoiceWhatsapp" placeholder="מספר וואטסאפ למשלוח" maxlength="12" oninput="handleInvoiceChoice('whatsapp')">
             </div>
         </div>
 
@@ -344,6 +347,31 @@
     function toggleInvoiceFields() {
         const fields = document.getElementById('invoiceFields');
         fields.style.display = (fields.style.display === 'block') ? 'none' : 'block';
+    }
+
+    /**
+     * לוגיקה למניעת מילוי שני שדות החשבונית במקביל
+     */
+    function handleInvoiceChoice(chosenType) {
+        const emailField = document.getElementById('invoiceEmail');
+        const whatsappField = document.getElementById('invoiceWhatsapp');
+
+        if (chosenType === 'email') {
+            if (emailField.value.trim().length > 0) {
+                whatsappField.disabled = true;
+                whatsappField.value = ''; // ניקוי השדה השני אם הוקלד משהו
+            } else {
+                whatsappField.disabled = false;
+            }
+        } else if (chosenType === 'whatsapp') {
+            formatPhone(whatsappField); // פורמט טלפון רגיל
+            if (whatsappField.value.trim().length > 0) {
+                emailField.disabled = true;
+                emailField.value = '';
+            } else {
+                emailField.disabled = false;
+            }
+        }
     }
 
     function changeQty(btn, delta) {
