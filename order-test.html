@@ -31,10 +31,8 @@
 
         .instagram-link { display: flex; justify-content: center; margin-bottom: 20px; text-decoration: none; }
         .instagram-icon { width: 30px; height: 30px; transition: transform 0.2s; }
-        .instagram-icon:hover { transform: scale(1.1); }
         
         .tabs-container { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
-
         .tab-btn { 
             background: white; border: 2px solid #ddd; padding: 10px 20px; border-radius: 25px; 
             cursor: pointer; white-space: nowrap; font-weight: bold; color: #666; flex-shrink: 0;
@@ -66,7 +64,6 @@
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
         
         .name-fields { display: flex; gap: 10px; } 
-        
         input[type="text"], input[type="tel"], input[type="email"] { 
             width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; 
             box-sizing: border-box; font-size: 16px; margin: 8px 0; font-family: inherit; 
@@ -137,53 +134,53 @@
 
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">150 גר'</p><span class="product-price">₪12</span></div>
+            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">צנצנת קטנה (150 גר')</p><span class="product-price">₪12</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="עגבניות שרי מוחמצות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪25</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="עגבניות שרי מוחמצות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪25</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">כרוב חמוץ (לימון)</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">כרוב חמוץ (לימון)</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="product-price">₪17</span></div>
+            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">צנצנת בינונית (250 גר')</p><span class="product-price">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">טורשי</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
+            <div class="product-info"><h3 class="product-name">טורשי (חמוצים עיראקיים)</h3><p class="product-description">צנצנת גדולה</p><span class="product-price">₪28</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="טורשי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
 
     <div id="soups" class="tab-content">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מרק עגבניות סמיך</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="product-info"><h3 class="product-name">מרק עגבניות סמיך</h3><p class="product-description">1 ליטר</p><span class="product-price">₪30</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="מרק עגבניות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">1 ליטר</p><span class="product-price">₪30</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="מרק ירקות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">מרק ירקות כתומים</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק כתומים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="product-info"><h3 class="product-name">מרק ירקות כתומים</h3><p class="product-description">1 ליטר</p><span class="product-price">₪30</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="מרק כתומים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
 
     <div id="pastries" class="tab-content">
         <div class="product-card">
-            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">אינגליש קייק</p><span class="product-price">₪24</span></div>
+            <div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">תבנית אינגליש קייק</p><span class="product-price">₪24</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="24" data-name="קוגל ירושלמי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
