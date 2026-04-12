@@ -79,8 +79,8 @@
         .invoice-toggle { color: var(--primary-green); text-decoration: underline; cursor: pointer; font-size: 0.9rem; display: inline-block; margin-top: 15px; font-weight: bold; }
         .invoice-fields { display: none; background: #fafafa; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px dashed #ccc; }
         
-        .input-with-icon { position: relative; }
-        .input-with-icon span { position: absolute; left: 12px; top: 18px; color: #888; }
+        .input-with-icon { position: relative; display: flex; align-items: center; }
+        .input-with-icon img { position: absolute; left: 12px; width: 20px; height: 20px; pointer-events: none; }
 
         .radio-card { 
             display: flex; align-items: center; padding: 12px; background: #f9f9f9; 
@@ -141,6 +141,10 @@
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
+            <div class="product-info"><h3 class="product-name">עגבניות שרי מוחמצות</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="עגבניות שרי מוחמצות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+        </div>
+        <div class="product-card">
             <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
@@ -149,19 +153,31 @@
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
+            <div class="product-info"><h3 class="product-name">כרוב חמוץ (לימון)</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪25</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+        </div>
+        <div class="product-card">
             <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="product-price">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+        </div>
+        <div class="product-card">
+            <div class="product-info"><h3 class="product-name">טורשי</h3><p class="product-description">580 מ"ל</p><span class="product-price">₪28</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="טורשי" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
 
     <div id="soups" class="tab-content">
         <div class="product-card">
             <div class="product-info"><h3 class="product-name">מרק עגבניות סמיך</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות סמיך" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק עגבניות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות עשיר" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק ירקות" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+        </div>
+        <div class="product-card">
+            <div class="product-info"><h3 class="product-name">מרק ירקות כתומים</h3><p class="product-description">חצי ליטר</p><span class="product-price">₪35</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="35" data-name="מרק כתומים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
 
@@ -198,11 +214,11 @@
         <div id="invoiceFields" class="invoice-fields">
             <div class="input-with-icon">
                 <input type="email" id="invEmail" placeholder="אימייל למשלוח" oninput="handleInv('email')">
-                <span>✉</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail">
             </div>
             <div class="input-with-icon">
                 <input type="tel" id="invWA" placeholder="וואטסאפ למשלוח" oninput="handleInv('wa')">
-                <span>📱</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
             </div>
         </div>
 
