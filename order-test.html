@@ -42,18 +42,21 @@
         .tab-btn.active { background: var(--primary-green); color: white; border-color: var(--primary-green); }
         
         .status-badge {
-            position: absolute; 
-    top: -10px; /* העליתי מעט בגלל הגדלת הפונט */
-    left: 0; 
+    position: absolute; 
+    top: -14px; /* העליתי עוד קצת כדי שלא יתנגש בטקסט של הכפתור */
+    left: 50%; /* מרכז את התגית ביחס לכפתור */
+    transform: translateX(-50%); /* השלמה למרכוז מדויק */
     background: var(--status-orange); 
     color: white;
-    font-size: 0.85rem; /* הגדלתי מ-0.65 ל-0.85 */
-    font-weight: 800; /* עיביתי את הטקסט למקסימום */
-    padding: 3px 10px; /* הגדלתי את המרווח הפנימי שייראה ברור יותר */
-    border-radius: 12px; 
-    border: 1.5px solid white; /* עיביתי מעט את המסגרת הלבנה */
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    white-space: nowrap; /* מבטיח שהטקסט לא יישבר לשתי שורות */
+    font-size: 0.9rem; /* הגדלה נוספת לניראות מקסימלית */
+    font-weight: 900; /* העובי הכי חזק שיש */
+    padding: 2px 8px; 
+    border-radius: 8px; 
+    border: 2px solid white; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    line-height: 1; /* מונע מהטקסט "לברוח" למעלה או למטה בתוך הריבוע הכתום */
+    z-index: 10;
         }
 
         .tab-content { display: none; }
