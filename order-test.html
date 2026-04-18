@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>הזמנה - המטבח של גלעד</title>
+    <title>חוגגים עצמאות - המטבח של גלעד</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
             --primary-green: #2d5a27; 
+            --israel-blue: #0038b8;
             --bg-color: #f5f5f0;
             --plus-green: #7ed9a2;
             --whatsapp-green: #25D366;
@@ -22,16 +23,39 @@
         body { 
             font-family: 'Assistant', sans-serif; 
             background: var(--bg-color); 
-            padding: 15px; 
+            padding: 0; 
             margin: 0; 
             padding-bottom: 140px; 
         }
+
+        /* פס דגל עליון */
+        .holiday-banner {
+            background: white;
+            height: 5px;
+            width: 100%;
+            border-top: 4px solid var(--israel-blue);
+            border-bottom: 4px solid var(--israel-blue);
+            margin-bottom: 15px;
+        }
+
+        .container { max-width: 500px; margin: auto; padding: 0 15px; }
         
-        .container { max-width: 500px; margin: auto; }
-        .logo-container { text-align: center; margin-bottom: 15px; }
-        .logo { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo-container { text-align: center; margin-bottom: 10px; position: relative; }
+        .logo { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 3px solid white; }
         
-        h2 { color: var(--primary-green); text-align: center; margin-bottom: 5px; }
+        .holiday-title {
+            background: linear-gradient(90deg, #0038b8, #0056b3);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            border-radius: 12px;
+            margin: 10px 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 { color: var(--primary-green); text-align: center; margin-bottom: 5px; margin-top: 10px; }
 
         .instagram-link { display: flex; justify-content: center; margin-bottom: 20px; text-decoration: none; }
         .instagram-icon { width: 30px; height: 30px; }
@@ -135,6 +159,7 @@
             width: 85%; max-width: 400px; background: var(--primary-green); 
             color: white; padding: 18px; border-radius: 40px; text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000; font-size: 1.2rem; font-weight: bold;
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         .whatsapp-float {
@@ -150,12 +175,14 @@
         }
         .modal-card {
             background: white; width: 100%; max-width: 400px; border-radius: 25px; padding: 25px;
-            text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-top: 10px solid var(--israel-blue);
         }
         .confirm-btn { background: var(--primary-green); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.2rem; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
+
+<div class="holiday-banner"></div>
 
 <div id="imageModal" onclick="this.style.display='none'">
     <span class="close-img-modal">&times;</span>
@@ -168,7 +195,7 @@
 
 <div id="modalOverlay" class="modal-overlay">
     <div class="modal-card">
-        <h3 style="color:var(--primary-green); margin-top:0;">סיכום הזמנה</h3>
+        <h3 style="color:var(--primary-green); margin-top:0;">סיכום הזמנה חגיגית 🇮🇱</h3>
         <p><strong>לקוח:</strong> <span id="modalCustName"></span></p>
         <ul id="modalProductList" style="list-style:none; padding:0; border-top:1px solid #eee; border-bottom:1px solid #eee; padding:10px 0;"></ul>
         <p><strong>אמצעי תשלום:</strong> <span id="modalPayMethod"></span></p>
@@ -179,48 +206,52 @@
 </div>
 
 <div class="container">
-    <div class="logo-container"><img src="לוגו המטבח של גלעד.jpg" alt="לוגו" class="logo"></div>
+    <div class="logo-container">
+        <img src="לוגו המטבח של גלעד.jpg" alt="לוגו" class="logo">
+    </div>
     <h2>המטבח של גלעד</h2>
+    
+    <div class="holiday-title">🇮🇱 מיוחד ליום העצמאות! 🇮🇱</div>
 
     <a href="https://www.instagram.com/gilads.kitchen" target="_blank" class="instagram-link">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="instagram-icon">
     </a>
     
     <div class="tabs-container">
-        <button class="tab-btn active" onclick="openTab(event, 'pickles')">חמוצים</button>
+        <button class="tab-btn active" onclick="openTab(event, 'pickles')">חמוצים 🥒</button>
         <button class="tab-btn" onclick="openTab(event, 'soups')">מרקים <span class="status-badge">בהפוגה השבוע...</span></button>
         <button class="tab-btn" onclick="openTab(event, 'pastries')">מאפים ותוספות <span class="status-badge">בהפוגה השבוע...</span></button>
     </div>
 
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
-            <img src="Hamburger_ready.jpg" class="product-thumb" alt="פרוסות מלפפון חמוץ Humburger ready" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">פרוסות מלפפון חמוץ "Humburger ready"</h3><p class="product-description">צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
+            <img src="Hamburger_ready.jpg" class="product-thumb" alt="Humburger ready" onclick="openImage(this.src)">
+            <div class="product-info"><h3 class="product-name">פרוסות מלפפון חמוץ "Humburger ready"</h3><p class="product-description">מושלם למנגל! 🇮🇱 צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name='פרוסות מלפפון חמוץ "Humburger ready"' value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="Pickels.jpg" class="product-thumb" alt="מלפפון חמוץ" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪28</span></div>
+            <div class="product-info"><h3 class="product-name">מלפפון חמוץ 🇮🇱</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪28</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <img src="cabbage.jpg" class="product-thumb" alt="כרוב כבוש מותסס" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
+            <img src="cabbage.jpg" class="product-thumb" alt="כרוב כבוש" onclick="openImage(this.src)">
+            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס 🇮🇱</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <img src="onion.JPG" class="product-thumb" alt="בצל סגול מוחמץ" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
+            <img src="onion.JPG" class="product-thumb" alt="בצל סגול" onclick="openImage(this.src)">
+            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ 🇮🇱</h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <img src="mustard.JPG" class="product-thumb" alt="ממרח חרדל מותסס" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">חרדל צהוב ושחור פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
+            <img src="mustard.JPG" class="product-thumb" alt="חרדל" onclick="openImage(this.src)">
+            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס 🇮🇱</h3><p class="product-description">פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <img src="Torshi.jpg" class="product-thumb" alt="חמוצים עיראקים" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">חמוצים עיראקים</h3><p class="product-description">2 ליטר</p><span class="price-tag">₪30</span></div>
+            <img src="Torshi.jpg" class="product-thumb" alt="טורשי" onclick="openImage(this.src)">
+            <div class="product-info"><h3 class="product-name">חמוצים עיראקים 🇮🇱</h3><p class="product-description">2 ליטר</p><span class="price-tag">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="חמוצים עיראקים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
@@ -229,8 +260,6 @@
         <div class="unavailable-notice">המחלקה בהפוגה זמנית ותחזור בקרוב</div>
         <div class="disabled-content">
             <div class="product-card"><div class="product-info"><h3 class="product-name">מרק עגבניות סמיך</h3><p class="product-description">חצי ליטר</p><span class="price-tag">₪35</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
-            <div class="product-card"><div class="product-info"><h3 class="product-name">מרק ירקות עשיר</h3><p class="product-description">חצי ליטר</p><span class="price-tag">₪35</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
-            <div class="product-card"><div class="product-info"><h3 class="product-name">מרק ירקות כתומים</h3><p class="product-description">חצי ליטר</p><span class="price-tag">₪35</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
         </div>
     </div>
 
@@ -238,12 +267,11 @@
         <div class="unavailable-notice">המחלקה בהפוגה זמנית ותחזור בקרוב</div>
         <div class="disabled-content">
             <div class="product-card"><div class="product-info"><h3 class="product-name">קוגל ירושלמי</h3><p class="product-description">בתבנית אינגליש קייק</p><span class="price-tag">₪24</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
-            <div class="product-card"><div class="product-info"><h3 class="product-name">מג'דרה ביתית</h3><p class="product-description">עשירה בבצל ועדשים - קילו</p><span class="price-tag">₪40</span></div><div class="quantity-controls"><button class="qty-btn">-</button><input type="number" class="prod-qty" value="0" readonly><button class="qty-btn plus">+</button></div></div>
         </div>
     </div>
 
     <div class="form-section">
-        <label>פרטי לקוח *</label>
+        <label>פרטי לקוח להזמנה חגיגית *</label>
         <div class="name-fields">
             <input type="text" id="firstName" placeholder="שם פרטי *" required>
             <input type="text" id="lastName" placeholder="שם משפחה *" required>
@@ -251,7 +279,7 @@
         <input type="tel" id="phone" placeholder="מספר טלפון *" required maxlength="11" oninput="formatPhone(this)">
 
         <label>אופן קבלת ההזמנה:</label>
-        <div class="delivery-info-text">עם החלוקה של שירלי ביום חמישי</div>
+        <div class="delivery-info-text">עם החלוקה של שירלי ביום חמישי 🇮🇱</div>
 
         <label>אמצעי תשלום:</label>
         <div class="radio-group">
@@ -260,9 +288,8 @@
             <label class="radio-card"><input type="radio" name="payMethod" value="מזומן"> <span>מזומן</span></label>
         </div>
 
-        <span class="invoice-toggle" onclick="toggleInvoice()">אופן שליחת קבלה (אופציונלי) ▼</span>
+        <span class="invoice-toggle" onclick="toggleInvoice()">אופן שליחת קבלה ▼</span>
         <div id="invoiceFields" class="invoice-fields">
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">נא למלא שדה אחד בלבד:</p>
             <div class="input-with-icon">
                 <input type="email" id="invEmail" placeholder="אימייל למשלוח" oninput="handleInv('email')">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail">
@@ -273,7 +300,7 @@
             </div>
         </div>
 
-        <button onclick="prepareOrder()" class="confirm-btn">שלח הזמנה</button>
+        <button onclick="prepareOrder()" class="confirm-btn">שלח הזמנה לחג 🇮🇱</button>
     </div>
 </div>
 
@@ -331,7 +358,7 @@
               p = document.getElementById('phone').value, 
               t = document.getElementById('totalPrice').innerText;
               
-        if(!fn || !ln || p.replace(/\D/g, '').length < 10 || t == "0") return alert("נא למלא שם מלא, טלפון תקין ולבחור מוצרים.");
+        if(!fn || !ln || p.replace(/\D/g, '').length < 10 || t == "0") return alert("נא למלא פרטים ולבחור מוצרים לחג.");
         
         let items = [], list = "";
         document.querySelectorAll('.prod-qty').forEach(i => {
@@ -368,18 +395,14 @@
 
     function executeFinalSend() {
         const btn = document.getElementById('finalConfirmBtn');
-        btn.disabled = true; btn.innerText = "שולח...";
+        btn.disabled = true; btn.innerText = "שולח הזמנה...";
         
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec';
         
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
             closeModal();
-            if (globalOrderData.paymentMethod.includes("מזומן")) {
-                alert("ההזמנה נשלחה בהצלחה! ניפגש באיסוף.");
-            } else {
-                alert("ההזמנה נשלחה בהצלחה! גלעד ישלח אליך לינק לתשלום בהקדם.");
-            }
+            alert("ההזמנה לחג נשלחה בהצלחה! חג עצמאות שמח!");
             location.reload();
         }).catch(() => { 
             alert("שגיאה בשליחה."); 
