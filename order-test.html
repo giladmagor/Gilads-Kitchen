@@ -68,7 +68,6 @@
         }
         .product-card:active { transform: scale(0.97); }
 
-        /* סגנון לתמונה הקטנה במוצר */
         .product-thumb {
             width: 60px; height: 60px; border-radius: 12px; object-fit: cover;
             margin-left: 12px; cursor: zoom-in; border: 1px solid #eee; flex-shrink: 0;
@@ -99,7 +98,6 @@
         .qty-btn.plus { background: var(--plus-green); color: white; }
         .prod-qty { width: 25px; text-align: center; border: none; background: transparent; font-size: 17px; font-weight: bold; }
 
-        /* חלון תמונה מוגדלת (Overlay) */
         #imageModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 3000; align-items: center; justify-content: center;
@@ -196,9 +194,9 @@
 
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
-            <img src="mustard.JPG" class="product-thumb" alt="ממרח חרדל מותסס" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">חרדל צהוב ושחור פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+            <img src="Humburger_ready.jpg" class="product-thumb" alt="פרוסות מלפפון חמוץ Humburger ready" onclick="openImage(this.src)">
+            <div class="product-info"><h3 class="product-name">פרוסות מלפפון חמוץ "Humburger ready"</h3><p class="product-description">צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name='פרוסות מלפפון חמוץ "Humburger ready"' value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="Pickels.jpg" class="product-thumb" alt="מלפפון חמוץ" onclick="openImage(this.src)">
@@ -210,10 +208,15 @@
             <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
-            <div class="product-card">
+        <div class="product-card">
             <img src="onion.JPG" class="product-thumb" alt="בצל סגול מוחמץ" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
+        </div>
+        <div class="product-card">
+            <img src="mustard.JPG" class="product-thumb" alt="ממרח חרדל מותסס" onclick="openImage(this.src)">
+            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">חרדל צהוב ושחור פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
+            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="iraqi_pickles.jpg" class="product-thumb" alt="חמוצים עיראקים" onclick="openImage(this.src)">
@@ -279,7 +282,6 @@
 <script>
     let globalOrderData = null;
 
-    // פונקציה להגדלת תמונה
     function openImage(src) {
         document.getElementById('enlargedImg').src = src;
         document.getElementById('imageModal').style.display = 'flex';
