@@ -56,7 +56,6 @@
         }
         .disabled-content { opacity: 0.5; pointer-events: none; filter: grayscale(0.3); }
 
-        /* כרטיס משודרג עם אפקט זכוכית - ללא הקו הירוק */
         .product-card { 
             background: var(--card-bg); 
             backdrop-filter: blur(12px);
@@ -69,15 +68,20 @@
         }
         .product-card:active { transform: scale(0.97); }
 
+        /* סגנון לתמונה הקטנה במוצר */
+        .product-thumb {
+            width: 60px; height: 60px; border-radius: 12px; object-fit: cover;
+            margin-left: 12px; cursor: zoom-in; border: 1px solid #eee; flex-shrink: 0;
+        }
+
         .product-info { 
             flex: 1; 
-            padding-right: 5px; /* צומצם כי אין קו */
+            padding-right: 5px;
         }
         
         .product-name { margin: 0; font-size: 1.1rem; color: var(--primary-green); font-weight: 700; }
         .product-description { margin: 4px 0; font-size: 0.85rem; color: #7f8c8d; line-height: 1.3; }
         
-        /* תג מחיר מעוצב */
         .price-tag { 
             display: inline-block;
             background: var(--price-bg);
@@ -94,6 +98,14 @@
         .qty-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: white; font-size: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .qty-btn.plus { background: var(--plus-green); color: white; }
         .prod-qty { width: 25px; text-align: center; border: none; background: transparent; font-size: 17px; font-weight: bold; }
+
+        /* חלון תמונה מוגדלת (Overlay) */
+        #imageModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 3000; align-items: center; justify-content: center;
+        }
+        #imageModal img { max-width: 90%; max-height: 80%; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .close-img-modal { position: absolute; top: 20px; right: 20px; color: white; font-size: 35px; cursor: pointer; font-weight: bold; }
 
         .form-section { background: white; padding: 20px; border-radius: 20px; margin-top: 25px; border: 1px solid #eee; }
         label { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-green); }
@@ -147,6 +159,11 @@
 </head>
 <body>
 
+<div id="imageModal" onclick="this.style.display='none'">
+    <span class="close-img-modal">&times;</span>
+    <img id="enlargedImg" src="" alt="תמונה מוגדלת">
+</div>
+
 <a href="https://wa.me/972552421009" class="whatsapp-float" target="_blank">
     <svg width="35" height="35" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.406.836 2.971 1.277 4.568 1.277h.005c5.338 0 9.683-4.346 9.685-9.685.001-2.586-1.007-5.017-2.841-6.852-1.834-1.834-4.267-2.842-6.853-2.842-5.337 0-9.682 4.346-9.684 9.685-.001 1.716.452 3.39 1.311 4.877l-.967 3.535 3.626-.951zm10.741-6.73c-.292-.146-1.727-.853-1.995-.951-.267-.098-.462-.146-.657.146-.195.293-.755.951-.926 1.146-.171.195-.341.219-.633.073-.292-.146-1.234-.454-2.35-1.448-.869-.775-1.456-1.732-1.626-2.025-.171-.292-.018-.45.128-.595.132-.131.292-.341.439-.512.146-.171.195-.293.292-.488.098-.195.049-.366-.024-.512-.073-.146-.657-1.583-.901-2.171-.238-.571-.479-.494-.657-.503-.17-.008-.365-.01-.56-.01s-.512.073-.78.366c-.268.293-1.023 1-1.023 2.439s1.048 2.829 1.194 3.025c.146.195 2.064 3.152 5.003 4.415.699.301 1.244.481 1.67.617.702.223 1.341.192 1.845.116.563-.085 1.727-.707 1.972-1.39.244-.683.244-1.268.171-1.39-.073-.122-.268-.195-.56-.341z"/></svg>
 </a>
@@ -179,26 +196,32 @@
 
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
+            <img src="haradal.jpg" class="product-thumb" alt="ממרח חרדל מותסס" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">חרדל צהוב ושחור פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
+            <img src="cucumber.jpg" class="product-thumb" alt="מלפפון חמוץ" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪28</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
+            <img src="cabbage_fermented.jpg" class="product-thumb" alt="כרוב כבוש מותסס" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
+            <img src="cabbage_sour.jpg" class="product-thumb" alt="כרוב חמוץ" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">כרוב חמוץ</h3><p class="product-description">חמוץ חריף - 580 מ"ל</p><span class="price-tag">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
+            <img src="onion.jpg" class="product-thumb" alt="בצל סגול מוחמץ" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
+            <img src="iraqi_pickles.jpg" class="product-thumb" alt="חמוצים עיראקים" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">חמוצים עיראקים</h3><p class="product-description">2 ליטר</p><span class="price-tag">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="חמוצים עיראקים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
@@ -260,6 +283,12 @@
 
 <script>
     let globalOrderData = null;
+
+    // פונקציה להגדלת תמונה
+    function openImage(src) {
+        document.getElementById('enlargedImg').src = src;
+        document.getElementById('imageModal').style.display = 'flex';
+    }
 
     function formatPhone(input) {
         let val = input.value.replace(/\D/g, ''); 
