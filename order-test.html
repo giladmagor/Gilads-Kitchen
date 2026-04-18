@@ -47,12 +47,22 @@
             background: linear-gradient(90deg, #0038b8, #0056b3);
             color: white;
             text-align: center;
-            padding: 8px;
+            padding: 10px;
             border-radius: 12px;
             margin: 10px 0;
             font-weight: 700;
             font-size: 1.1rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .flag-icon {
+            width: 24px;
+            height: auto;
+            vertical-align: middle;
         }
 
         h2 { color: var(--primary-green); text-align: center; margin-bottom: 5px; margin-top: 10px; }
@@ -102,7 +112,7 @@
             padding-right: 5px;
         }
         
-        .product-name { margin: 0; font-size: 1.1rem; color: var(--primary-green); font-weight: 700; }
+        .product-name { margin: 0; font-size: 1.1rem; color: var(--primary-green); font-weight: 700; display: flex; align-items: center; gap: 5px; }
         .product-description { margin: 4px 0; font-size: 0.85rem; color: #7f8c8d; line-height: 1.3; }
         
         .price-tag { 
@@ -211,7 +221,11 @@
     </div>
     <h2>המטבח של גלעד</h2>
     
-    <div class="holiday-title">🇮🇱 מיוחד ליום העצמאות! 🇮🇱</div>
+    <div class="holiday-title">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" class="flag-icon" alt="דגל ישראל">
+        מיוחד ליום העצמאות!
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" class="flag-icon" alt="דגל ישראל">
+    </div>
 
     <a href="https://www.instagram.com/gilads.kitchen" target="_blank" class="instagram-link">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="instagram-icon">
@@ -226,32 +240,32 @@
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
             <img src="Hamburger_ready.jpg" class="product-thumb" alt="Hamburger ready" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">Hamburger read פרוסות מלפפון חמוץ</h3><p class="product-description">מושלם למנגל! 🇮🇱 צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
+            <div class="product-info"><h3 class="product-name">Hamburger read פרוסות מלפפון חמוץ <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">מושלם למנגל! צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name='Hamburger read פרוסות מלפפון חמוץ' value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="Pickels.jpg" class="product-thumb" alt="מלפפון חמוץ" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">מלפפון חמוץ 🇮🇱</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪28</span></div>
+            <div class="product-info"><h3 class="product-name">מלפפון חמוץ <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪28</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="cabbage.jpg" class="product-thumb" alt="כרוב כבוש" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס 🇮🇱</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="onion.JPG" class="product-thumb" alt="בצל סגול" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ 🇮🇱</h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
+            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="mustard.JPG" class="product-thumb" alt="חרדל" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס 🇮🇱</h3><p class="product-description">פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
+            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="Torshi.jpg" class="product-thumb" alt="טורשי" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">חמוצים עיראקים 🇮🇱</h3><p class="product-description">2 ליטר</p><span class="price-tag">₪30</span></div>
+            <div class="product-info"><h3 class="product-name">חמוצים עיראקים <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">2 ליטר</p><span class="price-tag">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="חמוצים עיראקים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
