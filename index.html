@@ -207,6 +207,7 @@
     <div class="modal-card">
         <h3 style="color:var(--primary-green); margin-top:0;">סיכום הזמנה חגיגית 🇮🇱</h3>
         <p><strong>לקוח:</strong> <span id="modalCustName"></span></p>
+        <p><strong>כתובת:</strong> <span id="modalAddress"></span></p>
         <ul id="modalProductList" style="list-style:none; padding:0; border-top:1px solid #eee; border-bottom:1px solid #eee; padding:10px 0;"></ul>
         <p><strong>אמצעי תשלום:</strong> <span id="modalPayMethod"></span></p>
         <p style="font-size:1.2rem; color:#27ae60; font-weight:bold;">סה"כ: <span id="modalTotal"></span> ₪</p>
@@ -292,8 +293,9 @@
         </div>
         <input type="tel" id="phone" placeholder="מספר טלפון *" required maxlength="11" oninput="formatPhone(this)">
 
-        <label>אופן קבלת ההזמנה:</label>
-        <div class="delivery-info-text">עם החלוקה של שירלי ביום חמישי 🇮🇱</div>
+        <label>משלוחים חינם החל מיום שלישי ב 16:00<br>
+        נא לרשום כתובת: *</label>
+        <input type="text" id="address" placeholder="רחוב, מספר בית ועיר *" required>
 
         <label>אמצעי תשלום:</label>
         <div class="radio-group">
@@ -370,9 +372,12 @@
         const fn = document.getElementById('firstName').value, 
               ln = document.getElementById('lastName').value, 
               p = document.getElementById('phone').value, 
+              addr = document.getElementById('address').value,
               t = document.getElementById('totalPrice').innerText;
               
-        if(!fn || !ln || p.replace(/\D/g, '').length < 10 || t == "0") return alert("נא למלא פרטים ולבחור מוצרים לחג.");
+        if(!fn || !ln || p.replace(/\D/g, '').length < 10 || !addr || t == "0") {
+            return alert("נא למלא פרטים (כולל כתובת) ולבחור מוצרים לחג.");
+        }
         
         let items = [], list = "";
         document.querySelectorAll('.prod-qty').forEach(i => {
@@ -392,6 +397,7 @@
             date: new Date().toLocaleString('he-IL'),
             name: fn + " " + ln,
             phone: p,
+            address: addr,
             orderSummary: items.join(", "),
             totalPrice: t,
             paymentMethod: document.querySelector('input[name="payMethod"]:checked').value,
@@ -399,6 +405,7 @@
         };
 
         document.getElementById('modalCustName').innerText = globalOrderData.name;
+        document.getElementById('modalAddress').innerText = globalOrderData.address;
         document.getElementById('modalProductList').innerHTML = list;
         document.getElementById('modalPayMethod').innerText = globalOrderData.paymentMethod;
         document.getElementById('modalTotal').innerText = t;
@@ -411,7 +418,7 @@
         const btn = document.getElementById('finalConfirmBtn');
         btn.disabled = true; btn.innerText = "שולח הזמנה...";
         
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyTP1B_8A3GKItJx2ihlLDlwbRJqcoShCZCBWaSvpehUbYHxDbIvrVrY0B00oTODgSeQQ/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxpOqMmDFjHLElFUZmByemI4t0DTYdkhdK7_Q1VoMtIHjGqnbHm7F8FrTGZfPBJhuLpYw/exec';
         
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
