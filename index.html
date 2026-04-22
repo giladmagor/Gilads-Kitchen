@@ -99,8 +99,14 @@
             border: 1px solid rgba(255, 255, 255, 0.5); 
             display: flex; justify-content: space-between; align-items: center;
             transition: transform 0.2s ease;
+            position: relative;
         }
         .product-card:active { transform: scale(0.97); }
+
+        .sold-out-badge {
+            position: absolute; top: 10px; left: 10px; background: var(--status-orange); color: white;
+            font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; font-weight: bold; z-index: 5;
+        }
 
         .product-thumb {
             width: 60px; height: 60px; border-radius: 12px; object-fit: cover;
@@ -250,6 +256,7 @@
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
+            <div class="sold-out-badge">אזל זמנית</div>
             <img src="cabbage.jpg" class="product-thumb" alt="כרוב כבוש" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
