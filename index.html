@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>חוגגים עצמאות - המטבח של גלעד</title>
+    <title>המטבח של גלעד - הזמנות</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
     
@@ -28,43 +28,11 @@
             padding-bottom: 140px; 
         }
 
-        /* פס דגל עליון */
-        .holiday-banner {
-            background: white;
-            height: 5px;
-            width: 100%;
-            border-top: 4px solid var(--israel-blue);
-            border-bottom: 4px solid var(--israel-blue);
-            margin-bottom: 15px;
-        }
-
-        .container { max-width: 500px; margin: auto; padding: 0 15px; }
+        .container { max-width: 500px; margin: auto; padding: 20px 15px; }
         
         .logo-container { text-align: center; margin-bottom: 10px; position: relative; }
         .logo { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 3px solid white; }
         
-        .holiday-title {
-            background: linear-gradient(90deg, #0038b8, #0056b3);
-            color: white;
-            text-align: center;
-            padding: 10px;
-            border-radius: 12px;
-            margin: 10px 0;
-            font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .flag-icon {
-            width: 24px;
-            height: auto;
-            vertical-align: middle;
-        }
-
         h2 { color: var(--primary-green); text-align: center; margin-bottom: 5px; margin-top: 10px; }
 
         .instagram-link { display: flex; justify-content: center; margin-bottom: 20px; text-decoration: none; }
@@ -191,14 +159,12 @@
         }
         .modal-card {
             background: white; width: 100%; max-width: 400px; border-radius: 25px; padding: 25px;
-            text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-top: 10px solid var(--israel-blue);
+            text-align: right; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-top: 10px solid var(--primary-green);
         }
         .confirm-btn { background: var(--primary-green); color: white; border: none; padding: 18px; width: 100%; border-radius: 15px; cursor: pointer; font-size: 1.2rem; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
-
-<div class="holiday-banner"></div>
 
 <div id="imageModal" onclick="this.style.display='none'">
     <span class="close-img-modal">&times;</span>
@@ -211,7 +177,7 @@
 
 <div id="modalOverlay" class="modal-overlay">
     <div class="modal-card">
-        <h3 style="color:var(--primary-green); margin-top:0;">סיכום הזמנה חגיגית 🇮🇱</h3>
+        <h3 style="color:var(--primary-green); margin-top:0;">סיכום הזמנה</h3>
         <p><strong>לקוח:</strong> <span id="modalCustName"></span></p>
         <p><strong>כתובת:</strong> <span id="modalAddress"></span></p>
         <ul id="modalProductList" style="list-style:none; padding:0; border-top:1px solid #eee; border-bottom:1px solid #eee; padding:10px 0;"></ul>
@@ -227,12 +193,6 @@
         <img src="לוגו המטבח של גלעד.jpg" alt="לוגו" class="logo">
     </div>
     <h2>המטבח של גלעד</h2>
-    
-    <div class="holiday-title">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" class="flag-icon" alt="דגל ישראל">
-        מיוחד ליום העצמאות!
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" class="flag-icon" alt="דגל ישראל">
-    </div>
 
     <a href="https://www.instagram.com/gilads.kitchen" target="_blank" class="instagram-link">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="instagram-icon">
@@ -247,33 +207,33 @@
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
             <img src="Hamburger_ready.jpg" class="product-thumb" alt="Hamburger ready" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">Hamburger ready פרוסות מלפפון חמוץ <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">מושלם להמבורגר! צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
+            <div class="product-info"><h3 class="product-name">Hamburger ready פרוסות מלפפון חמוץ</h3><p class="product-description">מושלם למנגל! צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name='Hamburger ready פרוסות מלפפון חמוץ' value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="Pickels.jpg" class="product-thumb" alt="מלפפון חמוץ" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">מלפפון חמוץ <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪28</span></div>
+            <div class="product-info"><h3 class="product-name">מלפפון חמוץ</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪28</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <div class="sold-out-badge">אזל זמנית</div>
             <img src="cabbage.jpg" class="product-thumb" alt="כרוב כבוש" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
+            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="onion.JPG" class="product-thumb" alt="בצל סגול" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
+            <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="17" data-name="בצל סגול מוחמץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="mustard.JPG" class="product-thumb" alt="חרדל" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
+            <div class="product-info"><h3 class="product-name">ממרח חרדל מותסס</h3><p class="product-description">פיקנטי - 150 גר'</p><span class="price-tag">₪12</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="12" data-name="ממרח חרדל מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
             <img src="Torshi.jpg" class="product-thumb" alt="טורשי" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">חמוצים עיראקים <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg" style="width:16px;"></h3><p class="product-description">2 ליטר</p><span class="price-tag">₪30</span></div>
+            <div class="product-info"><h3 class="product-name">חמוצים עיראקים</h3><p class="product-description">2 ליטר</p><span class="price-tag">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name="חמוצים עיראקים" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
     </div>
@@ -293,7 +253,7 @@
     </div>
 
     <div class="form-section">
-        <label>פרטי לקוח להזמנה חגיגית *</label>
+        <label>פרטי לקוח להזמנה *</label>
         <div class="name-fields">
             <input type="text" id="firstName" placeholder="שם פרטי *" required>
             <input type="text" id="lastName" placeholder="שם משפחה *" required>
@@ -323,7 +283,7 @@
             </div>
         </div>
 
-        <button onclick="prepareOrder()" class="confirm-btn">שלח הזמנה לחג 🇮🇱</button>
+        <button onclick="prepareOrder()" class="confirm-btn">שלח הזמנה</button>
     </div>
 </div>
 
@@ -383,7 +343,7 @@
               t = document.getElementById('totalPrice').innerText;
               
         if(!fn || !ln || p.replace(/\D/g, '').length < 10 || !addr || t == "0") {
-            return alert("נא למלא פרטים (כולל כתובת) ולבחור מוצרים לחג.");
+            return alert("נא למלא פרטים (כולל כתובת) ולבחור מוצרים.");
         }
         
         let items = [], list = "";
@@ -430,7 +390,7 @@
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(globalOrderData) })
         .then(() => {
             closeModal();
-            alert("ההזמנה לחג נשלחה בהצלחה! חג עצמאות שמח!");
+            alert("ההזמנה נשלחה בהצלחה! תודה רבה.");
             location.reload();
         }).catch(() => { 
             alert("שגיאה בשליחה."); 
