@@ -6,6 +6,7 @@
     <title>המטבח של גלעד - הזמנות</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=he"></script>
     
     <style>
         :root { 
@@ -26,6 +27,7 @@
             padding: 0; 
             margin: 0; 
             padding-bottom: 140px; 
+            scroll-behavior: smooth;
         }
 
         .container { max-width: 500px; margin: auto; padding: 20px 15px; }
@@ -70,6 +72,16 @@
             position: relative;
         }
         .product-card:active { transform: scale(0.97); }
+
+        /* אנימציית רעידה למחיקה */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        .shake-effect { animation: shake 0.4s ease-in-out; }
 
         .sold-out-badge {
             position: absolute; top: 10px; left: 10px; background: var(--status-orange); color: white;
@@ -140,11 +152,19 @@
 
         .floating-footer { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
-            width: 85%; max-width: 400px; background: var(--primary-green); 
-            color: white; padding: 18px; border-radius: 40px; text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000; font-size: 1.2rem; font-weight: bold;
+            width: 90%; max-width: 400px; background: var(--primary-green); 
+            color: white; padding: 12px 18px; border-radius: 40px; 
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000; font-weight: bold;
             border: 2px solid rgba(255,255,255,0.2);
         }
+        .footer-price { font-size: 1.2rem; }
+        .footer-action-btn { 
+            background: white; color: var(--primary-green); border: none; 
+            padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; 
+            font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .footer-action-btn:active { transform: scale(0.9); }
 
         .whatsapp-float {
             position: fixed; bottom: 105px; left: 20px;
@@ -207,7 +227,7 @@
     <div id="pickles" class="tab-content" style="display:block;">
         <div class="product-card">
             <img src="Hamburger_ready.jpg" class="product-thumb" alt="Hamburger ready" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">Hamburger ready פרוסות מלפפון חמוץ</h3><p class="product-description">מושלם להמבורגר! צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
+            <div class="product-info"><h3 class="product-name">Hamburger ready פרוסות מלפפון חמוץ</h3><p class="product-description">מושלם למנגל! צנצנת 580 מ"ל</p><span class="price-tag">₪30</span></div>
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="30" data-name='Hamburger ready פרוסות מלפפון חמוץ' value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
@@ -252,6 +272,7 @@
         </div>
     </div>
 
+    <div id="orderFormStart"></div>
     <div class="form-section">
         <label>פרטי לקוח להזמנה *</label>
         <div class="name-fields">
@@ -287,10 +308,28 @@
     </div>
 </div>
 
-<div class="floating-footer">סה"כ לתשלום: <span id="totalPrice">0</span> ₪</div>
+<div class="floating-footer">
+    <div class="footer-price">סה"כ: <span id="totalPrice">0</span> ₪</div>
+    <button class="footer-action-btn" onclick="scrollToForm()">למילוי פרטים</button>
+</div>
 
 <script>
     let globalOrderData = null;
+
+    // הפעלת השלמה אוטומטית של כתובת
+    window.onload = function() {
+        const addressInput = document.getElementById('address');
+        if (typeof google !== 'undefined') {
+            new google.maps.places.Autocomplete(addressInput, {
+                componentRestrictions: { country: 'il' },
+                types: ['address']
+            });
+        }
+    };
+
+    function scrollToForm() {
+        document.getElementById('orderFormStart').scrollIntoView({ behavior: 'smooth' });
+    }
 
     function openImage(src) {
         document.getElementById('enlargedImg').src = src;
@@ -313,8 +352,18 @@
 
     function changeQty(b, d) {
         let i = b.parentElement.querySelector('.prod-qty');
-        let v = Math.max(0, parseInt(i.value) + d);
-        i.value = v; updateTotal();
+        let card = b.closest('.product-card');
+        let oldVal = parseInt(i.value);
+        let newVal = Math.max(0, oldVal + d);
+        i.value = newVal;
+        
+        // אישור מחיקה: אפקט רעידה אם ירד ל-0
+        if (oldVal > 0 && newVal === 0) {
+            card.classList.add('shake-effect');
+            setTimeout(() => card.classList.remove('shake-effect'), 400);
+        }
+        
+        updateTotal();
     }
 
     function updateTotal() {
