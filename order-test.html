@@ -236,11 +236,19 @@
             <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="28" data-name="מלפפון חמוץ" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
         </div>
         <div class="product-card">
-            <div class="sold-out-badge">אזל זמנית</div>
-            <img src="cabbage.jpg" class="product-thumb" alt="כרוב כבוש" onclick="openImage(this.src)">
-            <div class="product-info"><h3 class="product-name">כרוב כבוש מותסס</h3><p class="product-description">580 מ"ל</p><span class="price-tag">₪25</span></div>
-            <div class="quantity-controls"><button class="qty-btn" onclick="changeQty(this, -1)">-</button><input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly><button class="qty-btn plus" onclick="changeQty(this, 1)">+</button></div>
-        </div>
+    <div class="sold-out-badge">אזל זמנית</div>
+    <img src="cabbage.jpg" class="product-thumb" alt="כרוב כבוש" onclick="openImage(this.src)">
+    <div class="product-info">
+        <h3 class="product-name">כרוב כבוש מותסס</h3>
+        <p class="product-description">580 מ"ל</p>
+        <span class="price-tag">₪25</span>
+    </div>
+    <div class="quantity-controls" style="opacity: 0.5; pointer-events: none;">
+        <button class="qty-btn" disabled>-</button>
+        <input type="number" class="prod-qty" data-price="25" data-name="כרוב כבוש מותסס" value="0" readonly>
+        <button class="qty-btn plus" disabled>+</button>
+    </div>
+</div>
         <div class="product-card">
             <img src="onion.JPG" class="product-thumb" alt="בצל סגול" onclick="openImage(this.src)">
             <div class="product-info"><h3 class="product-name">בצל סגול מוחמץ</h3><p class="product-description">250 גר'</p><span class="price-tag">₪17</span></div>
