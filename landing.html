@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הזמנת מלפפון חמוץ</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f4f4; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 90%; max-width: 400px; text-align: center; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>מעוניין במלפפון חמוץ?</h2>
+        <p>השאר פרטים ונחזור אליך</p>
+        <input type="text" id="userName" placeholder="שם מלא">
+        <input type="tel" id="userPhone" placeholder="מספר טלפון">
+        <button onclick="sendData()">שלח לי פרטים</button>
+        <p id="msg"></p>
+    </div>
+
+    <script>
+        async function sendData() {
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const url = 'YOUR_WEB_APP_URL'; // הלינק שקיבלת מה-Deploy בגוגל
+
+            if(!name || !phone) return alert("נא למלא את כל השדות");
+
+            document.getElementById('msg').innerText = "שולח...";
+            
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ name, phone, product: "מלפפון חמוץ" })
+                });
+                document.getElementById('msg').innerText = "הפרטים נשלחו בהצלחה!";
+            } catch (e) {
+                document.getElementById('msg').innerText = "אירעה שגיאה.";
+            }
+        }
+    </script>
+</body>
+</html>
